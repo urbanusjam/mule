@@ -18,6 +18,8 @@ import java.net.URLStreamHandlerFactory;
 import java.util.Collection;
 import java.util.jar.JarFile;
 
+import org.springframework.util.ReflectionUtils;
+
 import sun.net.www.protocol.jar.Handler;
 
 /**
@@ -85,10 +87,14 @@ public class GoodCitizenClassLoader extends URLClassLoader implements Disposable
         {
             // ignore
         }
+
+        // Spring's internal cache on the root classloader
+        ReflectionUtils.clearCache();
     }
 
     protected static class NonCachingURLStreamHandlerFactory implements URLStreamHandlerFactory
     {
+        @Override
         public URLStreamHandler createURLStreamHandler(String protocol)
         {
             return new NonCachingJarResourceURLStreamHandler();
