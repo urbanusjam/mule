@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>org.mule.modules</groupId>
-            <artifactId>mule-module-sockets</artifactId>
+            <artifactId>mule-module-spring-config</artifactId>
             <version>${project.version}</version>
         </dependency>
 

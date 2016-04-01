@@ -9,7 +9,10 @@ package org.mule.runtime.module.http.internal.request;
 import static java.lang.String.format;
 import static org.mule.runtime.module.http.api.HttpConstants.Protocols.HTTP;
 import static org.mule.runtime.module.http.api.HttpConstants.Protocols.HTTPS;
-
+import org.mule.module.socket.api.TcpClientSocketProperties;
+import org.mule.module.socket.internal.DefaultTcpClientSocketProperties;
+import org.mule.runtime.api.tls.TlsContextFactory;
+import org.mule.runtime.api.tls.TlsContextFactoryBuilder;
 import org.mule.runtime.core.AbstractAnnotatedObject;
 import org.mule.runtime.core.api.MuleContext;
 import org.mule.runtime.core.api.MuleException;
@@ -19,9 +22,8 @@ import org.mule.runtime.core.api.lifecycle.InitialisationException;
 import org.mule.runtime.core.api.lifecycle.LifecycleUtils;
 import org.mule.runtime.core.api.lifecycle.Startable;
 import org.mule.runtime.core.api.lifecycle.Stoppable;
-import org.mule.runtime.api.tls.TlsContextFactory;
-import org.mule.runtime.api.tls.TlsContextFactoryBuilder;
 import org.mule.runtime.core.config.i18n.CoreMessages;
+import org.mule.runtime.core.util.concurrent.ThreadNameHelper;
 import org.mule.runtime.module.http.api.HttpAuthentication;
 import org.mule.runtime.module.http.api.HttpConstants;
 import org.mule.runtime.module.http.api.requester.HttpRequesterConfig;
@@ -29,10 +31,7 @@ import org.mule.runtime.module.http.api.requester.HttpSendBodyMode;
 import org.mule.runtime.module.http.api.requester.HttpStreamingType;
 import org.mule.runtime.module.http.api.requester.proxy.ProxyConfig;
 import org.mule.runtime.module.http.internal.request.grizzly.GrizzlyHttpClient;
-import org.mule.runtime.module.socket.api.TcpClientSocketProperties;
-import org.mule.runtime.module.socket.internal.DefaultTcpClientSocketProperties;
 import org.mule.runtime.module.tls.api.DefaultTlsContextFactoryBuilder;
-import org.mule.runtime.core.util.concurrent.ThreadNameHelper;
 
 import java.net.CookieManager;
 

@@ -7,6 +7,9 @@
 package org.mule.runtime.module.http.internal.listener;
 
 
+import org.mule.module.socket.api.TcpServerSocketProperties;
+import org.mule.module.socket.internal.DefaultTcpServerSocketProperties;
+import org.mule.runtime.api.tls.TlsContextFactory;
 import org.mule.runtime.core.api.MuleContext;
 import org.mule.runtime.core.api.MuleRuntimeException;
 import org.mule.runtime.core.api.context.MuleContextAware;
@@ -15,11 +18,8 @@ import org.mule.runtime.core.api.lifecycle.Disposable;
 import org.mule.runtime.core.api.lifecycle.Initialisable;
 import org.mule.runtime.core.api.lifecycle.InitialisationException;
 import org.mule.runtime.core.config.i18n.CoreMessages;
-import org.mule.runtime.module.http.internal.listener.grizzly.GrizzlyServerManager;
-import org.mule.runtime.module.socket.internal.DefaultTcpServerSocketProperties;
-import org.mule.runtime.api.tls.TlsContextFactory;
-import org.mule.runtime.module.socket.api.TcpServerSocketProperties;
 import org.mule.runtime.core.util.concurrent.ThreadNameHelper;
+import org.mule.runtime.module.http.internal.listener.grizzly.GrizzlyServerManager;
 
 import com.google.common.collect.Iterables;
 

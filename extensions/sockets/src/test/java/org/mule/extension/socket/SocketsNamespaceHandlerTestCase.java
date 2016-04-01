@@ -4,24 +4,32 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
-package org.mule.runtime.core.transport.tcp;
-
-import org.junit.Test;
-import org.mule.functional.junit4.FunctionalTestCase;
-import org.mule.runtime.module.socket.api.TcpClientSocketProperties;
-import org.mule.runtime.module.socket.api.TcpServerSocketProperties;
+package org.mule.extension.socket;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertThat;
+import org.mule.functional.junit4.ExtensionFunctionalTestCase;
+import org.mule.module.socket.api.SocketsExtension;
+import org.mule.module.socket.api.TcpClientSocketProperties;
+import org.mule.module.socket.api.TcpServerSocketProperties;
 
-public class SocketsNamespaceHandlerTestCase extends FunctionalTestCase
+import org.junit.Test;
+
+public class SocketsNamespaceHandlerTestCase extends ExtensionFunctionalTestCase
 {
+
     @Override
     protected String getConfigFile()
     {
-        return "sockets-namespace-config.xml";
+        return "sockets-config.xml";
+    }
+
+    @Override
+    protected Class<?>[] getAnnotatedExtensionClasses()
+    {
+        return new Class<?>[] {SocketsExtension.class};
     }
 
     @Test
@@ -83,5 +91,4 @@ public class SocketsNamespaceHandlerTestCase extends FunctionalTestCase
         assertThat(properties.getTimeout(), equalTo(600));
         assertThat(properties.getLinger(), equalTo(700));
     }
-
 }

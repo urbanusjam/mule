@@ -9,13 +9,18 @@ package org.mule.runtime.module.http.internal.request.grizzly;
 import static com.ning.http.client.Realm.AuthScheme.NTLM;
 import static org.mule.runtime.module.http.api.HttpHeaders.Names.CONNECTION;
 import static org.mule.runtime.module.http.api.HttpHeaders.Values.CLOSE;
+import org.mule.module.socket.api.TcpClientSocketProperties;
+import org.mule.runtime.api.execution.CompletionHandler;
+import org.mule.runtime.api.tls.TlsContextFactory;
+import org.mule.runtime.api.tls.TlsContextTrustStoreConfiguration;
 import org.mule.runtime.core.api.MuleException;
 import org.mule.runtime.core.api.context.WorkManager;
 import org.mule.runtime.core.api.context.WorkManagerSource;
-import org.mule.runtime.api.execution.CompletionHandler;
 import org.mule.runtime.core.api.lifecycle.InitialisationException;
 import org.mule.runtime.core.api.lifecycle.LifecycleUtils;
 import org.mule.runtime.core.config.i18n.CoreMessages;
+import org.mule.runtime.core.util.IOUtils;
+import org.mule.runtime.core.util.StringUtils;
 import org.mule.runtime.module.http.api.requester.proxy.ProxyConfig;
 import org.mule.runtime.module.http.internal.domain.ByteArrayHttpEntity;
 import org.mule.runtime.module.http.internal.domain.InputStreamHttpEntity;
@@ -30,22 +35,6 @@ import org.mule.runtime.module.http.internal.request.HttpAuthenticationType;
 import org.mule.runtime.module.http.internal.request.HttpClient;
 import org.mule.runtime.module.http.internal.request.HttpClientConfiguration;
 import org.mule.runtime.module.http.internal.request.NtlmProxyConfig;
-import org.mule.runtime.module.socket.api.TcpClientSocketProperties;
-import org.mule.runtime.api.tls.TlsContextFactory;
-import org.mule.runtime.api.tls.TlsContextTrustStoreConfiguration;
-import org.mule.runtime.core.util.IOUtils;
-import org.mule.runtime.core.util.StringUtils;
-
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeoutException;
-
-import javax.net.ssl.SSLContext;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.ning.http.client.AsyncCompletionHandler;
 import com.ning.http.client.AsyncHttpClient;
@@ -60,6 +49,17 @@ import com.ning.http.client.generators.InputStreamBodyGenerator;
 import com.ning.http.client.multipart.ByteArrayPart;
 import com.ning.http.client.providers.grizzly.GrizzlyAsyncHttpProvider;
 import com.ning.http.client.providers.grizzly.GrizzlyAsyncHttpProviderConfig;
+
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
+
+import javax.net.ssl.SSLContext;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class GrizzlyHttpClient implements HttpClient
 {
@@ -139,7 +139,7 @@ public class GrizzlyHttpClient implements HttpClient
             }
             TlsContextTrustStoreConfiguration trustStoreConfiguration = tlsContextFactory.getTrustStoreConfiguration();
 
-            if(trustStoreConfiguration != null && trustStoreConfiguration.isInsecure())
+            if (trustStoreConfiguration != null && trustStoreConfiguration.isInsecure())
             {
                 logger.warn(String.format("TLS configuration for requester %s has been set to use an insecure trust store. This means no certificate validations will be performed, rendering connections vulnerable to attacks. Use at own risk.", ownerName));
                 //This disables hostname verification
@@ -187,7 +187,7 @@ public class GrizzlyHttpClient implements HttpClient
         }
         else
         {
-            proxyServer = new ProxyServer(proxyConfig.getHost(),proxyConfig.getPort());
+            proxyServer = new ProxyServer(proxyConfig.getHost(), proxyConfig.getPort());
         }
         return proxyServer;
     }
@@ -234,7 +234,7 @@ public class GrizzlyHttpClient implements HttpClient
     public HttpResponse send(HttpRequest request, int responseTimeout, boolean followRedirects, HttpRequestAuthentication authentication) throws IOException, TimeoutException
     {
 
-        Request grizzlyRequest= createGrizzlyRequest(request, responseTimeout, followRedirects, authentication);
+        Request grizzlyRequest = createGrizzlyRequest(request, responseTimeout, followRedirects, authentication);
         ListenableFuture<Response> future = asyncHttpClient.executeRequest(grizzlyRequest);
         try
         {
@@ -366,9 +366,9 @@ public class GrizzlyHttpClient implements HttpClient
         if (authentication != null)
         {
             Realm.RealmBuilder realmBuilder = new Realm.RealmBuilder()
-                        .setPrincipal(authentication.getUsername())
-                        .setPassword(authentication.getPassword())
-                        .setUsePreemptiveAuth(authentication.isPreemptive());
+                    .setPrincipal(authentication.getUsername())
+                    .setPassword(authentication.getPassword())
+                    .setUsePreemptiveAuth(authentication.isPreemptive());
 
             if (authentication.getType() == HttpAuthenticationType.BASIC)
             {
@@ -456,7 +456,7 @@ public class GrizzlyHttpClient implements HttpClient
                 logger.debug("Persistent connections are disabled in the HTTP requester configuration, but the request already " +
                              "contains a Connection header with value {}. This header will be ignored, and a Connection: close header " +
                              "will be sent instead.",
-                        connectionHeaderValue);
+                             connectionHeaderValue);
             }
             builder.setHeader(CONNECTION, CLOSE);
         }
