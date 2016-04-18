@@ -7,9 +7,11 @@
 package org.mule.runtime.module.extension.internal.introspection.describer;
 
 import static org.mule.runtime.module.extension.internal.util.IntrospectionUtils.getFieldMetadataType;
+import static org.mule.runtime.module.extension.internal.util.IntrospectionUtils.getMetadataKeyPartFields;
 import static org.mule.runtime.module.extension.internal.util.MuleExtensionUtils.getDefaultValue;
 import static org.mule.runtime.core.util.Preconditions.checkState;
 
+import org.mule.metadata.api.model.ObjectType;
 import org.mule.runtime.core.api.MuleEvent;
 import org.mule.runtime.api.temporary.MuleMessage;
 import org.mule.runtime.extension.api.annotation.Alias;
@@ -17,7 +19,7 @@ import org.mule.runtime.extension.api.annotation.Extension;
 import org.mule.runtime.extension.api.annotation.ParameterGroup;
 import org.mule.runtime.extension.api.annotation.RestrictedTo;
 import org.mule.runtime.extension.api.annotation.metadata.Content;
-import org.mule.runtime.extension.api.annotation.metadata.MetadataKeyParam;
+import org.mule.runtime.extension.api.annotation.metadata.MetadataKeyId;
 import org.mule.runtime.extension.api.annotation.param.Connection;
 import org.mule.runtime.extension.api.annotation.param.Optional;
 import org.mule.runtime.extension.api.annotation.param.UseConfig;
@@ -90,7 +92,6 @@ public final class MuleExtensionAnnotationParser
         Extension extension = extensionType.getAnnotation(Extension.class);
         checkState(extension != null, String.format("%s is not a Mule extension since it's not annotated with %s",
                                                     extensionType.getName(), Extension.class.getName()));
-
         return extension;
     }
 
@@ -112,8 +113,8 @@ public final class MuleExtensionAnnotationParser
         for (int i = 0; i < paramNames.size(); i++)
         {
             Map<Class<? extends Annotation>, Annotation> annotations = toMap(parameterAnnotations[i]);
-
-            if (annotations.containsKey(ParameterGroup.class))
+            boolean isPojo = parameterTypes[i] instanceof ObjectType;
+            if (annotations.containsKey(ParameterGroup.class) || (annotations.containsKey(MetadataKeyId.class) && isPojo))
             {
                 parseGroupParameters(parameterTypes[i], parsedParameters, typeLoader);
             }
@@ -129,9 +130,9 @@ public final class MuleExtensionAnnotationParser
 
     private static void parseGroupParameters(MetadataType parameterType, List<ParsedParameter> parsedParameters, ClassTypeLoader typeLoader)
     {
-        for (Field field : IntrospectionUtils.getParameterFields(JavaTypeUtils.getType(parameterType)))
+        for (Field field : JavaTypeUtils.getType(parameterType).getDeclaredFields())
         {
-            if (field.getAnnotation(org.mule.runtime.extension.api.annotation.ParameterGroup.class) != null)
+            if (field.getAnnotation(ParameterGroup.class) != null)
             {
                 parseGroupParameters(getFieldMetadataType(field, typeLoader), parsedParameters, typeLoader);
             }
@@ -270,20 +271,15 @@ public final class MuleExtensionAnnotationParser
 
     /**
      * Enriches the {@link ParameterDeclarer} with a {@link MetadataModelProperty} if the parsedParameter is
-     * annotated either as {@link Content} or {@link MetadataKeyParam}
-     *
-     * @param parsedParameter the method annotated parameter parsed
-     * @param parameter       the {@link ParameterDeclarer} associated to the parsed parameter
+     * annotated either as {@link Content} or {@link MetadataKeyId}
+     *  @param element the method annotated parameter parsed
+     * @param elementType
+     * @param elementWithModelProperties       the {@link ParameterDeclarer} associated to the parsed parameter
      */
-    public static void parseMetadataAnnotations(AnnotatedElement parsedParameter, HasModelProperties parameter)
+    public static void parseMetadataAnnotations(AnnotatedElement element, Class elementType, HasModelProperties elementWithModelProperties)
     {
-        if (parsedParameter.getAnnotation(Content.class) != null)
-        {
-            parameter.withModelProperty(new MetadataModelProperty(false, true));
-        }
-        else if (parsedParameter.getAnnotation(MetadataKeyParam.class) != null)
-        {
-            parameter.withModelProperty(new MetadataModelProperty(true, false));
-        }
+        elementWithModelProperties.withModelProperty(new MetadataModelProperty(element.isAnnotationPresent(MetadataKeyId.class),
+                                                              element.isAnnotationPresent(Content.class),
+                                                              getMetadataKeyPartFields(elementType).size()));
     }
 }

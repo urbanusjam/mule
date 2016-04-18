@@ -6,16 +6,20 @@
  */
 package org.mule.runtime.module.extension.internal.metadata;
 
+import static java.util.stream.Collectors.toList;
+import static org.mule.runtime.api.metadata.descriptor.builder.MetadataDescriptorBuilder.keyDescriptor;
 import static org.mule.runtime.api.metadata.resolving.FailureCode.NO_DYNAMIC_TYPE_AVAILABLE;
 import static org.mule.runtime.api.metadata.resolving.MetadataResult.failure;
 import static org.mule.runtime.api.metadata.resolving.MetadataResult.mergeResults;
 import static org.mule.runtime.api.metadata.resolving.MetadataResult.success;
+import org.mule.metadata.api.model.MetadataType;
 import org.mule.runtime.api.connection.ConnectionException;
 import org.mule.runtime.api.metadata.MetadataAware;
 import org.mule.runtime.api.metadata.MetadataContext;
 import org.mule.runtime.api.metadata.MetadataKey;
 import org.mule.runtime.api.metadata.MetadataResolvingException;
 import org.mule.runtime.api.metadata.descriptor.ComponentMetadataDescriptor;
+import org.mule.runtime.api.metadata.descriptor.MetadataKeyDescriptor;
 import org.mule.runtime.api.metadata.descriptor.OutputMetadataDescriptor;
 import org.mule.runtime.api.metadata.descriptor.TypeMetadataDescriptor;
 import org.mule.runtime.api.metadata.descriptor.builder.ComponentMetadataDescriptorBuilder;
@@ -24,15 +28,15 @@ import org.mule.runtime.api.metadata.resolving.MetadataContentResolver;
 import org.mule.runtime.api.metadata.resolving.MetadataKeysResolver;
 import org.mule.runtime.api.metadata.resolving.MetadataOutputResolver;
 import org.mule.runtime.api.metadata.resolving.MetadataResult;
+import org.mule.runtime.core.util.collection.ImmutableListCollector;
 import org.mule.runtime.extension.api.annotation.metadata.Content;
-import org.mule.runtime.extension.api.annotation.metadata.MetadataKeyParam;
+import org.mule.runtime.extension.api.annotation.metadata.MetadataKeyId;
 import org.mule.runtime.extension.api.introspection.RuntimeComponentModel;
 import org.mule.runtime.extension.api.introspection.metadata.MetadataResolverFactory;
-import org.mule.runtime.extension.api.introspection.parameter.ParameterModel;
 import org.mule.runtime.extension.api.introspection.metadata.NullMetadataKey;
-import org.mule.metadata.api.model.MetadataType;
+import org.mule.runtime.extension.api.introspection.parameter.ParameterModel;
+import org.mule.runtime.extension.api.introspection.property.MetadataModelProperty;
 import org.mule.runtime.module.extension.internal.util.IntrospectionUtils;
-import org.mule.runtime.core.util.collection.ImmutableListCollector;
 
 import com.google.common.collect.ImmutableList;
 
@@ -57,21 +61,21 @@ public class MetadataMediator
     private final RuntimeComponentModel componentModel;
     private final MetadataResolverFactory resolverFactory;
     private final Optional<ParameterModel> contentParameter;
-    private final Optional<ParameterModel> metadataKeyParam;
+    private final Optional<ParameterModel> metadataKeyId;
 
     public MetadataMediator(RuntimeComponentModel componentModel)
     {
         this.componentModel = componentModel;
         this.resolverFactory = componentModel.getMetadataResolverFactory();
         this.contentParameter = IntrospectionUtils.getContentParameter(componentModel);
-        this.metadataKeyParam = IntrospectionUtils.getMetadataKeyParam(componentModel);
+        this.metadataKeyId = IntrospectionUtils.getMetadataKeyId(componentModel);
     }
 
     /**
      * Resolves the list of types available for the Content or Output of the associated {@link MetadataAware} Component,
      * representing them as a list of {@link MetadataKey}.
      * <p>
-     * If no {@link MetadataKeyParam} is present in the component's input parameters, then a {@link NullMetadataKey} is
+     * If no {@link MetadataKeyId} is present in the component's input parameters, then a {@link NullMetadataKey} is
      * returned. Otherwise, the {@link MetadataKeysResolver#getMetadataKeys} associated with the current Component will
      * be invoked to obtain the keys
      *
@@ -79,16 +83,15 @@ public class MetadataMediator
      * @return Successful {@link MetadataResult} if the keys are obtained without errors
      * Failure {@link MetadataResult} when no Dynamic keys are a available or the retrieval fails for any reason
      */
-    public MetadataResult<List<MetadataKey>> getMetadataKeys(MetadataContext context)
+    public MetadataResult<List<MetadataKeyDescriptor>> getMetadataKeys(MetadataContext context)
     {
-        if (!metadataKeyParam.isPresent())
+        if (!metadataKeyId.isPresent())
         {
-            return success(ImmutableList.of(new NullMetadataKey()));
+            return success(ImmutableList.of(keyDescriptor(new NullMetadataKey()).build()));
         }
-
         try
         {
-            return success(resolverFactory.getKeyResolver().getMetadataKeys(context));
+            return success(resolverFactory.getKeyResolver().getMetadataKeys(context).stream().map(key -> keyDescriptor(key).build()).collect(toList()));
         }
         catch (Exception e)
         {
@@ -271,6 +274,42 @@ public class MetadataMediator
                                    () -> resolverFactory.getContentResolver().getContentMetadata(context, key));
     }
 
+    public MetadataResult<MetadataKeyDescriptor> getMetadataKeyChildren(MetadataContext context, MetadataKey partial)
+    {
+
+        if (partial.getChildren().isPresent())
+        {
+            try
+            {
+                MetadataKey resultKey = resolverFactory.getKeyResolver().getMetadataKeyChildren(context, partial);
+                return success(keyDescriptor(resultKey)
+                                       .isPartial(isLeaf(partial))
+                                       .build());
+            }
+            catch (Exception e)
+            {
+                return failure(e);
+            }
+        }
+        else
+        {
+            return success(keyDescriptor(partial).isPartial(false).build());
+            //return failure(null, "The partial key does not have children to resolve", NOT_AUTHORIZED, "");
+        }
+    }
+
+    private boolean isLeaf(MetadataKey key)
+    {
+        int level = 1;
+        while (key.getChildren().isPresent())
+        {
+            level++;
+        }
+
+        Optional<MetadataModelProperty> modelProperty = metadataKeyId.get().getModelProperty(MetadataModelProperty.class);
+        return modelProperty.isPresent() && level < modelProperty.get().getKeyLevels();
+    }
+
     /**
      * Given a {@link MetadataKey} of a type and a {@link MetadataContext},
      * resolves the {@link MetadataType} of the Components's output using
@@ -316,8 +355,7 @@ public class MetadataMediator
 
     private interface MetadataDelegate
     {
-
         MetadataType resolve() throws MetadataResolvingException, ConnectionException;
-
     }
+
 }

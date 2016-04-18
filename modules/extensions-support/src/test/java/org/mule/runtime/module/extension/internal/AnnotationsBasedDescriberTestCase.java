@@ -167,9 +167,9 @@ public class AnnotationsBasedDescriberTestCase extends AbstractAnnotationsBasedD
         ExtensionDeclarer declarer = getDescriber().describe(new DefaultDescribingContext());
         ExtensionDeclaration declaration = declarer.getDeclaration();
 
-        List<ParameterDeclaration> parameters = getOperation(declaration, "contentMetadataWithKeyParam").getParameters();
+        List<ParameterDeclaration> parameters = getOperation(declaration, "contentMetadataWithKeyId").getParameters();
 
-        assertParameterIsMetadataKeyParam(findParameter(parameters, "type"));
+        assertParameterIsMetadataKeyId(findParameter(parameters, "type"));
         assertParameterIsMetadataContent(findParameter(parameters, "content"));
     }
 
@@ -563,10 +563,10 @@ public class AnnotationsBasedDescriberTestCase extends AbstractAnnotationsBasedD
         assertThat(display.getDisplayName(), is(displayName));
     }
 
-    private void assertParameterIsMetadataKeyParam(ParameterDeclaration param)
+    private void assertParameterIsMetadataKeyId(ParameterDeclaration param)
     {
         MetadataModelProperty metadata = param.getModelProperty(MetadataModelProperty.class).get();
-        assertThat(metadata.isMetadataKeyParam(), is(true));
+        assertThat(metadata.isMetadataKeyId(), is(true));
         assertThat(metadata.isContent(), is(false));
     }
 
@@ -574,7 +574,7 @@ public class AnnotationsBasedDescriberTestCase extends AbstractAnnotationsBasedD
     {
         MetadataModelProperty metadata = param.getModelProperty(MetadataModelProperty.class).get();
         assertThat(metadata.isContent(), is(true));
-        assertThat(metadata.isMetadataKeyParam(), is(false));
+        assertThat(metadata.isMetadataKeyId(), is(false));
     }
 
     private ParameterDeclaration findParameter(List<ParameterDeclaration> parameters, final String name)

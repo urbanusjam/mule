@@ -24,6 +24,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mule.runtime.module.extension.internal.util.ExtensionsTestUtils.toMetadataType;
 
+import org.mule.runtime.api.metadata.descriptor.MetadataKeyDescriptor;
 import org.mule.runtime.core.DefaultMuleMessage;
 import org.mule.runtime.core.api.MuleContext;
 import org.mule.runtime.core.api.MuleEvent;
@@ -178,11 +179,11 @@ public class OperationMessageProcessorTestCase extends AbstractMuleContextTestCa
 
         when(keyParamMock.getName()).thenReturn("type");
         when(keyParamMock.getType()).thenReturn(stringType);
-        when(keyParamMock.getModelProperty(MetadataModelProperty.class)).thenReturn(Optional.of(new MetadataModelProperty(true, false)));
+        when(keyParamMock.getModelProperty(MetadataModelProperty.class)).thenReturn(Optional.of(new MetadataModelProperty(true, false, 3)));
 
         when(contentMock.getName()).thenReturn("content");
         when(contentMock.getType()).thenReturn(stringType);
-        when(contentMock.getModelProperty(MetadataModelProperty.class)).thenReturn(Optional.of(new MetadataModelProperty(false, true)));
+        when(contentMock.getModelProperty(MetadataModelProperty.class)).thenReturn(Optional.of(new MetadataModelProperty(false, true, 3)));
 
         when(operationModel.getParameterModels()).thenReturn(Arrays.asList(keyParamMock, contentMock));
 
@@ -450,7 +451,7 @@ public class OperationMessageProcessorTestCase extends AbstractMuleContextTestCa
     @Test
     public void getMetadataKeys() throws Exception
     {
-        MetadataResult<List<MetadataKey>> metadataKeys = messageProcessor.getMetadataKeys();
+        MetadataResult<List<MetadataKeyDescriptor>> metadataKeys = messageProcessor.getMetadataKeys();
 
         verify(operationModel).getMetadataResolverFactory();
         verify(metadataResolverFactory).getKeyResolver();
@@ -458,8 +459,8 @@ public class OperationMessageProcessorTestCase extends AbstractMuleContextTestCa
         assertThat(metadataKeys.isSuccess(), is(true));
         assertThat(metadataKeys.get().size(), is(2));
 
-        assertThat(metadataKeys.get().get(0).getId(), equalTo(TestNoConfigMetadataResolver.KeyIds.BOOLEAN.name()));
-        assertThat(metadataKeys.get().get(1).getId(), equalTo(TestNoConfigMetadataResolver.KeyIds.STRING.name()));
+        assertThat(metadataKeys.get().get(0).getKey().getId(), equalTo(TestNoConfigMetadataResolver.KeyIds.BOOLEAN.name()));
+        assertThat(metadataKeys.get().get(1).getKey().getId(), equalTo(TestNoConfigMetadataResolver.KeyIds.STRING.name()));
     }
 
     @Test

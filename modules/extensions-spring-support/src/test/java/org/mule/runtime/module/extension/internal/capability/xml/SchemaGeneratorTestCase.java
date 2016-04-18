@@ -25,6 +25,7 @@ import org.mule.runtime.module.extension.internal.capability.xml.schema.SchemaGe
 import org.mule.runtime.module.extension.internal.introspection.DefaultExtensionFactory;
 import org.mule.runtime.module.extension.internal.introspection.describer.AnnotationsBasedDescriber;
 import org.mule.runtime.module.extension.internal.introspection.version.StaticVersionResolver;
+import org.mule.runtime.module.extension.internal.metadata.extension.MetadataExtension;
 import org.mule.runtime.module.extension.internal.runtime.connector.basic.GlobalInnerPojoConnector;
 import org.mule.runtime.module.extension.internal.runtime.connector.basic.GlobalPojoConnector;
 import org.mule.runtime.module.extension.internal.runtime.connector.basic.ListConnector;
@@ -75,7 +76,8 @@ public class SchemaGeneratorTestCase extends AbstractMuleTestCase
                 {ListConnector.class, "list.xsd"},
                 {StringListConnector.class, "string-list.xsd"},
                 {VeganExtension.class, "vegan.xsd"},
-                {SubTypesMappingConnector.class, "subtypes.xsd"}
+                {SubTypesMappingConnector.class, "subtypes.xsd"},
+                {MetadataExtension.class, "metadata.xsd"}
         });
     }
 
@@ -101,7 +103,6 @@ public class SchemaGeneratorTestCase extends AbstractMuleTestCase
         XmlModelProperty capability = extensionModel.getModelProperty(XmlModelProperty.class).get();
 
         String schema = generator.generate(extensionModel, capability);
-
         XMLUnit.setNormalizeWhitespace(true);
         XMLUnit.setIgnoreWhitespace(true);
         XMLUnit.setIgnoreComments(true);
