@@ -6,6 +6,8 @@
  */
 package org.mule.runtime.core.routing;
 
+import org.mule.api.endpoint.EndpointBuilder;
+import org.mule.api.endpoint.EndpointException;
 import org.mule.runtime.core.api.MessagingException;
 import org.mule.runtime.core.api.MuleEvent;
 import org.mule.runtime.core.api.MuleException;
@@ -94,7 +96,22 @@ public class UntilSuccessful extends AbstractOutboundRouter implements UntilSucc
 
         if (deadLetterQueue != null)
         {
-            if (deadLetterQueue instanceof MessageProcessor)
+            if (deadLetterQueue instanceof EndpointBuilder)
+            {
+                try
+                {
+
+                    dlqMP = ((EndpointBuilder) deadLetterQueue).buildOutboundEndpoint();
+                }
+                catch (final EndpointException ee)
+                {
+                    throw new InitialisationException(
+                            MessageFactory.createStaticMessage("deadLetterQueue-ref is not a valid endpoint builder: "
+                                                               + deadLetterQueue),
+                            ee, this);
+                }
+            }
+            else if (deadLetterQueue instanceof MessageProcessor)
             {
                 dlqMP = (MessageProcessor) deadLetterQueue;
             }

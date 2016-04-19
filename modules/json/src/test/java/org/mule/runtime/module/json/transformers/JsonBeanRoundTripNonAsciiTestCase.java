@@ -7,6 +7,10 @@
 package org.mule.runtime.module.json.transformers;
 
 import static org.junit.Assert.fail;
+
+import org.mule.api.endpoint.EndpointBuilder;
+import org.mule.api.endpoint.ImmutableEndpoint;
+import org.mule.endpoint.EndpointURIEndpointBuilder;
 import org.mule.runtime.api.metadata.SimpleDataType;
 import org.mule.runtime.core.api.transformer.Transformer;
 import org.mule.runtime.core.config.i18n.LocaleMessageHandler;
@@ -52,6 +56,11 @@ public class JsonBeanRoundTripNonAsciiTestCase extends JsonBeanRoundTripTestCase
     public Transformer getRoundTripTransformer() throws Exception
     {
         Transformer trans = super.getRoundTripTransformer();
+        EndpointBuilder builder = new EndpointURIEndpointBuilder("test://test", muleContext);
+        builder.setEncoding(ENCODING);
+        ImmutableEndpoint endpoint = muleContext.getEndpointFactory().getInboundEndpoint(
+                builder);
+        trans.setEndpoint(endpoint);
         return trans;
     }
 
@@ -60,6 +69,11 @@ public class JsonBeanRoundTripNonAsciiTestCase extends JsonBeanRoundTripTestCase
     {
         Transformer trans = super.getTransformer();
         trans.setReturnDataType(new SimpleDataType<byte[]>(byte[].class));
+        EndpointBuilder builder = new EndpointURIEndpointBuilder("test://test", muleContext);
+        builder.setEncoding(ENCODING);
+        ImmutableEndpoint endpoint = muleContext.getEndpointFactory().getInboundEndpoint(
+                builder);
+        trans.setEndpoint(endpoint);
         return trans;
     }
     

@@ -6,6 +6,8 @@
  */
 package org.mule.runtime.core.processor;
 
+import org.mule.api.endpoint.ImmutableEndpoint;
+import org.mule.endpoint.EndpointAware;
 import org.mule.runtime.core.api.MuleEvent;
 import org.mule.runtime.core.api.MuleException;
 import org.mule.runtime.core.api.NonBlockingSupported;
@@ -20,7 +22,7 @@ import org.mule.runtime.core.api.security.SecurityFilter;
  * message is not send or dispatched by the transport. When unauthorised the request
  * message is returned as the response.
  */
-public class SecurityFilterMessageProcessor extends AbstractInterceptingMessageProcessor implements Initialisable, NonBlockingSupported
+public class SecurityFilterMessageProcessor extends AbstractInterceptingMessageProcessor implements EndpointAware, Initialisable, NonBlockingSupported
 {
     private SecurityFilter filter;
 
@@ -28,6 +30,7 @@ public class SecurityFilterMessageProcessor extends AbstractInterceptingMessageP
      * For IoC only
      * @deprecated Use SecurityFilterMessageProcessor(SecurityFilter filter) instead
      */
+    @Deprecated
     public SecurityFilterMessageProcessor()
     {
         super();
@@ -49,6 +52,7 @@ public class SecurityFilterMessageProcessor extends AbstractInterceptingMessageP
         return filter;
     }
 
+    @Override
     public MuleEvent process(MuleEvent event) throws MuleException
     {
         if (filter != null)
@@ -63,4 +67,12 @@ public class SecurityFilterMessageProcessor extends AbstractInterceptingMessageP
         this.filter = filter;
     }
 
+    @Override
+    public void setEndpoint(ImmutableEndpoint ep)
+    {
+        if (filter instanceof EndpointAware)
+        {
+            ((EndpointAware) filter).setEndpoint(ep);
+        }
+    }
 }

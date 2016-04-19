@@ -6,6 +6,8 @@
  */
 package org.mule.runtime.core.lifecycle.phases;
 
+import org.mule.api.transport.Connector;
+import org.mule.extension.api.runtime.ConfigurationProvider;
 import org.mule.runtime.core.api.MuleContext;
 import org.mule.runtime.core.api.agent.Agent;
 import org.mule.runtime.core.api.component.Component;
@@ -17,7 +19,6 @@ import org.mule.runtime.core.api.lifecycle.Stoppable;
 import org.mule.runtime.core.api.registry.Registry;
 import org.mule.runtime.core.api.routing.OutboundRouter;
 import org.mule.runtime.core.api.source.MessageSource;
-import org.mule.runtime.extension.api.runtime.ConfigurationProvider;
 import org.mule.runtime.core.lifecycle.LifecycleObject;
 import org.mule.runtime.core.lifecycle.NotificationLifecycleObject;
 import org.mule.runtime.core.util.queue.QueueManager;
@@ -59,6 +60,7 @@ public class MuleContextStartPhase extends DefaultLifecyclePhase
         startOrderedObjects.add(new NotificationLifecycleObject(QueueManager.class));
         startOrderedObjects.add(new NotificationLifecycleObject(ConfigurationProvider.class));
         startOrderedObjects.add(new NotificationLifecycleObject(Config.class));
+        startOrderedObjects.add(new NotificationLifecycleObject(Connector.class));
         startOrderedObjects.add(new NotificationLifecycleObject(Agent.class));
         startOrderedObjects.add(new NotificationLifecycleObject(FlowConstruct.class));
         startOrderedObjects.add(new NotificationLifecycleObject(Startable.class));

@@ -6,6 +6,9 @@
  */
 package org.mule.runtime.config.spring;
 
+import org.mule.api.transport.Connector;
+import org.mule.extension.api.ExtensionManager;
+import org.mule.extension.api.runtime.ConfigurationProvider;
 import org.mule.runtime.core.api.MuleContext;
 import org.mule.runtime.core.api.agent.Agent;
 import org.mule.runtime.core.api.component.Component;
@@ -26,8 +29,6 @@ import org.mule.runtime.core.api.source.MessageSource;
 import org.mule.runtime.core.api.store.ObjectStoreManager;
 import org.mule.runtime.core.api.transformer.Transformer;
 import org.mule.runtime.core.context.notification.ServerNotificationManager;
-import org.mule.runtime.extension.api.ExtensionManager;
-import org.mule.runtime.extension.api.runtime.ConfigurationProvider;
 import org.mule.runtime.core.lifecycle.EmptyLifecycleCallback;
 import org.mule.runtime.core.lifecycle.LifecycleObject;
 import org.mule.runtime.core.lifecycle.NotificationLifecycleObject;
@@ -52,6 +53,7 @@ public class SpringRegistryLifecycleManager extends RegistryLifecycleManager
         super(id, springRegistry, muleContext);
     }
 
+    @Override
     protected void registerPhases()
     {
         final LifecycleCallback<AbstractRegistryBroker> emptyCallback = new EmptyLifecycleCallback<>();
@@ -79,6 +81,7 @@ public class SpringRegistryLifecycleManager extends RegistryLifecycleManager
             initOrderedObjects.add(new NotificationLifecycleObject(ExpressionLanguage.class));
             initOrderedObjects.add(new NotificationLifecycleObject(ConfigurationProvider.class));
             initOrderedObjects.add(new NotificationLifecycleObject(Config.class));
+            initOrderedObjects.add(new NotificationLifecycleObject(Connector.class));
             initOrderedObjects.add(new NotificationLifecycleObject(Agent.class));
             initOrderedObjects.add(new NotificationLifecycleObject(FlowConstruct.class));
             initOrderedObjects.add(new NotificationLifecycleObject(Initialisable.class));

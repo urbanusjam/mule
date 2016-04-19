@@ -8,11 +8,18 @@ package org.mule.runtime.core.client;
 
 import static org.mule.runtime.core.api.client.SimpleOptionsBuilder.newOptions;
 import static org.mule.runtime.core.api.config.MuleProperties.OBJECT_CONNECTOR_MESSAGE_PROCESSOR_LOCATOR;
+
+import org.mule.api.endpoint.EndpointCache;
+import org.mule.api.endpoint.EndpointException;
+import org.mule.api.endpoint.InboundEndpoint;
+import org.mule.api.endpoint.OutboundEndpoint;
+import org.mule.api.transport.ReceiveException;
+import org.mule.endpoint.SimpleEndpointCache;
+import org.mule.runtime.api.message.NullPayload;
 import org.mule.runtime.core.DefaultMuleEvent;
 import org.mule.runtime.core.DefaultMuleMessage;
 import org.mule.runtime.core.MessageExchangePattern;
 import org.mule.runtime.core.VoidMuleEvent;
-import org.mule.runtime.core.api.DefaultMuleException;
 import org.mule.runtime.core.api.MuleContext;
 import org.mule.runtime.core.api.MuleEvent;
 import org.mule.runtime.core.api.MuleException;
@@ -30,18 +37,19 @@ import org.mule.runtime.core.api.routing.MessageInfoMapping;
 import org.mule.runtime.core.config.i18n.CoreMessages;
 import org.mule.runtime.core.exception.DefaultMessagingExceptionStrategy;
 import org.mule.runtime.core.management.stats.FlowConstructStatistics;
-import org.mule.runtime.api.message.NullPayload;
 
 import java.util.Map;
 
 public class DefaultLocalMuleClient implements LocalMuleClient
 {
     protected final MuleContext muleContext;
+    private final EndpointCache endpointCache;
     private ConnectorOperationLocator connectorOperatorLocator;
 
     public DefaultLocalMuleClient(MuleContext muleContext)
     {
         this.muleContext = muleContext;
+        this.endpointCache = new SimpleEndpointCache(muleContext);
     }
 
     private ConnectorOperationLocator getConnectorMessageProcessLocator()
@@ -55,6 +63,35 @@ public class DefaultLocalMuleClient implements LocalMuleClient
             }
         }
         return connectorOperatorLocator;
+    }
+
+    @Override
+    public MuleMessage process(OutboundEndpoint endpoint,
+                               Object payload,
+                               Map<String, Object> messageProperties)
+            throws MuleException
+    {
+        return process(endpoint, new DefaultMuleMessage(payload, messageProperties, muleContext));
+
+    }
+
+    @Override
+    public MuleMessage process(OutboundEndpoint endpoint, MuleMessage message) throws MuleException
+    {
+        return returnMessage(endpoint.process(createMuleEvent(message, endpoint)));
+    }
+
+    @Override
+    public MuleMessage request(InboundEndpoint endpoint, long timeout) throws MuleException
+    {
+        try
+        {
+            return endpoint.request(timeout);
+        }
+        catch (Exception e)
+        {
+            throw new ReceiveException(endpoint, timeout, e);
+        }
     }
 
     @Override
@@ -79,13 +116,18 @@ public class DefaultLocalMuleClient implements LocalMuleClient
         {
             return returnMessage(connectorMessageProcessor.process(createRequestResponseMuleEvent(message)));
         }
+        else
+        {
+            OutboundEndpoint endpoint = endpointCache.getOutboundEndpoint(url, MessageExchangePattern.REQUEST_RESPONSE, null);
+            return returnMessage(endpoint.process(createMuleEvent(message, endpoint)));
+        }
         throw createUnsupportedUrlException(url);
     }
 
-    private MuleException createUnsupportedUrlException(String url)
-    {
-        return new DefaultMuleException("No installed connector supports url " + url);
-    }
+    // private MuleException createUnsupportedUrlException(String url)
+    // {
+    // return new DefaultMuleException("No installed connector supports url " + url);
+    // }
 
     @Override
     public MuleMessage send(String url, MuleMessage message, OperationOptions operationOptions) throws MuleException
@@ -95,7 +137,11 @@ public class DefaultLocalMuleClient implements LocalMuleClient
         {
             return returnMessage(connectorMessageProcessor.process(createRequestResponseMuleEvent(message)));
         }
-        throw createUnsupportedUrlException(url);
+        else
+        {
+            return internalSend(url, message, operationOptions.getResponseTimeout());
+        }
+        // throw createUnsupportedUrlException(url);
     }
 
     @Override
@@ -112,6 +158,12 @@ public class DefaultLocalMuleClient implements LocalMuleClient
         return send(url, message, newOptions().responseTimeout(timeout).build());
     }
 
+    private MuleMessage internalSend(String url, MuleMessage message, Long timeout) throws MuleException
+    {
+        OutboundEndpoint endpoint = endpointCache.getOutboundEndpoint(url, MessageExchangePattern.REQUEST_RESPONSE, timeout);
+        return returnMessage(endpoint.process(createMuleEvent(message, endpoint)));
+    }
+
     @Override
     public void dispatch(String url, MuleMessage message) throws MuleException
     {
@@ -120,7 +172,12 @@ public class DefaultLocalMuleClient implements LocalMuleClient
         {
             connectorMessageProcessor.process(createRequestResponseMuleEvent(message));
         }
-        createUnsupportedUrlException(url);
+        else
+        {
+            OutboundEndpoint endpoint = endpointCache.getOutboundEndpoint(url, MessageExchangePattern.ONE_WAY, null);
+            endpoint.process(createMuleEvent(message, endpoint));
+        }
+        // createUnsupportedUrlException(url);
     }
 
     @Override
@@ -149,7 +206,44 @@ public class DefaultLocalMuleClient implements LocalMuleClient
 
             return event == null || event instanceof VoidMuleEvent ? null : event.getMessage();
         }
-        throw createUnsupportedUrlException(url);
+        else
+        {
+            InboundEndpoint endpoint = endpointCache.getInboundEndpoint(url, MessageExchangePattern.ONE_WAY);
+            try
+            {
+                return endpoint.request(timeout);
+            }
+            catch (Exception e)
+            {
+                throw new ReceiveException(endpoint, timeout, e);
+            }
+        }
+    }
+
+    @Override
+    public MuleMessage process(String uri,
+                               MessageExchangePattern mep,
+                               Object payload,
+                               Map<String, Object> messageProperties)
+            throws MuleException
+    {
+        return process(uri, mep, new DefaultMuleMessage(payload, messageProperties, muleContext));
+    }
+
+    @Override
+    public MuleMessage process(String uri, MessageExchangePattern mep, MuleMessage message)
+            throws MuleException
+    {
+        OutboundEndpoint endpoint = endpointCache.getOutboundEndpoint(uri, mep, null);
+        return returnMessage(endpoint.process(createMuleEvent(message, endpoint)));
+    }
+
+    protected MuleEvent createMuleEvent(MuleMessage message, OutboundEndpoint endpoint)
+            throws EndpointException
+    {
+        return new DefaultMuleEvent(message, endpoint.getExchangePattern(), new MuleClientFlowConstruct(
+                muleContext));
+        // throw createUnsupportedUrlException(url);
     }
 
     protected MuleEvent createRequestResponseMuleEvent(MuleMessage message)

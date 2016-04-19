@@ -6,6 +6,7 @@
  */
 package org.mule.runtime.core.routing.outbound;
 
+import org.mule.api.endpoint.OutboundEndpoint;
 import org.mule.runtime.core.VoidMuleEvent;
 import org.mule.runtime.core.api.MuleEvent;
 import org.mule.runtime.core.api.MuleException;
@@ -59,20 +60,35 @@ public abstract class AbstractSequenceRouter extends FilteringOutboundRouter
         {
             for (int i = 0; i < routes.size(); i++)
             {
-                MessageProcessor mp = getRoute(i,event);
-
-                AbstractRoutingStrategy.validateMessageIsNotConsumable(event,message);
-                MuleMessage clonedMessage = cloneMessage(event, message);
-
-                MuleEvent result = sendRequest(event, createEventToRoute(event, clonedMessage), mp, true);
-                if (result != null && !VoidMuleEvent.getInstance().equals(result))
+                MessageProcessor mp = getRoute(i, event);
+                OutboundEndpoint endpoint = mp instanceof OutboundEndpoint ? (OutboundEndpoint) mp : null;
+                if (endpoint == null || endpoint.getFilter() == null || (endpoint.getFilter() != null && endpoint.getFilter().accept(message)))
                 {
-                    results.add(result);
-                }
+                    AbstractRoutingStrategy.validateMessageIsNotConsumable(event, message);
+                    MuleMessage clonedMessage = cloneMessage(event, message);
 
-                if (!continueRoutingMessageAfter(result))
-                {
-                    break;
+                    MuleEvent result = sendRequest(event, createEventToRoute(event, clonedMessage), mp, true);
+                    if (result != null && !VoidMuleEvent.getInstance().equals(result))
+                    {
+                        results.add(result);
+                    }
+                    // AbstractRoutingStrategy.validateMessageIsNotConsumable(event,message);
+                    // MuleMessage clonedMessage = cloneMessage(event, message);
+
+                    if (!continueRoutingMessageAfter(result))
+                    {
+                        break;
+                    }
+                    // MuleEvent result = sendRequest(event, createEventToRoute(event, clonedMessage), mp, true);
+                    // if (result != null && !VoidMuleEvent.getInstance().equals(result))
+                    // {
+                    // results.add(result);
+                    // }
+                    //
+                    // if (!continueRoutingMessageAfter(result))
+                    // {
+                    // break;
+                    // }
                 }
             }
         }

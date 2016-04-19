@@ -34,4 +34,18 @@ public class DefaultRetryPolicyTestCase extends FunctionalTestCase
         assertThat(((SimpleRetryPolicyTemplate) obj).getCount(), is(3));
     }
 
+    @Test
+    public void testConnectorPolicy() throws Exception
+    {
+        Connector c = muleContext.getRegistry().lookupConnector("testConnector");
+        assertThat(c, not(nullValue()));
+
+        RetryPolicyTemplate rpf = c.getRetryPolicyTemplate();
+        assertThat(rpf, not(nullValue()));
+        assertThat(rpf, instanceOf(SimpleRetryPolicyTemplate.class));
+        assertThat(((SimpleRetryPolicyTemplate) rpf).getCount(), is(3));
+        
+        assertThat(c.isConnected(), is(true));
+        assertThat(c.isStarted(), is(true));
+    }
 }

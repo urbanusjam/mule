@@ -6,9 +6,12 @@
  */
 package org.mule.runtime.core.api.exception;
 
+import org.mule.api.endpoint.ImmutableEndpoint;
+import org.mule.api.endpoint.InboundEndpoint;
 import org.mule.runtime.core.api.MessagingException;
 import org.mule.runtime.core.api.MuleEvent;
 import org.mule.runtime.core.api.processor.MessageProcessor;
+import org.mule.runtime.core.config.i18n.CoreMessages;
 import org.mule.runtime.core.config.i18n.Message;
 
 public class MessageRedeliveredException extends MessagingException
@@ -18,16 +21,33 @@ public class MessageRedeliveredException extends MessagingException
      */
     private static final long serialVersionUID = 9013890402770563931L;
 
+    protected final transient ImmutableEndpoint endpoint;
     String messageId;
     int redeliveryCount;
     int maxRedelivery;
 
-    public MessageRedeliveredException(String messageId, int redeliveryCount, int maxRedelivery, MuleEvent event, Message message, MessageProcessor failingMessageProcessor)
+    protected MessageRedeliveredException(String messageId, int redeliveryCount, int maxRedelivery, InboundEndpoint endpoint, MuleEvent event, Message message)
+    {
+        super(message, event);
+        this.messageId = messageId;
+        this.redeliveryCount = redeliveryCount;
+        this.maxRedelivery = maxRedelivery;
+        this.endpoint = endpoint;
+    }
+
+
+    public MessageRedeliveredException(String messageId, int redeliveryCount, int maxRedelivery, InboundEndpoint endpoint, MuleEvent event, Message message, MessageProcessor failingMessageProcessor)
     {
         super(message, event, failingMessageProcessor);
         this.messageId = messageId;
         this.redeliveryCount = redeliveryCount;
         this.maxRedelivery = maxRedelivery;
+        this.endpoint = endpoint;
+    }
+
+    public MessageRedeliveredException(String messageId, int redeliveryCount, int maxRedelivery, InboundEndpoint endpoint, MuleEvent event, MessageProcessor failingMessageProcessor)
+    {
+        this(messageId, redeliveryCount, maxRedelivery, endpoint, event, CoreMessages.createStaticMessage("Maximum redelivery attempts reached"), failingMessageProcessor);
     }
 
     public String getMessageId()
@@ -45,4 +65,8 @@ public class MessageRedeliveredException extends MessagingException
         return maxRedelivery;
     }
 
+    public ImmutableEndpoint getEndpoint()
+    {
+        return endpoint;
+    }
 }

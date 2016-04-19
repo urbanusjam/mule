@@ -6,12 +6,16 @@
  */
 package org.mule.runtime.core.agent;
 
+import org.mule.api.context.notification.EndpointMessageNotificationListener;
+import org.mule.context.notification.EndpointMessageNotification;
 import org.mule.runtime.core.AbstractAgent;
 import org.mule.runtime.core.api.MuleException;
 import org.mule.runtime.core.api.context.MuleContextBuilder;
+import org.mule.runtime.core.api.context.notification.ComponentMessageNotificationListener;
 import org.mule.runtime.core.api.context.notification.ConnectionNotificationListener;
 import org.mule.runtime.core.api.context.notification.CustomNotificationListener;
 import org.mule.runtime.core.api.context.notification.ManagementNotificationListener;
+import org.mule.runtime.core.api.context.notification.MessageProcessorNotificationListener;
 import org.mule.runtime.core.api.context.notification.MuleContextNotificationListener;
 import org.mule.runtime.core.api.context.notification.SecurityNotificationListener;
 import org.mule.runtime.core.api.context.notification.ServerNotification;
@@ -19,7 +23,6 @@ import org.mule.runtime.core.api.context.notification.ServerNotificationListener
 import org.mule.runtime.core.api.lifecycle.InitialisationException;
 import org.mule.runtime.core.context.notification.ComponentMessageNotification;
 import org.mule.runtime.core.context.notification.ConnectionNotification;
-import org.mule.runtime.core.context.notification.ConnectorMessageNotification;
 import org.mule.runtime.core.context.notification.ManagementNotification;
 import org.mule.runtime.core.context.notification.MessageProcessorNotification;
 import org.mule.runtime.core.context.notification.MuleContextNotification;
@@ -299,8 +302,15 @@ public abstract class AbstractNotificationLoggerAgent extends AbstractAgent
 
         if (!ignoreMessageNotifications && !ignoreEndpointMessageNotifications)
         {
-            ServerNotificationListener<ConnectorMessageNotification> l =
-                    notification -> logEvent(notification);
+            ServerNotificationListener<EndpointMessageNotification> l =
+                    new EndpointMessageNotificationListener<EndpointMessageNotification>()
+                    {
+                        @Override
+                        public void onNotification(EndpointMessageNotification notification)
+                        {
+                            logEvent(notification);
+                        }
+                    };
             try
             {
                muleContext.registerListener(l);
@@ -315,7 +325,14 @@ public abstract class AbstractNotificationLoggerAgent extends AbstractAgent
         if (!ignoreMessageNotifications && !ignoreComponentMessageNotifications)
         {
             ServerNotificationListener<ComponentMessageNotification> l =
-                    notification -> logEvent(notification);
+                    new ComponentMessageNotificationListener<ComponentMessageNotification>()
+                    {
+                        @Override
+                        public void onNotification(ComponentMessageNotification notification)
+                        {
+                            logEvent(notification);
+                        }
+                    };
             try
             {
                muleContext.registerListener(l);
@@ -330,7 +347,13 @@ public abstract class AbstractNotificationLoggerAgent extends AbstractAgent
         if (!ignoreMessageNotifications && !ignoreMessageProcessorNotifications)
         {
             ServerNotificationListener<MessageProcessorNotification> l
-                    = notification -> logEvent(notification);
+                    = new MessageProcessorNotificationListener<MessageProcessorNotification>()
+                    {
+                        public void onNotification(MessageProcessorNotification notification)
+                        {
+                            logEvent(notification);
+                        }
+                    };
             try
             {
                 muleContext.registerListener(l);

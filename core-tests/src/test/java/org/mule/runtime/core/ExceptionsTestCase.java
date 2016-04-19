@@ -8,6 +8,8 @@ package org.mule.runtime.core;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+
+import org.mule.api.endpoint.OutboundEndpoint;
 import org.mule.runtime.core.api.DefaultMuleException;
 import org.mule.runtime.core.api.MuleException;
 import org.mule.runtime.core.api.context.MuleContextException;
@@ -37,11 +39,20 @@ public class ExceptionsTestCase extends AbstractMuleTestCase
     }
 
     @Test
-    public final void testRoutingExceptionNullMessageValidEndpoint() throws MuleException
+    public final void testRoutingExceptionNullMessageValidProcessor() throws MuleException
     {
         MessageProcessor processor = Mockito.mock(MessageProcessor.class);
         RoutingException rex = new RoutingException(null, processor);
         assertSame(processor, rex.getRoute());
+    }
+
+    @Test
+    public final void testRoutingExceptionNullMessageValidEndpoint() throws MuleException
+    {
+        OutboundEndpoint endpoint = Mockito.mock(OutboundEndpoint.class);
+
+        RoutingException rex = new RoutingException(null, endpoint);
+        assertSame(endpoint, rex.getRoute());
     }
 
 }

@@ -6,6 +6,8 @@
  */
 package org.mule.runtime.core.api;
 
+import org.mule.api.endpoint.EndpointFactory;
+import org.mule.extension.api.ExtensionManager;
 import org.mule.runtime.core.DataTypeConversionResolver;
 import org.mule.runtime.core.TransformationService;
 import org.mule.runtime.core.api.client.LocalMuleClient;
@@ -36,7 +38,6 @@ import org.mule.runtime.core.config.bootstrap.ArtifactType;
 import org.mule.runtime.core.config.bootstrap.BootstrapServiceDiscoverer;
 import org.mule.runtime.core.context.notification.NotificationException;
 import org.mule.runtime.core.context.notification.ServerNotificationManager;
-import org.mule.runtime.extension.api.ExtensionManager;
 import org.mule.runtime.core.management.stats.AllStatistics;
 import org.mule.runtime.core.management.stats.ProcessingTimeWatcher;
 import org.mule.runtime.core.util.lock.LockFactory;
@@ -267,6 +268,14 @@ public interface MuleContext extends Lifecycle
      * @see org.mule.runtime.core.api.expression.ExpressionManager
      */
     ExpressionManager getExpressionManager();
+
+    /**
+     * Returns the EndpointFactory configured for this instance of Mule
+     * 
+     * @return the EndpointFactory configured for this instance of Mule
+     * @see EndpointFactory
+     */
+    EndpointFactory getEndpointFactory();
 
     void setExecutionClassLoader(ClassLoader cl);
 

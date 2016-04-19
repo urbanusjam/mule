@@ -6,6 +6,7 @@
  */
 package org.mule.runtime.core.api.context.notification;
 
+import org.mule.endpoint.MuleEndpointURI;
 import org.mule.runtime.core.DefaultMuleMessage;
 import org.mule.runtime.core.api.MuleContext;
 import org.mule.runtime.core.api.MuleMessage;
@@ -137,6 +138,11 @@ public abstract class ServerNotification extends EventObject implements MuleCont
     public long getTimestamp()
     {
         return timestamp;
+    }
+
+    public boolean isResourceIdentifierAnUri()
+    {
+        return MuleEndpointURI.isMuleUri(resourceIdentifier);
     }
 
     @Override

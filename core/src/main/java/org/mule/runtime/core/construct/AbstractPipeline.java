@@ -8,6 +8,7 @@ package org.mule.runtime.core.construct;
 
 import static org.mule.runtime.core.util.NotificationUtils.buildPathResolver;
 
+import org.mule.api.endpoint.InboundEndpoint;
 import org.mule.runtime.core.api.GlobalNameableObject;
 import org.mule.runtime.core.api.MessagingException;
 import org.mule.runtime.core.api.MuleContext;
@@ -323,6 +324,27 @@ public abstract class AbstractPipeline extends AbstractFlowConstruct implements 
 
     private boolean isMessageSourceCompatibleWithAsync(MessageSource source)
     {
+        if (source instanceof InboundEndpoint)
+        {
+            InboundEndpoint endpoint = ((InboundEndpoint) source);
+            return !endpoint.getExchangePattern().hasResponse()
+                   && !endpoint.getTransactionConfig().isConfigured();
+        }
+        else if (messageSource instanceof CompositeMessageSource)
+        {
+            for (MessageSource childSource : ((CompositeMessageSource) source).getSources())
+            {
+                if (!isMessageSourceCompatibleWithAsync(childSource))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        else
+        {
+            return true;
+        }
         //TODO See MULE-9307 - check conditions over sources to define if it supports async processing strategies or not
         return true;
     }

@@ -60,6 +60,16 @@ public class DummyMuleContextAware implements MuleContextAware, Transformer
         return null;
     }
 
+    public ImmutableEndpoint getEndpoint()
+    {
+        return null;
+    }
+
+    public void setEndpoint(ImmutableEndpoint endpoint)
+    {
+        // empty
+    }
+
     public void initialise() throws InitialisationException
     {
         // empty

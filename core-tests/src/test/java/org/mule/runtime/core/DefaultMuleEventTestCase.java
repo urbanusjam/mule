@@ -13,10 +13,15 @@ import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.mule.runtime.core.transformer.types.MimeTypes.APPLICATION_XML;
+
+import org.mule.api.endpoint.EndpointException;
+import org.mule.api.endpoint.InboundEndpoint;
+import org.mule.endpoint.MuleEndpointURI;
 import org.mule.runtime.api.metadata.DataType;
 import org.mule.runtime.core.api.MuleContext;
 import org.mule.runtime.core.api.config.MuleProperties;
 import org.mule.runtime.core.api.construct.FlowConstruct;
+import org.mule.runtime.core.api.transaction.TransactionConfig;
 import org.mule.runtime.core.construct.Flow;
 import org.mule.runtime.core.construct.flow.DefaultFlowProcessingStrategy;
 import org.mule.runtime.core.processor.strategy.NonBlockingProcessingStrategy;
@@ -168,4 +173,33 @@ public class DefaultMuleEventTestCase extends AbstractMuleTestCase
         assertThat(event.isTransacted(), equalTo(false));
     }
 
+    @Test
+    public void transactedRequestResponse() throws Exception
+    {
+        Flow flow = mock(Flow.class);
+        when(flow.isSynchronous()).thenReturn(false);
+        DefaultMuleEvent event = new DefaultMuleEvent(muleMessage, createMockTransactionalInboundEndpoint(), flow);
+        assertThat(event.isSynchronous(), equalTo(true));
+        assertThat(event.isTransacted(), equalTo(true));
+    }
+
+    @Test
+    public void transactedOneWay() throws Exception
+    {
+        Flow flow = mock(Flow.class);
+        when(flow.isSynchronous()).thenReturn(false);
+        DefaultMuleEvent event = new DefaultMuleEvent(muleMessage, createMockTransactionalInboundEndpoint(), flow);
+        assertThat(event.isSynchronous(), equalTo(true));
+        assertThat(event.isTransacted(), equalTo(true));
+    }
+
+    private InboundEndpoint createMockTransactionalInboundEndpoint() throws EndpointException
+    {
+        InboundEndpoint inboundEndpoint = mock(InboundEndpoint.class);
+        TransactionConfig transactionConfig = mock(TransactionConfig.class);
+        when(transactionConfig.isTransacted()).thenReturn(true);
+        when(inboundEndpoint.getTransactionConfig()).thenReturn(transactionConfig);
+        when(inboundEndpoint.getEndpointURI()).thenReturn(new MuleEndpointURI("test://test", muleContext));
+        return inboundEndpoint;
+    }
 }

@@ -7,6 +7,9 @@
 package org.mule.runtime.core.processor.chain;
 
 import static org.mule.runtime.core.api.lifecycle.LifecycleUtils.initialiseIfNeeded;
+
+import org.mule.api.endpoint.ImmutableEndpoint;
+import org.mule.endpoint.EndpointAware;
 import org.mule.runtime.core.AbstractAnnotatedObject;
 import org.mule.runtime.core.api.MuleContext;
 import org.mule.runtime.core.api.MuleEvent;
@@ -43,7 +46,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public abstract class AbstractMessageProcessorChain extends AbstractAnnotatedObject
         implements NonBlockingMessageProcessor, MessageProcessorChain, Lifecycle, FlowConstructAware,
-        MuleContextAware, MessageProcessorContainer, MessagingExceptionHandlerAware
+    MuleContextAware, EndpointAware, MessageProcessorContainer, MessagingExceptionHandlerAware
 {
 
     protected final transient Log log = LogFactory.getLog(getClass());
@@ -186,6 +189,18 @@ public abstract class AbstractMessageProcessorChain extends AbstractAnnotatedObj
         }
 
         return string.toString();
+    }
+
+    @Override
+    public void setEndpoint(ImmutableEndpoint endpoint)
+    {
+        for (MessageProcessor processor : processors)
+        {
+            if (processor instanceof EndpointAware)
+            {
+                ((EndpointAware) processor).setEndpoint(endpoint);
+            }
+        }
     }
 
     @Override

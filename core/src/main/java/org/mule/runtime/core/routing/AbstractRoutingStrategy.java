@@ -8,6 +8,7 @@ package org.mule.runtime.core.routing;
 
 import static org.mule.runtime.core.util.ClassUtils.isConsumable;
 
+import org.mule.api.endpoint.OutboundEndpoint;
 import org.mule.runtime.core.DefaultMuleEvent;
 import org.mule.runtime.core.DefaultMuleMessage;
 import org.mule.runtime.core.VoidMuleEvent;
@@ -75,6 +76,10 @@ public abstract class AbstractRoutingStrategy implements RoutingStrategy
     {
         if (logger.isDebugEnabled())
         {
+            if (route instanceof OutboundEndpoint)
+            {
+                logger.debug("Message being sent to: " + ((OutboundEndpoint) route).getEndpointURI());
+            }
             logger.debug(message);
         }
 
@@ -84,10 +89,18 @@ public abstract class AbstractRoutingStrategy implements RoutingStrategy
             {
                 logger.trace("Request payload: \n"
                              + StringMessageUtils.truncate(muleContext.getTransformationService().getPayloadForLogging(message), 100, false));
+                if (route instanceof OutboundEndpoint)
+                {
+                    logger.trace("outbound transformer is: " + ((OutboundEndpoint) route).getMessageProcessors());
+                }
             }
             catch (Exception e)
             {
                 logger.trace("Request payload: \n(unable to retrieve payload: " + e.getMessage());
+                if (route instanceof OutboundEndpoint)
+                {
+                    logger.trace("outbound transformer is: " + ((OutboundEndpoint) route).getMessageProcessors());
+                }
             }
         }
 

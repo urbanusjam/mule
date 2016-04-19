@@ -16,6 +16,7 @@ import org.mule.runtime.core.api.lifecycle.LifecycleState;
 import org.mule.runtime.core.api.lifecycle.Startable;
 import org.mule.runtime.core.api.lifecycle.Stoppable;
 import org.mule.runtime.core.lifecycle.phases.NotInLifecyclePhase;
+import org.mule.transport.AbstractConnector;
 
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -82,6 +83,7 @@ public abstract class AbstractLifecycleManager<O> implements LifecycleManager
         phaseNames.add(phase2);
     }
 
+    @Override
     public void checkPhase(String name) throws IllegalStateException
     {
         if (executingPhase != null)
@@ -122,6 +124,7 @@ public abstract class AbstractLifecycleManager<O> implements LifecycleManager
         return object;
     }
 
+    @Override
     public void fireLifecycle(String phase) throws LifecycleException
     {
         checkPhase(phase);
@@ -136,7 +139,12 @@ public abstract class AbstractLifecycleManager<O> implements LifecycleManager
             callback.onTransition(phase, object);
             setCurrentPhase(phase);
         }
-        //TODO See MULE-9307 - previously when there was a ConnectionException the system exception handler was invoked. Read that functionality if it makes sense.
+        // In the case of a connection exception, trigger the reconnection strategy.
+        catch (ConnectException ce)
+        {
+            MuleContext muleContext = ((AbstractConnector) ce.getFailed()).getMuleContext();
+            muleContext.getExceptionListener().handleException(ce);
+        }
         catch (LifecycleException le)
         {
             throw le;
@@ -152,6 +160,7 @@ public abstract class AbstractLifecycleManager<O> implements LifecycleManager
 
     }
 
+    @Override
     public boolean isDirectTransition(String destinationPhase)
     {
         return isDirectTransition(getCurrentPhase(), destinationPhase);
@@ -163,6 +172,7 @@ public abstract class AbstractLifecycleManager<O> implements LifecycleManager
         return directTransitions.contains(key);
     }
 
+    @Override
     public String getCurrentPhase()
     {
         return currentPhase;
@@ -190,6 +200,7 @@ public abstract class AbstractLifecycleManager<O> implements LifecycleManager
 
     }
 
+    @Override
     public String getExecutingPhase()
     {
         return executingPhase;
@@ -212,6 +223,7 @@ public abstract class AbstractLifecycleManager<O> implements LifecycleManager
         //do nothing
     }
 
+    @Override
     public void reset()
     {
         completedPhases.clear();
@@ -220,11 +232,13 @@ public abstract class AbstractLifecycleManager<O> implements LifecycleManager
         completedPhases.add(getCurrentPhase());
     }
 
+    @Override
     public boolean isPhaseComplete(String phaseName)
     {
         return completedPhases.contains(phaseName);
     }
 
+    @Override
     public LifecycleState getState()
     {
         return state;

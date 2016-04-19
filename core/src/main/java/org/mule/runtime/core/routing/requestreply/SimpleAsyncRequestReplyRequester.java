@@ -6,6 +6,7 @@
  */
 package org.mule.runtime.core.routing.requestreply;
 
+import org.mule.api.endpoint.InboundEndpoint;
 import org.mule.runtime.core.api.MuleContext;
 import org.mule.runtime.core.api.MuleEvent;
 import org.mule.runtime.core.api.MuleException;
@@ -44,7 +45,18 @@ public class SimpleAsyncRequestReplyRequester extends AbstractAsyncRequestReplyR
     private String getReplyTo()
     {
         //TODO See MULE-9307 - re-add logic to get reply to destination for request-reply
-        return null;
+        InboundEndpoint endpoint = ((InboundEndpoint) replyMessageSource);
+        return endpoint.getConnector().getCanonicalURI(endpoint.getEndpointURI());
+    }
+
+    @Override
+    protected void verifyReplyMessageSource(MessageSource messageSource)
+    {
+        if (!(messageSource instanceof InboundEndpoint))
+        {
+            throw new IllegalArgumentException(
+                    "Only an InboundEndpoint reply MessageSource is supported with SimpleAsyncRequestReplyRequester");
+        }
     }
 
     public void setMessageProcessor(MessageProcessor processor)
@@ -58,6 +70,7 @@ public class SimpleAsyncRequestReplyRequester extends AbstractAsyncRequestReplyR
         setReplySource(source);
     }
 
+    @Override
     public void start() throws MuleException
     {
         if (replyMessageSource != null)
@@ -93,6 +106,7 @@ public class SimpleAsyncRequestReplyRequester extends AbstractAsyncRequestReplyR
         super.start();
     }
 
+    @Override
     public void stop() throws MuleException
     {
         if (replyMessageSource != null && replyMessageSource instanceof Stoppable)

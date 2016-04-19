@@ -6,6 +6,8 @@
  */
 package org.mule.runtime.core.processor.chain;
 
+import org.mule.api.endpoint.OutboundEndpoint;
+import org.mule.runtime.core.MessageExchangePattern;
 import org.mule.runtime.core.OptimizedRequestContext;
 import org.mule.runtime.core.VoidMuleEvent;
 import org.mule.runtime.core.api.MessagingException;
@@ -66,6 +68,7 @@ public class DefaultMessageProcessorChain extends AbstractMessageProcessorChain
         return new DefaultMessageProcessorChainBuilder().chain(messageProcessors).build();
     }
 
+    @Override
     protected MuleEvent doProcess(MuleEvent event) throws MuleException
     {
         if (event.getMuleContext() != null
@@ -159,8 +162,15 @@ public class DefaultMessageProcessorChain extends AbstractMessageProcessorChain
 
     protected boolean processorMayReturnNull(MessageProcessor processor)
     {
-        //TODO See MULE-9307 - previously there was an if checking if the endpoint was request response or one-way. Rethink if we should re add that condition for new connectors
-        if (processor instanceof Component || processor instanceof Transformer
+        if (processor instanceof OutboundEndpoint)
+        {
+            MessageExchangePattern exchangePattern = ((OutboundEndpoint) processor).getExchangePattern();
+            return exchangePattern == null ? true : !exchangePattern.hasResponse();
+        }
+
+        // TODO See MULE-9307 - previously there was an if checking if the endpoint was request response or one-way.
+        // Rethink if we should re add that condition for new connectors
+        else if (processor instanceof Component || processor instanceof Transformer
                  || processor instanceof MessageFilter)
         {
             return false;
