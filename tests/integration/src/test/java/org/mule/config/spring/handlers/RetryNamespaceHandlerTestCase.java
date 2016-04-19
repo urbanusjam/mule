@@ -12,12 +12,12 @@ import static org.junit.Assert.assertTrue;
 
 import org.mule.api.retry.RetryNotifier;
 import org.mule.api.retry.RetryPolicyTemplate;
-import org.mule.api.transport.Connector;
 import org.mule.retry.async.AsynchronousRetryTemplate;
 import org.mule.retry.notifiers.ConnectNotifier;
 import org.mule.retry.policies.NoRetryPolicyTemplate;
 import org.mule.retry.policies.RetryForeverPolicyTemplate;
 import org.mule.retry.policies.SimpleRetryPolicyTemplate;
+import org.mule.runtime.core.api.transport.Connector;
 import org.mule.functional.junit4.FunctionalTestCase;
 
 import org.junit.Test;

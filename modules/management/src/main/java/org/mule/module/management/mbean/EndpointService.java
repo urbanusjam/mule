@@ -7,11 +7,11 @@
 package org.mule.module.management.mbean;
 
 import org.mule.MessageExchangePattern;
-import org.mule.api.endpoint.ImmutableEndpoint;
-import org.mule.api.endpoint.InboundEndpoint;
-import org.mule.api.endpoint.OutboundEndpoint;
-import org.mule.api.transport.MessageReceiver;
 import org.mule.config.i18n.CoreMessages;
+import org.mule.runtime.core.api.endpoint.ImmutableEndpoint;
+import org.mule.runtime.core.api.endpoint.InboundEndpoint;
+import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
+import org.mule.runtime.core.api.transport.MessageReceiver;
 import org.mule.util.ObjectNameHelper;
 
 import org.apache.commons.logging.Log;

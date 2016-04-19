@@ -10,8 +10,8 @@ import org.mule.api.construct.FlowConstruct;
 import org.mule.api.context.WorkManager;
 import org.mule.api.source.MessageSource;
 import org.mule.api.transaction.TransactionConfig;
-import org.mule.api.transport.MessageReceiver;
 import org.mule.execution.MessageProcessContext;
+import org.mule.runtime.core.api.transport.MessageReceiver;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

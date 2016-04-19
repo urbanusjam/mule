@@ -7,9 +7,10 @@
 package org.mule.management.mbeans;
 
 import static org.junit.Assert.assertEquals;
-import org.mule.api.transport.Connector;
+
 import org.mule.management.AbstractMuleJmxTestCase;
 import org.mule.module.management.agent.JmxApplicationAgent;
+import org.mule.runtime.core.api.transport.Connector;
 import org.mule.tck.testmodels.mule.TestConnector;
 
 import java.util.Set;

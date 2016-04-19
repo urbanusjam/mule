@@ -10,10 +10,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import org.mule.MessageExchangePattern;
-import org.mule.api.endpoint.InboundEndpoint;
-import org.mule.api.transport.MessageReceiver;
-import org.mule.api.transport.MuleMessageFactory;
 import org.mule.functional.junit4.FunctionalTestCase;
+import org.mule.runtime.core.api.endpoint.InboundEndpoint;
+import org.mule.runtime.core.api.transport.MessageReceiver;
+import org.mule.runtime.core.api.transport.MuleMessageFactory;
 import org.mule.tck.testmodels.mule.TestConnector;
 import org.mule.tck.testmodels.mule.TestMessageReceiver;
 import org.mule.transaction.MuleTransactionConfig;

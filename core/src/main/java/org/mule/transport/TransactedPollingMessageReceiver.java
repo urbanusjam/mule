@@ -12,14 +12,14 @@ import org.mule.api.MuleException;
 import org.mule.api.MuleMessage;
 import org.mule.api.config.ThreadingProfile;
 import org.mule.api.construct.FlowConstruct;
-import org.mule.api.endpoint.InboundEndpoint;
 import org.mule.api.exception.SystemExceptionHandler;
 import org.mule.api.execution.ExecutionCallback;
 import org.mule.api.execution.ExecutionTemplate;
 import org.mule.api.lifecycle.CreateException;
 import org.mule.api.transaction.Transaction;
-import org.mule.api.transport.Connector;
 import org.mule.routing.DefaultRouterResultsHandler;
+import org.mule.runtime.core.api.endpoint.InboundEndpoint;
+import org.mule.runtime.core.api.transport.Connector;
 import org.mule.transaction.TransactionCoordination;
 
 import java.util.LinkedList;

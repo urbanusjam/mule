@@ -7,13 +7,13 @@
 package org.mule.config.spring.editors;
 
 import org.mule.api.MuleContext;
-import org.mule.api.transport.Connector;
 import org.mule.config.i18n.CoreMessages;
+import org.mule.runtime.core.api.transport.Connector;
 
 import java.beans.PropertyEditorSupport;
 
 /**
- * Translates a connector name property into the corresponding {@link org.mule.api.transport.Connector}
+ * Translates a connector name property into the corresponding {@link org.mule.runtime.core.api.transport.Connector}
  * instance.
  *
  * TODO - Why isn't this simply a reference?

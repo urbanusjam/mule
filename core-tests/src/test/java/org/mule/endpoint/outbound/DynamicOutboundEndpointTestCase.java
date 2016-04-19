@@ -20,10 +20,10 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.mule.context.notification.EndpointMessageNotification.MESSAGE_DISPATCH_BEGIN;
-import static org.mule.context.notification.EndpointMessageNotification.MESSAGE_DISPATCH_END;
-import static org.mule.context.notification.EndpointMessageNotification.MESSAGE_SEND_BEGIN;
-import static org.mule.context.notification.EndpointMessageNotification.MESSAGE_SEND_END;
+import static org.mule.runtime.core.context.notification.EndpointMessageNotification.MESSAGE_DISPATCH_BEGIN;
+import static org.mule.runtime.core.context.notification.EndpointMessageNotification.MESSAGE_DISPATCH_END;
+import static org.mule.runtime.core.context.notification.EndpointMessageNotification.MESSAGE_SEND_BEGIN;
+import static org.mule.runtime.core.context.notification.EndpointMessageNotification.MESSAGE_SEND_END;
 
 import org.mule.MessageExchangePattern;
 import org.mule.VoidMuleEvent;
@@ -31,20 +31,20 @@ import org.mule.api.MuleEvent;
 import org.mule.api.MuleException;
 import org.mule.api.MuleMessage;
 import org.mule.api.config.MuleProperties;
-import org.mule.api.endpoint.EndpointBuilder;
-import org.mule.api.endpoint.OutboundEndpoint;
 import org.mule.api.registry.ServiceException;
 import org.mule.api.registry.ServiceType;
 import org.mule.api.routing.filter.Filter;
 import org.mule.api.security.SecurityFilter;
 import org.mule.api.transaction.TransactionConfig;
 import org.mule.api.transformer.Transformer;
-import org.mule.api.transport.MessageDispatcher;
 import org.mule.context.notification.SecurityNotification;
 import org.mule.endpoint.AbstractMessageProcessorTestCase;
-import org.mule.endpoint.DynamicOutboundEndpoint;
-import org.mule.endpoint.DynamicURIBuilder;
-import org.mule.endpoint.URIBuilder;
+import org.mule.runtime.core.api.endpoint.EndpointBuilder;
+import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
+import org.mule.runtime.core.api.transport.MessageDispatcher;
+import org.mule.runtime.core.endpoint.DynamicOutboundEndpoint;
+import org.mule.runtime.core.endpoint.DynamicURIBuilder;
+import org.mule.runtime.core.endpoint.URIBuilder;
 import org.mule.tck.probe.PollingProber;
 import org.mule.tck.probe.Probe;
 import org.mule.tck.probe.Prober;
@@ -64,7 +64,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Tests flow of messages from {@link org.mule.endpoint.DynamicOutboundEndpoint#process(org.mule.api.MuleEvent)} down to
+ * Tests flow of messages from {@link org.mule.runtime.core.endpoint.DynamicOutboundEndpoint#process(org.mule.api.MuleEvent)} down to
  * {@link org.mule.transport.AbstractMessageDispatcher} and the chain of MessageProcessor's that
  * implement the outbound endpoint processing.
  */

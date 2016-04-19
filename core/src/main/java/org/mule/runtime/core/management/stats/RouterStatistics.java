@@ -6,7 +6,7 @@
  */
 package org.mule.runtime.core.management.stats;
 
-import org.mule.api.endpoint.ImmutableEndpoint;
+import org.mule.runtime.core.api.endpoint.ImmutableEndpoint;
 import org.mule.runtime.core.api.management.stats.Statistics;
 import org.mule.runtime.core.management.stats.printers.SimplePrinter;
 

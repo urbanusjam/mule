@@ -11,13 +11,13 @@ import org.mule.api.MuleException;
 import org.mule.api.MuleMessage;
 import org.mule.api.config.MuleProperties;
 import org.mule.api.context.WorkManager;
-import org.mule.api.endpoint.InboundEndpoint;
 import org.mule.api.lifecycle.InitialisationException;
 import org.mule.api.transformer.Transformer;
-import org.mule.api.transport.MessageRequester;
-import org.mule.api.transport.PropertyScope;
-import org.mule.api.transport.ReceiveException;
-import org.mule.context.notification.EndpointMessageNotification;
+import org.mule.runtime.core.api.endpoint.InboundEndpoint;
+import org.mule.runtime.core.api.transport.MessageRequester;
+import org.mule.runtime.core.api.transport.PropertyScope;
+import org.mule.runtime.core.api.transport.ReceiveException;
+import org.mule.runtime.core.context.notification.EndpointMessageNotification;
 
 import java.util.List;
 

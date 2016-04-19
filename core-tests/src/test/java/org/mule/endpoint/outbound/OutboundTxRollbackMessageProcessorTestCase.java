@@ -7,11 +7,12 @@
 package org.mule.endpoint.outbound;
 
 import org.mule.api.MuleEvent;
-import org.mule.api.endpoint.EndpointException;
 import org.mule.api.lifecycle.InitialisationException;
 import org.mule.api.processor.InterceptingMessageProcessor;
 import org.mule.api.transaction.Transaction;
 import org.mule.endpoint.AbstractMessageProcessorTestCase;
+import org.mule.runtime.core.api.endpoint.EndpointException;
+import org.mule.runtime.core.endpoint.outbound.OutboundTxRollbackMessageProcessor;
 import org.mule.tck.testmodels.mule.TestTransaction;
 import org.mule.transaction.TransactionCoordination;
 

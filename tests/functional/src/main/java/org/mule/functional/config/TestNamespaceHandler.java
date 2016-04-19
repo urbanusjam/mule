@@ -9,7 +9,7 @@ package org.mule.functional.config;
 import org.mule.runtime.config.spring.handlers.AbstractMuleNamespaceHandler;
 import org.mule.runtime.config.spring.parsers.specific.MessageProcessorDefinitionParser;
 import org.mule.runtime.config.spring.parsers.specific.TransformerMessageProcessorDefinitionParser;
-import org.mule.endpoint.URIBuilder;
+import org.mule.runtime.core.endpoint.URIBuilder;
 import org.mule.functional.functional.AssertionMessageProcessor;
 import org.mule.functional.functional.InvocationCountMessageProcessor;
 import org.mule.functional.functional.ResponseAssertionMessageProcessor;

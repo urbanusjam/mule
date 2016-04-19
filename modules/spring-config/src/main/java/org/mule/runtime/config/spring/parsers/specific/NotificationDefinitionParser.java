@@ -6,8 +6,6 @@
  */
 package org.mule.runtime.config.spring.parsers.specific;
 
-import org.mule.api.context.notification.EndpointMessageNotificationListener;
-import org.mule.context.notification.EndpointMessageNotification;
 import org.mule.runtime.config.spring.parsers.PreProcessor;
 import org.mule.runtime.config.spring.parsers.assembly.configuration.PropertyConfiguration;
 import org.mule.runtime.config.spring.parsers.collection.ChildMapEntryDefinitionParser;
@@ -18,6 +16,7 @@ import org.mule.runtime.core.api.context.notification.ComponentMessageNotificati
 import org.mule.runtime.core.api.context.notification.ConnectionNotificationListener;
 import org.mule.runtime.core.api.context.notification.ConnectorMessageNotificationListener;
 import org.mule.runtime.core.api.context.notification.CustomNotificationListener;
+import org.mule.runtime.core.api.context.notification.EndpointMessageNotificationListener;
 import org.mule.runtime.core.api.context.notification.ExceptionNotificationListener;
 import org.mule.runtime.core.api.context.notification.ExceptionStrategyNotificationListener;
 import org.mule.runtime.core.api.context.notification.ManagementNotificationListener;
@@ -32,6 +31,7 @@ import org.mule.runtime.core.context.notification.ComponentMessageNotification;
 import org.mule.runtime.core.context.notification.ConnectionNotification;
 import org.mule.runtime.core.context.notification.ConnectorMessageNotification;
 import org.mule.runtime.core.context.notification.CustomNotification;
+import org.mule.runtime.core.context.notification.EndpointMessageNotification;
 import org.mule.runtime.core.context.notification.ExceptionNotification;
 import org.mule.runtime.core.context.notification.ExceptionStrategyNotification;
 import org.mule.runtime.core.context.notification.ManagementNotification;

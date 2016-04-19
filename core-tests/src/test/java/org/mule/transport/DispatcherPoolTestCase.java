@@ -7,9 +7,9 @@
 package org.mule.transport;
 
 import org.mule.api.config.ThreadingProfile;
-import org.mule.api.endpoint.OutboundEndpoint;
-import org.mule.api.transport.MessageDispatcher;
 import org.mule.config.ImmutableThreadingProfile;
+import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
+import org.mule.runtime.core.api.transport.MessageDispatcher;
 import org.mule.tck.junit4.AbstractMuleContextTestCase;
 import org.mule.tck.testmodels.mule.TestConnector;
 

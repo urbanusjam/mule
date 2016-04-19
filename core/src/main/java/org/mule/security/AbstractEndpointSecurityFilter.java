@@ -7,15 +7,15 @@
 package org.mule.security;
 
 import org.mule.api.MuleEvent;
-import org.mule.api.endpoint.ImmutableEndpoint;
-import org.mule.api.endpoint.InboundEndpoint;
 import org.mule.api.lifecycle.InitialisationException;
 import org.mule.api.security.CryptoFailureException;
 import org.mule.api.security.EncryptionStrategyNotFoundException;
-import org.mule.api.security.EndpointSecurityFilter;
 import org.mule.api.security.SecurityException;
 import org.mule.api.security.SecurityProviderNotFoundException;
 import org.mule.api.security.UnknownAuthenticationTypeException;
+import org.mule.runtime.core.api.endpoint.ImmutableEndpoint;
+import org.mule.runtime.core.api.endpoint.InboundEndpoint;
+import org.mule.runtime.core.api.security.EndpointSecurityFilter;
 
 /**
  * <code>AbstractEndpointSecurityFilter</code> provides basic initialisation for all security filters, namely

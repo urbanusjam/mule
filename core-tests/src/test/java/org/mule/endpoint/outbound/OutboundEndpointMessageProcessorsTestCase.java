@@ -8,14 +8,14 @@ package org.mule.endpoint.outbound;
 
 import org.mule.MessageExchangePattern;
 import org.mule.api.MuleEvent;
-import org.mule.api.endpoint.OutboundEndpoint;
 import org.mule.api.processor.MessageProcessor;
 import org.mule.api.routing.filter.Filter;
-import org.mule.api.security.EndpointSecurityFilter;
 import org.mule.api.transaction.TransactionConfig;
 import org.mule.api.transformer.Transformer;
 import org.mule.endpoint.AbstractMessageProcessorTestCase;
 import org.mule.processor.chain.DefaultMessageProcessorChainBuilder;
+import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
+import org.mule.runtime.core.api.security.EndpointSecurityFilter;
 import org.mule.tck.testmodels.mule.TestMessageProcessor;
 
 import org.junit.Test;

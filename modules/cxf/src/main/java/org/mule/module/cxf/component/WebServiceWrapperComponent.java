@@ -11,10 +11,10 @@ import org.mule.VoidMuleEvent;
 import org.mule.api.MuleContext;
 import org.mule.api.MuleEvent;
 import org.mule.api.MuleMessage;
-import org.mule.api.endpoint.EndpointBuilder;
-import org.mule.api.endpoint.OutboundEndpoint;
 import org.mule.config.i18n.CoreMessages;
 import org.mule.module.cxf.endpoint.CxfEndpointBuilder;
+import org.mule.runtime.core.api.endpoint.EndpointBuilder;
+import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
 
 @Deprecated
 public class WebServiceWrapperComponent extends AbstractWebServiceWrapperComponent

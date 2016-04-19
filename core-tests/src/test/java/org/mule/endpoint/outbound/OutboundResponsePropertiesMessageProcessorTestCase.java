@@ -15,12 +15,13 @@ import org.mule.MessageExchangePattern;
 import org.mule.api.MuleEvent;
 import org.mule.api.MuleException;
 import org.mule.api.config.MuleProperties;
-import org.mule.api.endpoint.EndpointBuilder;
-import org.mule.api.endpoint.OutboundEndpoint;
 import org.mule.api.processor.InterceptingMessageProcessor;
 import org.mule.api.processor.MessageProcessor;
-import org.mule.endpoint.AbstractEndpointBuilder;
 import org.mule.endpoint.AbstractMessageProcessorTestCase;
+import org.mule.runtime.core.api.endpoint.EndpointBuilder;
+import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
+import org.mule.runtime.core.endpoint.AbstractEndpointBuilder;
+import org.mule.runtime.core.endpoint.outbound.OutboundResponsePropertiesMessageProcessor;
 
 import org.junit.Test;
 

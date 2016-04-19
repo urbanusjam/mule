@@ -6,10 +6,10 @@
  */
 package org.mule.config.spring.parsers.specific.endpoint;
 
-import org.mule.api.endpoint.ImmutableEndpoint;
 import org.mule.config.spring.parsers.specific.endpoint.support.AddressedEndpointDefinitionParser;
 import org.mule.config.spring.parsers.specific.endpoint.support.ChildEndpointDefinitionParser;
-import org.mule.endpoint.URIBuilder;
+import org.mule.runtime.core.api.endpoint.ImmutableEndpoint;
+import org.mule.runtime.core.endpoint.URIBuilder;
 
 /**
  * This is intended for use by endpoint-specific parsers for non-global endpoint

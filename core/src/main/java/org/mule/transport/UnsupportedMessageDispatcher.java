@@ -8,7 +8,7 @@ package org.mule.transport;
 
 import org.mule.api.MuleEvent;
 import org.mule.api.MuleMessage;
-import org.mule.api.endpoint.OutboundEndpoint;
+import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
 
 public final class UnsupportedMessageDispatcher extends AbstractMessageDispatcher
 {

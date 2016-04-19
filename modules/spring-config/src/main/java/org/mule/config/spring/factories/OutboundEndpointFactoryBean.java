@@ -6,13 +6,13 @@
  */
 package org.mule.config.spring.factories;
 
-import org.mule.api.endpoint.EndpointBuilder;
-import org.mule.api.endpoint.EndpointException;
-import org.mule.api.endpoint.OutboundEndpoint;
 import org.mule.api.registry.ServiceType;
-import org.mule.endpoint.AbstractEndpoint;
-import org.mule.endpoint.EndpointURIEndpointBuilder;
 import org.mule.processor.AbstractRedeliveryPolicy;
+import org.mule.runtime.core.api.endpoint.EndpointBuilder;
+import org.mule.runtime.core.api.endpoint.EndpointException;
+import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
+import org.mule.runtime.core.endpoint.AbstractEndpoint;
+import org.mule.runtime.core.endpoint.EndpointURIEndpointBuilder;
 import org.mule.transport.service.TransportServiceDescriptor;
 
 /**

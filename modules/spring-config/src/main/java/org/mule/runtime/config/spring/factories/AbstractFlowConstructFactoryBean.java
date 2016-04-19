@@ -6,16 +6,16 @@
  */
 package org.mule.runtime.config.spring.factories;
 
-import org.mule.api.endpoint.InboundEndpoint;
-import org.mule.construct.builder.AbstractFlowConstructWithSingleInboundEndpointBuilder;
 import org.mule.runtime.core.api.MuleContext;
 import org.mule.runtime.core.api.MuleException;
 import org.mule.runtime.core.api.construct.FlowConstruct;
 import org.mule.runtime.core.api.context.MuleContextAware;
+import org.mule.runtime.core.api.endpoint.InboundEndpoint;
 import org.mule.runtime.core.api.exception.MessagingExceptionHandler;
 import org.mule.runtime.core.api.source.MessageSource;
 import org.mule.runtime.core.construct.AbstractFlowConstruct;
 import org.mule.runtime.core.construct.builder.AbstractFlowConstructBuilder;
+import org.mule.runtime.core.construct.builder.AbstractFlowConstructWithSingleInboundEndpointBuilder;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.FactoryBean;

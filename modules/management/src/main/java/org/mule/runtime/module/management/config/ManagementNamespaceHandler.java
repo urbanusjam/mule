@@ -6,7 +6,6 @@
  */
 package org.mule.runtime.module.management.config;
 
-import org.mule.agent.EndpointNotificationLoggerAgent;
 import org.mule.config.spring.factories.OutboundEndpointFactoryBean;
 import org.mule.runtime.config.spring.handlers.AbstractMuleNamespaceHandler;
 import org.mule.runtime.config.spring.parsers.MuleDefinitionParserConfiguration;
@@ -15,6 +14,7 @@ import org.mule.runtime.config.spring.parsers.collection.ChildMapEntryDefinition
 import org.mule.runtime.config.spring.parsers.specific.DefaultNameMuleOrphanDefinitionParser;
 import org.mule.runtime.config.spring.parsers.specific.ObjectFactoryWrapper;
 import org.mule.runtime.config.spring.parsers.specific.endpoint.support.ChildEndpointDefinitionParser;
+import org.mule.runtime.core.agent.EndpointNotificationLoggerAgent;
 import org.mule.runtime.core.agent.Log4jNotificationLoggerAgent;
 import org.mule.runtime.module.management.agent.DefaultJmxSupportAgent;
 import org.mule.runtime.module.management.agent.JmxServerNotificationAgent;

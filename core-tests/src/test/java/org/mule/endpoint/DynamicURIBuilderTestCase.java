@@ -14,8 +14,10 @@ import static org.mockito.Mockito.when;
 
 import org.mule.api.MuleContext;
 import org.mule.api.MuleEvent;
-import org.mule.api.endpoint.MalformedEndpointException;
 import org.mule.api.expression.ExpressionManager;
+import org.mule.runtime.core.api.endpoint.MalformedEndpointException;
+import org.mule.runtime.core.endpoint.DynamicURIBuilder;
+import org.mule.runtime.core.endpoint.URIBuilder;
 import org.mule.tck.junit4.AbstractMuleTestCase;
 import org.mule.tck.size.SmallTest;
 

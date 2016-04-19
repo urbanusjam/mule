@@ -8,10 +8,11 @@ package org.mule.endpoint.inbound;
 
 import org.mule.api.MuleEvent;
 import org.mule.api.MuleMessage;
-import org.mule.api.endpoint.InboundEndpoint;
 import org.mule.api.processor.MessageProcessor;
-import org.mule.context.notification.EndpointMessageNotification;
 import org.mule.endpoint.AbstractMessageProcessorTestCase;
+import org.mule.runtime.core.api.endpoint.InboundEndpoint;
+import org.mule.runtime.core.context.notification.EndpointMessageNotification;
+import org.mule.runtime.core.endpoint.inbound.InboundNotificationMessageProcessor;
 
 import java.util.concurrent.TimeUnit;
 

@@ -9,7 +9,7 @@ package org.mule.runtime.module.http.functional;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
-import org.mule.api.context.notification.EndpointMessageNotificationListener;
+import org.mule.runtime.core.api.context.notification.EndpointMessageNotificationListener;
 import org.mule.runtime.core.api.context.notification.ServerNotification;
 import org.mule.runtime.core.api.context.notification.ServerNotificationListener;
 import org.mule.runtime.core.context.notification.ConnectorMessageNotification;

@@ -6,14 +6,14 @@
  */
 package org.mule.runtime.config.spring.editors;
 
-import org.mule.api.transport.Connector;
 import org.mule.config.spring.editors.ConnectorPropertyEditor;
 import org.mule.config.spring.editors.URIBuilderPropertyEditor;
-import org.mule.endpoint.URIBuilder;
 import org.mule.runtime.core.MessageExchangePattern;
 import org.mule.runtime.core.api.MuleContext;
 import org.mule.runtime.core.api.context.MuleContextAware;
 import org.mule.runtime.core.api.processor.ProcessingStrategy;
+import org.mule.runtime.core.api.transport.Connector;
+import org.mule.runtime.core.endpoint.URIBuilder;
 import org.mule.runtime.core.util.ClassUtils;
 import org.mule.runtime.core.util.IOUtils;
 

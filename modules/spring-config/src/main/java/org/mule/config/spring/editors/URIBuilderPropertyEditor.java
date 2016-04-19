@@ -7,12 +7,12 @@
 package org.mule.config.spring.editors;
 
 import org.mule.api.MuleContext;
-import org.mule.endpoint.URIBuilder;
+import org.mule.runtime.core.endpoint.URIBuilder;
 
 import java.beans.PropertyEditorSupport;
 
 /**
- * Translates a connector name property into the corresponding {@link org.mule.api.transport.Connector}
+ * Translates a connector name property into the corresponding {@link org.mule.runtime.core.api.transport.Connector}
  * instance.
  */
 public class URIBuilderPropertyEditor extends PropertyEditorSupport

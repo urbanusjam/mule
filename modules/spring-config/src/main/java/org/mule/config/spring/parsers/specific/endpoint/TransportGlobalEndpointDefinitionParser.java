@@ -8,8 +8,8 @@ package org.mule.config.spring.parsers.specific.endpoint;
 
 import org.mule.config.spring.parsers.specific.endpoint.support.AddressedEndpointDefinitionParser;
 import org.mule.config.spring.parsers.specific.endpoint.support.OrphanEndpointDefinitionParser;
-import org.mule.endpoint.EndpointURIEndpointBuilder;
-import org.mule.endpoint.URIBuilder;
+import org.mule.runtime.core.endpoint.EndpointURIEndpointBuilder;
+import org.mule.runtime.core.endpoint.URIBuilder;
 
 /**
  * A parser for global endpoints.  Note that the blocking of "ref" is left to the schema.

@@ -6,14 +6,14 @@
  */
 package org.mule.runtime.core.api.transformer;
 
-import org.mule.api.endpoint.ImmutableEndpoint;
-import org.mule.endpoint.EndpointAware;
 import org.mule.runtime.api.metadata.DataType;
 import org.mule.runtime.core.api.NameableObject;
 import org.mule.runtime.core.api.context.MuleContextAware;
+import org.mule.runtime.core.api.endpoint.ImmutableEndpoint;
 import org.mule.runtime.core.api.lifecycle.Disposable;
 import org.mule.runtime.core.api.lifecycle.Initialisable;
 import org.mule.runtime.core.api.processor.MessageProcessor;
+import org.mule.runtime.core.endpoint.EndpointAware;
 
 import java.util.List;
 

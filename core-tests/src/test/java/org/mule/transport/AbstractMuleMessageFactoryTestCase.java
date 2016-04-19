@@ -7,8 +7,8 @@
 package org.mule.transport;
 
 import org.mule.api.MuleMessage;
-import org.mule.api.transport.MessageTypeNotSupportedException;
-import org.mule.api.transport.MuleMessageFactory;
+import org.mule.runtime.core.api.transport.MessageTypeNotSupportedException;
+import org.mule.runtime.core.api.transport.MuleMessageFactory;
 import org.mule.tck.junit4.AbstractMuleContextTestCase;
 
 import org.junit.Test;

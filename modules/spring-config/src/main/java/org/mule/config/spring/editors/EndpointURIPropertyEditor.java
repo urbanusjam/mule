@@ -7,13 +7,13 @@
 package org.mule.config.spring.editors;
 
 import org.mule.api.MuleContext;
-import org.mule.api.endpoint.EndpointException;
-import org.mule.endpoint.MuleEndpointURI;
+import org.mule.runtime.core.api.endpoint.EndpointException;
+import org.mule.runtime.core.endpoint.MuleEndpointURI;
 
 import java.beans.PropertyEditorSupport;
 
 /**
- * Translates a connector name property into the corresponding {@link org.mule.api.transport.Connector}
+ * Translates a connector name property into the corresponding {@link org.mule.runtime.core.api.transport.Connector}
  * instance.
  */
 public class EndpointURIPropertyEditor extends PropertyEditorSupport

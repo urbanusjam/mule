@@ -7,11 +7,11 @@
 package org.mule.config.spring.factories;
 
 import org.mule.api.config.ConfigurationException;
-import org.mule.api.endpoint.EndpointException;
-import org.mule.api.endpoint.EndpointFactory;
-import org.mule.api.endpoint.InboundEndpoint;
 import org.mule.config.i18n.MessageFactory;
-import org.mule.endpoint.EndpointURIEndpointBuilder;
+import org.mule.runtime.core.api.endpoint.EndpointException;
+import org.mule.runtime.core.api.endpoint.EndpointFactory;
+import org.mule.runtime.core.api.endpoint.InboundEndpoint;
+import org.mule.runtime.core.endpoint.EndpointURIEndpointBuilder;
 
 /**
  * Spring FactoryBean used to create concrete instances of inbound endpoints

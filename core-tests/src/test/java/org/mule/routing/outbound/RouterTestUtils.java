@@ -9,7 +9,7 @@ package org.mule.routing.outbound;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import org.mule.api.endpoint.OutboundEndpoint;
+import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
 
 public class RouterTestUtils
 {

@@ -9,8 +9,8 @@ package org.mule.transport.polling;
 import org.mule.api.MuleContext;
 import org.mule.api.MuleException;
 import org.mule.api.construct.FlowConstruct;
-import org.mule.api.endpoint.InboundEndpoint;
 import org.mule.api.lifecycle.InitialisationException;
+import org.mule.runtime.core.api.endpoint.InboundEndpoint;
 import org.mule.transport.AbstractConnector;
 
 

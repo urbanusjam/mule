@@ -7,16 +7,16 @@
 package org.mule.transport;
 
 import org.mule.api.MuleException;
-import org.mule.api.endpoint.InboundEndpoint;
-import org.mule.api.transport.MessageRequester;
-import org.mule.api.transport.MessageRequesterFactory;
+import org.mule.runtime.core.api.endpoint.InboundEndpoint;
+import org.mule.runtime.core.api.transport.MessageRequester;
+import org.mule.runtime.core.api.transport.MessageRequesterFactory;
 import org.mule.util.ClassUtils;
 
 /**
- * A base implementation of the {@link org.mule.api.transport.MessageRequesterFactory} interface for managing the
+ * A base implementation of the {@link org.mule.runtime.core.api.transport.MessageRequesterFactory} interface for managing the
  * lifecycle of message requesters.
  *
- * @see org.mule.api.transport.MessageDispatcherFactory
+ * @see org.mule.runtime.core.api.transport.MessageDispatcherFactory
  */
 public abstract class AbstractMessageRequesterFactory implements MessageRequesterFactory
 {
@@ -28,9 +28,9 @@ public abstract class AbstractMessageRequesterFactory implements MessageRequeste
 
     /**
      * This default implementation of
-     * {@link org.mule.api.transport.MessageDispatcherFactory#isCreateDispatcherPerRequest()} returns
+     * {@link org.mule.runtime.core.api.transport.MessageDispatcherFactory#isCreateDispatcherPerRequest()} returns
      * <code>false</code>, which means that dispatchers are pooled according to
-     * their lifecycle as described in {@link org.mule.api.transport.MessageRequester}.
+     * their lifecycle as described in {@link org.mule.runtime.core.api.transport.MessageRequester}.
      *
      * @return <code>false</code> by default, unless overwritten by a subclass.
      */

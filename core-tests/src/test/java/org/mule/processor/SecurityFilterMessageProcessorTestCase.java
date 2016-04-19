@@ -9,9 +9,9 @@ package org.mule.processor;
 import org.mule.MessageExchangePattern;
 import org.mule.RequestContext;
 import org.mule.api.MuleEvent;
-import org.mule.api.endpoint.InboundEndpoint;
 import org.mule.api.processor.InterceptingMessageProcessor;
 import org.mule.endpoint.AbstractMessageProcessorTestCase;
+import org.mule.runtime.core.api.endpoint.InboundEndpoint;
 import org.mule.tck.security.TestSecurityFilter;
 
 import org.junit.Test;

@@ -11,9 +11,11 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import org.mule.api.MuleContext;
-import org.mule.api.endpoint.EndpointURI;
-import org.mule.api.endpoint.EndpointURIBuilder;
-import org.mule.api.endpoint.MalformedEndpointException;
+import org.mule.runtime.core.api.endpoint.EndpointURI;
+import org.mule.runtime.core.api.endpoint.EndpointURIBuilder;
+import org.mule.runtime.core.api.endpoint.MalformedEndpointException;
+import org.mule.runtime.core.endpoint.UrlEndpointURIBuilder;
+import org.mule.runtime.core.endpoint.UserInfoEndpointURIBuilder;
 import org.mule.tck.junit4.AbstractMuleTestCase;
 import org.mule.tck.size.SmallTest;
 

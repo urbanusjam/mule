@@ -9,9 +9,10 @@ package org.mule.test.integration.config;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import org.mule.api.endpoint.ImmutableEndpoint;
+
 import org.mule.api.transformer.Transformer;
 import org.mule.functional.junit4.FunctionalTestCase;
+import org.mule.runtime.core.api.endpoint.ImmutableEndpoint;
 import org.mule.tck.testmodels.mule.TestCompressionTransformer;
 import org.mule.tck.testmodels.mule.TestConnector;
 

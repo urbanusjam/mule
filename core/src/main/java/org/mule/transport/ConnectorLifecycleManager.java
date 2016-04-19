@@ -12,9 +12,9 @@ import org.mule.api.lifecycle.Initialisable;
 import org.mule.api.lifecycle.LifecycleCallback;
 import org.mule.api.lifecycle.Startable;
 import org.mule.api.lifecycle.Stoppable;
-import org.mule.api.transport.Connector;
 import org.mule.context.notification.ConnectionNotification;
 import org.mule.lifecycle.SimpleLifecycleManager;
+import org.mule.runtime.core.api.transport.Connector;
 
 /**
  * Manages the lifecycle of connectors in Mule. Currently only manages the

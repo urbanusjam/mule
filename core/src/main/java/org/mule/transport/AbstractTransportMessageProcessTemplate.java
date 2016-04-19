@@ -14,13 +14,13 @@ import org.mule.api.MuleMessage;
 import org.mule.api.config.MuleProperties;
 import org.mule.api.construct.FlowConstruct;
 import org.mule.api.context.WorkManager;
-import org.mule.api.endpoint.InboundEndpoint;
 import org.mule.api.source.MessageSource;
 import org.mule.api.transaction.TransactionConfig;
-import org.mule.api.transport.PropertyScope;
 import org.mule.execution.FlowProcessingPhaseTemplate;
 import org.mule.execution.MessageProcessContext;
 import org.mule.execution.ValidationPhaseTemplate;
+import org.mule.runtime.core.api.endpoint.InboundEndpoint;
+import org.mule.runtime.core.api.transport.PropertyScope;
 import org.mule.util.ObjectUtils;
 
 import java.io.OutputStream;

@@ -7,10 +7,11 @@
 package org.mule.endpoints;
 
 import static org.junit.Assert.assertEquals;
-import org.mule.api.endpoint.EndpointBuilder;
-import org.mule.api.endpoint.InboundEndpoint;
-import org.mule.api.endpoint.OutboundEndpoint;
+
 import org.mule.functional.junit4.FunctionalTestCase;
+import org.mule.runtime.core.api.endpoint.EndpointBuilder;
+import org.mule.runtime.core.api.endpoint.InboundEndpoint;
+import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
 
 import org.junit.Test;
 

@@ -9,9 +9,10 @@ package org.mule.endpoint.outbound;
 import org.mule.RequestContext;
 import org.mule.api.MuleEvent;
 import org.mule.api.config.MuleProperties;
-import org.mule.api.endpoint.OutboundEndpoint;
 import org.mule.api.processor.MessageProcessor;
 import org.mule.endpoint.AbstractMessageProcessorTestCase;
+import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
+import org.mule.runtime.core.endpoint.outbound.OutboundEndpointPropertyMessageProcessor;
 
 import org.junit.Test;
 

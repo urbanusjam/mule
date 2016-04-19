@@ -7,8 +7,8 @@
 package org.mule.transport;
 
 import org.mule.api.LocatedMuleException;
-import org.mule.api.transport.Connectable;
 import org.mule.config.i18n.Message;
+import org.mule.runtime.core.api.transport.Connectable;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

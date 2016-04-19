@@ -6,7 +6,7 @@
  */
 package org.mule.runtime.module.cxf.support;
 
-import org.mule.api.endpoint.EndpointNotFoundException;
+import org.mule.runtime.core.api.endpoint.EndpointNotFoundException;
 
 import java.io.IOException;
 import java.util.Iterator;

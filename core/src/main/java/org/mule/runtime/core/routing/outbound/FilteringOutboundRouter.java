@@ -6,15 +6,13 @@
  */
 package org.mule.runtime.core.routing.outbound;
 
-import org.mule.api.endpoint.EndpointException;
-import org.mule.api.endpoint.EndpointURI;
-import org.mule.api.endpoint.ImmutableEndpoint;
-import org.mule.api.endpoint.OutboundEndpoint;
-import org.mule.endpoint.DynamicURIOutboundEndpoint;
-import org.mule.endpoint.MuleEndpointURI;
 import org.mule.runtime.core.api.MuleEvent;
 import org.mule.runtime.core.api.MuleException;
 import org.mule.runtime.core.api.MuleMessage;
+import org.mule.runtime.core.api.endpoint.EndpointException;
+import org.mule.runtime.core.api.endpoint.EndpointURI;
+import org.mule.runtime.core.api.endpoint.ImmutableEndpoint;
+import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
 import org.mule.runtime.core.api.expression.ExpressionManager;
 import org.mule.runtime.core.api.lifecycle.InitialisationException;
 import org.mule.runtime.core.api.processor.MessageProcessor;
@@ -25,6 +23,8 @@ import org.mule.runtime.core.api.routing.TransformingMatchable;
 import org.mule.runtime.core.api.routing.filter.Filter;
 import org.mule.runtime.core.api.transformer.Transformer;
 import org.mule.runtime.core.config.i18n.CoreMessages;
+import org.mule.runtime.core.endpoint.DynamicURIOutboundEndpoint;
+import org.mule.runtime.core.endpoint.MuleEndpointURI;
 import org.mule.runtime.core.routing.AbstractRoutingStrategy;
 import org.mule.runtime.core.util.TemplateParser;
 

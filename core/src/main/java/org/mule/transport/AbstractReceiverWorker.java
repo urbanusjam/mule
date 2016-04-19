@@ -13,14 +13,14 @@ import org.mule.api.MessagingException;
 import org.mule.api.MuleEvent;
 import org.mule.api.MuleMessage;
 import org.mule.api.MuleSession;
-import org.mule.api.endpoint.InboundEndpoint;
 import org.mule.api.execution.ExecutionCallback;
 import org.mule.api.execution.ExecutionTemplate;
 import org.mule.api.transaction.Transaction;
 import org.mule.api.transaction.TransactionException;
-import org.mule.api.transport.SessionHandler;
 import org.mule.execution.TransactionalErrorHandlingExecutionTemplate;
 import org.mule.execution.TransactionalExecutionTemplate;
+import org.mule.runtime.core.api.endpoint.InboundEndpoint;
+import org.mule.runtime.core.api.transport.SessionHandler;
 import org.mule.session.MuleSessionHandler;
 import org.mule.transaction.TransactionCoordination;
 
@@ -32,7 +32,7 @@ import javax.resource.spi.work.Work;
 
 
 /**
- * A base Worker used by Transport {@link org.mule.api.transport.MessageReceiver} implementations.
+ * A base Worker used by Transport {@link org.mule.runtime.core.api.transport.MessageReceiver} implementations.
  */
 public abstract class AbstractReceiverWorker implements Work
 {

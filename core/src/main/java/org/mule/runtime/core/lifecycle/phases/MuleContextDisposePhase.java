@@ -6,7 +6,6 @@
  */
 package org.mule.runtime.core.lifecycle.phases;
 
-import org.mule.api.transport.Connector;
 import org.mule.extension.api.runtime.ConfigurationProvider;
 import org.mule.runtime.core.api.MuleContext;
 import org.mule.runtime.core.api.agent.Agent;
@@ -20,6 +19,7 @@ import org.mule.runtime.core.api.lifecycle.LifecyclePhase;
 import org.mule.runtime.core.api.routing.OutboundRouter;
 import org.mule.runtime.core.api.source.MessageSource;
 import org.mule.runtime.core.api.transformer.Transformer;
+import org.mule.runtime.core.api.transport.Connector;
 import org.mule.runtime.core.config.i18n.CoreMessages;
 import org.mule.runtime.core.lifecycle.LifecycleObject;
 import org.mule.runtime.core.lifecycle.NotificationLifecycleObject;
@@ -46,7 +46,7 @@ import javax.annotation.PreDestroy;
  * {@link org.mule.runtime.core.api.lifecycle.Disposable} will have its
  * {@link org.mule.runtime.core.api.lifecycle.Disposable#dispose()} method called. Objects are initialised in the order
  * based on type: {@link org.mule.runtime.core.api.construct.FlowConstruct},
- * {@link org.mule.runtime.core.api.agent.Agent}, {@link org.mule.api.transport.Connector} followed by any other object
+ * {@link org.mule.runtime.core.api.agent.Agent}, {@link org.mule.runtime.core.api.transport.Connector} followed by any other object
  * that implements {@link org.mule.runtime.core.api.lifecycle.Disposable}.
  *
  * @see org.mule.runtime.core.api.MuleContext

@@ -9,10 +9,11 @@ package org.mule.endpoint.outbound;
 import org.mule.MessageExchangePattern;
 import org.mule.api.MuleEvent;
 import org.mule.api.MuleMessage;
-import org.mule.api.endpoint.OutboundEndpoint;
 import org.mule.api.processor.MessageProcessor;
-import org.mule.context.notification.EndpointMessageNotification;
 import org.mule.endpoint.AbstractMessageProcessorTestCase;
+import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
+import org.mule.runtime.core.context.notification.EndpointMessageNotification;
+import org.mule.runtime.core.endpoint.outbound.OutboundNotificationMessageProcessor;
 
 import java.util.concurrent.TimeUnit;
 

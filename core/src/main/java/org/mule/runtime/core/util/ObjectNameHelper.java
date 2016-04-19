@@ -6,9 +6,9 @@
  */
 package org.mule.runtime.core.util;
 
-import org.mule.api.endpoint.EndpointURI;
-import org.mule.api.transport.Connector;
 import org.mule.runtime.core.api.MuleContext;
+import org.mule.runtime.core.api.endpoint.EndpointURI;
+import org.mule.runtime.core.api.transport.Connector;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

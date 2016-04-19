@@ -10,10 +10,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import org.mule.api.endpoint.EndpointBuilder;
-import org.mule.api.endpoint.InboundEndpoint;
 import org.mule.api.transaction.TransactionConfig;
 import org.mule.functional.junit4.FunctionalTestCase;
+import org.mule.runtime.core.api.endpoint.EndpointBuilder;
+import org.mule.runtime.core.api.endpoint.InboundEndpoint;
 import org.mule.tck.testmodels.mule.TestTransactionFactory;
 
 import org.junit.Test;

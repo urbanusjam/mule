@@ -7,8 +7,8 @@
 package org.mule.transport;
 
 import org.mule.api.MuleException;
-import org.mule.api.endpoint.InboundEndpoint;
-import org.mule.api.transport.MessageRequester;
+import org.mule.runtime.core.api.endpoint.InboundEndpoint;
+import org.mule.runtime.core.api.transport.MessageRequester;
 
 public final class UnsupportedMessageRequesterFactory extends AbstractMessageRequesterFactory
 {

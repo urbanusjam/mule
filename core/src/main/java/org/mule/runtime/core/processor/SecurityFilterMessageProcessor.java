@@ -6,15 +6,15 @@
  */
 package org.mule.runtime.core.processor;
 
-import org.mule.api.endpoint.ImmutableEndpoint;
-import org.mule.endpoint.EndpointAware;
 import org.mule.runtime.core.api.MuleEvent;
 import org.mule.runtime.core.api.MuleException;
 import org.mule.runtime.core.api.NonBlockingSupported;
+import org.mule.runtime.core.api.endpoint.ImmutableEndpoint;
 import org.mule.runtime.core.api.lifecycle.Initialisable;
 import org.mule.runtime.core.api.lifecycle.InitialisationException;
 import org.mule.runtime.core.api.lifecycle.LifecycleUtils;
 import org.mule.runtime.core.api.security.SecurityFilter;
+import org.mule.runtime.core.endpoint.EndpointAware;
 
 /**
  * Filters the flow using the specified {@link SecurityFilter}. 

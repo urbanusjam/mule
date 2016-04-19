@@ -6,17 +6,16 @@
  */
 package org.mule.runtime.core.api.registry;
 
-import org.mule.api.endpoint.EndpointBuilder;
-import org.mule.api.endpoint.ImmutableEndpoint;
-import org.mule.api.registry.ServiceDescriptor;
-import org.mule.api.transport.Connector;
 import org.mule.runtime.api.metadata.DataType;
 import org.mule.runtime.core.api.MuleException;
 import org.mule.runtime.core.api.agent.Agent;
 import org.mule.runtime.core.api.construct.FlowConstruct;
+import org.mule.runtime.core.api.endpoint.EndpointBuilder;
+import org.mule.runtime.core.api.endpoint.ImmutableEndpoint;
 import org.mule.runtime.core.api.schedule.Scheduler;
 import org.mule.runtime.core.api.transformer.Transformer;
 import org.mule.runtime.core.api.transformer.TransformerException;
+import org.mule.runtime.core.api.transport.Connector;
 import org.mule.runtime.core.util.Predicate;
 
 import java.util.Collection;

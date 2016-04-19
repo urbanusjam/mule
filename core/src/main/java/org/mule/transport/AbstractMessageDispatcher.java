@@ -6,8 +6,9 @@
  */
 package org.mule.transport;
 
-import static org.mule.api.transport.PropertyScope.INVOCATION;
-import static org.mule.api.transport.PropertyScope.OUTBOUND;
+import static org.mule.runtime.core.api.transport.PropertyScope.INVOCATION;
+import static org.mule.runtime.core.api.transport.PropertyScope.OUTBOUND;
+
 import org.mule.DefaultMuleEvent;
 import org.mule.OptimizedRequestContext;
 import org.mule.VoidMuleEvent;
@@ -18,11 +19,11 @@ import org.mule.api.MuleMessage;
 import org.mule.api.MuleSession;
 import org.mule.api.config.MuleProperties;
 import org.mule.api.context.WorkManager;
-import org.mule.api.endpoint.OutboundEndpoint;
 import org.mule.api.transformer.Transformer;
-import org.mule.api.transport.DispatchException;
-import org.mule.api.transport.MessageDispatcher;
 import org.mule.config.i18n.MessageFactory;
+import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
+import org.mule.runtime.core.api.transport.DispatchException;
+import org.mule.runtime.core.api.transport.MessageDispatcher;
 
 import java.util.List;
 

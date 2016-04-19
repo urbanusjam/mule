@@ -7,8 +7,8 @@
 package org.mule.module.cxf;
 
 import org.mule.api.config.MuleProperties;
-import org.mule.api.endpoint.EndpointURI;
-import org.mule.endpoint.MuleEndpointURI;
+import org.mule.runtime.core.api.endpoint.EndpointURI;
+import org.mule.runtime.core.endpoint.MuleEndpointURI;
 import org.mule.tck.junit4.AbstractMuleContextTestCase;
 
 import org.junit.Test;

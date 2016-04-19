@@ -7,9 +7,10 @@
 package org.mule.endpoint.inbound;
 
 import org.mule.api.MuleEvent;
-import org.mule.api.endpoint.InboundEndpoint;
 import org.mule.endpoint.AbstractMessageProcessorTestCase;
 import org.mule.message.DefaultExceptionPayload;
+import org.mule.runtime.core.api.endpoint.InboundEndpoint;
+import org.mule.runtime.core.endpoint.inbound.InboundExceptionDetailsMessageProcessor;
 
 import org.junit.Test;
 

@@ -13,10 +13,10 @@ import org.mule.DefaultMuleMessage;
 import org.mule.MessageExchangePattern;
 import org.mule.api.MuleEvent;
 import org.mule.api.MuleMessage;
-import org.mule.api.endpoint.InboundEndpoint;
 import org.mule.api.processor.MessageProcessor;
 import org.mule.endpoint.AbstractMessageProcessorTestCase;
 import org.mule.processor.chain.DefaultMessageProcessorChainBuilder;
+import org.mule.runtime.core.api.endpoint.InboundEndpoint;
 import org.mule.tck.testmodels.mule.TestMessageProcessor;
 
 import java.util.HashMap;

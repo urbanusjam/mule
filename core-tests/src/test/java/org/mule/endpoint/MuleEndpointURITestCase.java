@@ -7,6 +7,7 @@
 package org.mule.endpoint;
 
 import org.mule.api.MuleException;
+import org.mule.runtime.core.endpoint.MuleEndpointURI;
 import org.mule.tck.junit4.AbstractMuleContextTestCase;
 
 import java.util.Properties;

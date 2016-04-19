@@ -20,19 +20,19 @@ import org.mule.api.config.ConfigurationException;
 import org.mule.api.config.MuleConfiguration;
 import org.mule.api.config.MuleProperties;
 import org.mule.api.context.MuleContextBuilder;
-import org.mule.api.endpoint.EndpointBuilder;
-import org.mule.api.endpoint.EndpointURI;
-import org.mule.api.endpoint.InboundEndpoint;
-import org.mule.api.endpoint.OutboundEndpoint;
 import org.mule.api.lifecycle.Disposable;
 import org.mule.api.lifecycle.InitialisationException;
 import org.mule.api.registry.RegistrationException;
-import org.mule.api.transport.ReceiveException;
 import org.mule.client.DefaultLocalMuleClient;
 import org.mule.config.DefaultMuleConfiguration;
 import org.mule.config.spring.SpringXmlConfigurationBuilder;
 import org.mule.context.DefaultMuleContextBuilder;
 import org.mule.context.DefaultMuleContextFactory;
+import org.mule.runtime.core.api.endpoint.EndpointBuilder;
+import org.mule.runtime.core.api.endpoint.EndpointURI;
+import org.mule.runtime.core.api.endpoint.InboundEndpoint;
+import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
+import org.mule.runtime.core.api.transport.ReceiveException;
 import org.mule.security.MuleCredentials;
 import org.mule.transformer.TransformerUtils;
 import org.mule.transport.NullPayload;
@@ -73,7 +73,7 @@ import org.apache.commons.logging.LogFactory;
  * Note that there must be a configured MuleManager for this client to work. It will
  * use the one available using <code>muleContext</code>
  *
- * @see org.mule.endpoint.MuleEndpointURI
+ * @see org.mule.runtime.core.endpoint.MuleEndpointURI
  */
 public class MuleClient implements Disposable
 {

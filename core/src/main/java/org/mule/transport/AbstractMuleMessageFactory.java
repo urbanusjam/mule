@@ -9,8 +9,8 @@ package org.mule.transport;
 import org.mule.DefaultMuleMessage;
 import org.mule.api.MuleContext;
 import org.mule.api.MuleMessage;
-import org.mule.api.transport.MessageTypeNotSupportedException;
-import org.mule.api.transport.MuleMessageFactory;
+import org.mule.runtime.core.api.transport.MessageTypeNotSupportedException;
+import org.mule.runtime.core.api.transport.MuleMessageFactory;
 
 public abstract class AbstractMuleMessageFactory implements MuleMessageFactory
 {

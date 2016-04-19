@@ -7,8 +7,8 @@
 package org.mule.config.spring.parsers.specific;
 
 import org.mule.api.MuleContext;
-import org.mule.api.endpoint.EndpointURI;
-import org.mule.endpoint.URIBuilder;
+import org.mule.runtime.core.api.endpoint.EndpointURI;
+import org.mule.runtime.core.endpoint.URIBuilder;
 import org.mule.tck.junit4.AbstractMuleTestCase;
 
 import java.util.HashMap;

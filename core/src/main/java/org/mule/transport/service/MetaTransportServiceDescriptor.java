@@ -8,8 +8,8 @@ package org.mule.transport.service;
 
 import org.mule.api.registry.ServiceException;
 import org.mule.api.registry.ServiceType;
-import org.mule.api.transport.Connector;
 import org.mule.config.i18n.CoreMessages;
+import org.mule.runtime.core.api.transport.Connector;
 import org.mule.transport.AbstractConnector;
 import org.mule.util.PropertiesUtils;
 import org.mule.util.SpiUtils;

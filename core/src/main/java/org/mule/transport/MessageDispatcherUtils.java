@@ -11,7 +11,7 @@ import org.mule.api.MuleException;
 import org.mule.api.lifecycle.Disposable;
 import org.mule.api.lifecycle.Startable;
 import org.mule.api.lifecycle.Stoppable;
-import org.mule.api.transport.MessageDispatcher;
+import org.mule.runtime.core.api.transport.MessageDispatcher;
 
 public class MessageDispatcherUtils
 {

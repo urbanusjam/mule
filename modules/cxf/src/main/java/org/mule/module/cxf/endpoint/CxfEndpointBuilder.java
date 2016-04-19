@@ -7,17 +7,17 @@
 package org.mule.module.cxf.endpoint;
 
 import org.mule.api.MuleContext;
-import org.mule.api.endpoint.EndpointException;
-import org.mule.api.endpoint.EndpointURI;
-import org.mule.api.endpoint.ImmutableEndpoint;
-import org.mule.api.endpoint.InboundEndpoint;
-import org.mule.api.endpoint.OutboundEndpoint;
 import org.mule.api.lifecycle.InitialisationException;
 import org.mule.api.processor.MessageProcessor;
-import org.mule.endpoint.AbstractMetaEndpointBuilder;
-import org.mule.endpoint.EndpointURIEndpointBuilder;
-import org.mule.endpoint.URIBuilder;
 import org.mule.module.cxf.builder.LocalClientMessageProcessorBuilder;
+import org.mule.runtime.core.api.endpoint.EndpointException;
+import org.mule.runtime.core.api.endpoint.EndpointURI;
+import org.mule.runtime.core.api.endpoint.ImmutableEndpoint;
+import org.mule.runtime.core.api.endpoint.InboundEndpoint;
+import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
+import org.mule.runtime.core.endpoint.AbstractMetaEndpointBuilder;
+import org.mule.runtime.core.endpoint.EndpointURIEndpointBuilder;
+import org.mule.runtime.core.endpoint.URIBuilder;
 
 import java.util.ArrayList;
 

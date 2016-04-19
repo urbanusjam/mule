@@ -11,8 +11,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import org.mule.agent.EndpointNotificationLoggerAgent;
 import org.mule.functional.junit4.FunctionalTestCase;
+import org.mule.runtime.core.agent.EndpointNotificationLoggerAgent;
 import org.mule.runtime.core.agent.Log4jNotificationLoggerAgent;
 import org.mule.runtime.core.api.agent.Agent;
 import org.mule.runtime.core.api.registry.Registry;

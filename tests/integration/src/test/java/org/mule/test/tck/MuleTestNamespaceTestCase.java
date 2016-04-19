@@ -11,11 +11,12 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import org.mule.api.transport.Connector;
+
 import org.mule.functional.functional.CounterCallback;
 import org.mule.functional.functional.FunctionalTestComponent;
 import org.mule.functional.functional.ResponseWriterCallback;
 import org.mule.functional.junit4.FunctionalTestCase;
+import org.mule.runtime.core.api.transport.Connector;
 import org.mule.tck.testmodels.mule.TestConnector;
 import org.mule.transport.ConfigurableKeyedObjectPool;
 import org.mule.transport.ConfigurableKeyedObjectPoolFactory;

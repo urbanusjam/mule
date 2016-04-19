@@ -6,7 +6,7 @@
  */
 package org.mule.transport;
 
-import org.mule.api.transport.MuleMessageFactory;
+import org.mule.runtime.core.api.transport.MuleMessageFactory;
 
 public class DefaultMuleMessageFactoryTestCase extends AbstractMuleMessageFactoryTestCase
 {

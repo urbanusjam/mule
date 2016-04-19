@@ -7,9 +7,9 @@
 package org.mule.transport;
 
 import org.mule.api.MuleException;
-import org.mule.api.endpoint.OutboundEndpoint;
-import org.mule.api.transport.MessageDispatcher;
-import org.mule.api.transport.MessageDispatcherFactory;
+import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
+import org.mule.runtime.core.api.transport.MessageDispatcher;
+import org.mule.runtime.core.api.transport.MessageDispatcherFactory;
 import org.mule.util.ClassUtils;
 
 /**

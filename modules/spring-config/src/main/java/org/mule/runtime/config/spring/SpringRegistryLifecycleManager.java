@@ -6,7 +6,6 @@
  */
 package org.mule.runtime.config.spring;
 
-import org.mule.api.transport.Connector;
 import org.mule.extension.api.ExtensionManager;
 import org.mule.extension.api.runtime.ConfigurationProvider;
 import org.mule.runtime.core.api.MuleContext;
@@ -28,6 +27,7 @@ import org.mule.runtime.core.api.routing.OutboundRouter;
 import org.mule.runtime.core.api.source.MessageSource;
 import org.mule.runtime.core.api.store.ObjectStoreManager;
 import org.mule.runtime.core.api.transformer.Transformer;
+import org.mule.runtime.core.api.transport.Connector;
 import org.mule.runtime.core.context.notification.ServerNotificationManager;
 import org.mule.runtime.core.lifecycle.EmptyLifecycleCallback;
 import org.mule.runtime.core.lifecycle.LifecycleObject;

@@ -6,8 +6,9 @@
  */
 package org.mule.transport;
 
-import static org.mule.api.transport.PropertyScope.INVOCATION;
-import static org.mule.api.transport.PropertyScope.OUTBOUND;
+import static org.mule.runtime.core.api.transport.PropertyScope.INVOCATION;
+import static org.mule.runtime.core.api.transport.PropertyScope.OUTBOUND;
+
 import org.mule.DefaultMuleEvent;
 import org.mule.DefaultMuleMessage;
 import org.mule.api.DefaultMuleException;
@@ -17,13 +18,13 @@ import org.mule.api.MuleEvent;
 import org.mule.api.MuleException;
 import org.mule.api.MuleMessage;
 import org.mule.api.config.MuleProperties;
-import org.mule.api.endpoint.EndpointBuilder;
-import org.mule.api.endpoint.EndpointFactory;
-import org.mule.api.endpoint.OutboundEndpoint;
-import org.mule.api.transport.Connector;
-import org.mule.api.transport.DispatchException;
-import org.mule.api.transport.ReplyToHandler;
 import org.mule.config.i18n.CoreMessages;
+import org.mule.runtime.core.api.endpoint.EndpointBuilder;
+import org.mule.runtime.core.api.endpoint.EndpointFactory;
+import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
+import org.mule.runtime.core.api.transport.Connector;
+import org.mule.runtime.core.api.transport.DispatchException;
+import org.mule.runtime.core.api.transport.ReplyToHandler;
 import org.mule.transport.service.TransportFactory;
 import org.mule.util.ObjectNameHelper;
 import org.mule.util.store.DeserializationPostInitialisable;

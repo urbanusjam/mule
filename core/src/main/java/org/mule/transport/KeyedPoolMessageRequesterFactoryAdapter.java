@@ -7,13 +7,13 @@
 package org.mule.transport;
 
 import org.mule.api.MuleException;
-import org.mule.api.endpoint.InboundEndpoint;
 import org.mule.api.lifecycle.Disposable;
 import org.mule.api.lifecycle.Startable;
 import org.mule.api.lifecycle.Stoppable;
-import org.mule.api.transport.MessageRequester;
-import org.mule.api.transport.MessageRequesterFactory;
 import org.mule.config.i18n.CoreMessages;
+import org.mule.runtime.core.api.endpoint.InboundEndpoint;
+import org.mule.runtime.core.api.transport.MessageRequester;
+import org.mule.runtime.core.api.transport.MessageRequesterFactory;
 
 import org.apache.commons.pool.KeyedPoolableObjectFactory;
 

@@ -9,13 +9,13 @@ package org.mule.transport;
 import org.mule.api.MuleEvent;
 import org.mule.api.MuleException;
 import org.mule.api.MuleMessage;
-import org.mule.api.endpoint.OutboundEndpoint;
 import org.mule.api.lifecycle.CreateException;
 import org.mule.api.lifecycle.InitialisationException;
-import org.mule.api.transport.MessageDispatcher;
-import org.mule.api.transport.MessageReceiver;
-import org.mule.api.transport.MessageRequester;
-import org.mule.api.transport.MuleMessageFactory;
+import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
+import org.mule.runtime.core.api.transport.MessageDispatcher;
+import org.mule.runtime.core.api.transport.MessageReceiver;
+import org.mule.runtime.core.api.transport.MessageRequester;
+import org.mule.runtime.core.api.transport.MuleMessageFactory;
 import org.mule.tck.junit4.AbstractMuleContextTestCase;
 
 import org.junit.Test;

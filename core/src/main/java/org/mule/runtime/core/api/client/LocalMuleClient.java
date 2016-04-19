@@ -6,10 +6,10 @@
  */
 package org.mule.runtime.core.api.client;
 
-import org.mule.api.endpoint.InboundEndpoint;
-import org.mule.api.endpoint.OutboundEndpoint;
 import org.mule.runtime.api.temporary.MuleMessage;
 import org.mule.runtime.core.api.MuleException;
+import org.mule.runtime.core.api.endpoint.InboundEndpoint;
+import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
 
 import java.util.Map;
 

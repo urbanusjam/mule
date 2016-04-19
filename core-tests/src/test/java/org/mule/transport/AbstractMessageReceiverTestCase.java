@@ -8,9 +8,10 @@ package org.mule.transport;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
-import org.mule.api.endpoint.InboundEndpoint;
-import org.mule.api.transport.MessageReceiver;
+
 import org.mule.construct.Flow;
+import org.mule.runtime.core.api.endpoint.InboundEndpoint;
+import org.mule.runtime.core.api.transport.MessageReceiver;
 import org.mule.tck.junit4.AbstractMuleContextTestCase;
 import org.mule.tck.testmodels.fruit.Orange;
 

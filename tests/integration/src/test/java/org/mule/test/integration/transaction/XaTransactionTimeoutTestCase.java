@@ -9,10 +9,11 @@ package org.mule.test.integration.transaction;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import org.mule.api.endpoint.InboundEndpoint;
+
 import org.mule.api.transaction.TransactionConfig;
 import org.mule.construct.Flow;
 import org.mule.functional.junit4.FunctionalTestCase;
+import org.mule.runtime.core.api.endpoint.InboundEndpoint;
 
 import org.junit.Test;
 

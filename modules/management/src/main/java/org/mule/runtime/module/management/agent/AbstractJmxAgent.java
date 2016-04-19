@@ -6,8 +6,6 @@
  */
 package org.mule.runtime.module.management.agent;
 
-import org.mule.api.transport.Connector;
-import org.mule.api.transport.MessageReceiver;
 import org.mule.module.management.mbean.ConnectorService;
 import org.mule.module.management.mbean.EndpointService;
 import org.mule.runtime.core.AbstractAgent;
@@ -15,6 +13,8 @@ import org.mule.runtime.core.api.MuleException;
 import org.mule.runtime.core.api.MuleRuntimeException;
 import org.mule.runtime.core.api.context.notification.MuleContextNotificationListener;
 import org.mule.runtime.core.api.lifecycle.InitialisationException;
+import org.mule.runtime.core.api.transport.Connector;
+import org.mule.runtime.core.api.transport.MessageReceiver;
 import org.mule.runtime.core.config.i18n.CoreMessages;
 import org.mule.runtime.core.construct.AbstractFlowConstruct;
 import org.mule.runtime.core.context.notification.MuleContextNotification;

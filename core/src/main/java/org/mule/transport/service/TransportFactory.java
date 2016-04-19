@@ -7,14 +7,14 @@
 package org.mule.transport.service;
 
 import org.mule.api.MuleContext;
-import org.mule.api.endpoint.EndpointException;
-import org.mule.api.endpoint.EndpointURI;
-import org.mule.api.endpoint.ImmutableEndpoint;
 import org.mule.api.registry.ServiceException;
 import org.mule.api.registry.ServiceType;
-import org.mule.api.transport.Connector;
 import org.mule.config.i18n.CoreMessages;
-import org.mule.endpoint.MuleEndpointURI;
+import org.mule.runtime.core.api.endpoint.EndpointException;
+import org.mule.runtime.core.api.endpoint.EndpointURI;
+import org.mule.runtime.core.api.endpoint.ImmutableEndpoint;
+import org.mule.runtime.core.api.transport.Connector;
+import org.mule.runtime.core.endpoint.MuleEndpointURI;
 import org.mule.transport.AbstractConnector;
 import org.mule.util.BeanUtils;
 import org.mule.util.ObjectNameHelper;

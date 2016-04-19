@@ -8,10 +8,10 @@ package org.mule.config.spring.parsers.specific;
 
 import static org.junit.Assert.assertEquals;
 
-import org.mule.api.endpoint.EndpointBuilder;
-import org.mule.api.endpoint.InboundEndpoint;
 import org.mule.api.processor.MessageProcessor;
 import org.mule.processor.NullMessageProcessor;
+import org.mule.runtime.core.api.endpoint.EndpointBuilder;
+import org.mule.runtime.core.api.endpoint.InboundEndpoint;
 import org.mule.functional.junit4.FunctionalTestCase;
 
 import org.junit.Test;

@@ -6,12 +6,12 @@
  */
 package org.mule.runtime.core.api.context.notification;
 
-import org.mule.endpoint.MuleEndpointURI;
 import org.mule.runtime.core.DefaultMuleMessage;
 import org.mule.runtime.core.api.MuleContext;
 import org.mule.runtime.core.api.MuleMessage;
 import org.mule.runtime.core.api.config.MuleConfiguration;
 import org.mule.runtime.core.api.context.MuleContextAware;
+import org.mule.runtime.core.endpoint.MuleEndpointURI;
 import org.mule.runtime.core.util.ClassUtils;
 
 import java.util.EventObject;

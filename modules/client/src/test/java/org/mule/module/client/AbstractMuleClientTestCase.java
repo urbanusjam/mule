@@ -8,8 +8,8 @@ package org.mule.module.client;
 
 import org.mule.MessageExchangePattern;
 import org.mule.api.MuleException;
-import org.mule.api.endpoint.InboundEndpoint;
-import org.mule.api.endpoint.OutboundEndpoint;
+import org.mule.runtime.core.api.endpoint.InboundEndpoint;
+import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
 import org.mule.tck.junit4.AbstractMuleContextTestCase;
 
 import org.junit.Test;

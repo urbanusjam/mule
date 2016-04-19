@@ -8,7 +8,7 @@ package org.mule.config.spring.parsers.specific.endpoint.support;
 
 import org.mule.config.spring.parsers.generic.ChildDefinitionParser;
 import org.mule.config.spring.parsers.processors.AddAttribute;
-import org.mule.endpoint.URIBuilder;
+import org.mule.runtime.core.endpoint.URIBuilder;
 
 /**
  * Generate an Endpoint URI from simple address components.

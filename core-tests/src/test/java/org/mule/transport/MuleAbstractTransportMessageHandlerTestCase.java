@@ -9,10 +9,10 @@ package org.mule.transport;
 import org.mule.api.MuleContext;
 import org.mule.api.MuleException;
 import org.mule.api.context.WorkManager;
-import org.mule.api.endpoint.ImmutableEndpoint;
 import org.mule.api.retry.RetryCallback;
 import org.mule.api.retry.RetryPolicyTemplate;
-import org.mule.endpoint.MuleEndpointURI;
+import org.mule.runtime.core.api.endpoint.ImmutableEndpoint;
+import org.mule.runtime.core.endpoint.MuleEndpointURI;
 import org.mule.transport.MuleAbstractTransportMessageHandlerTestCase.MethodInvocation.MethodPart;
 
 import java.util.List;
