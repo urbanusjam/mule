@@ -12,6 +12,7 @@ import org.mule.runtime.core.api.MuleEvent;
 import org.mule.runtime.core.api.MuleException;
 import org.mule.runtime.core.api.MuleMessage;
 import org.mule.runtime.core.api.NameableObject;
+import org.mule.runtime.core.api.connector.Connectable;
 import org.mule.runtime.core.api.construct.FlowConstruct;
 import org.mule.runtime.core.api.endpoint.EndpointURI;
 import org.mule.runtime.core.api.endpoint.InboundEndpoint;
@@ -21,6 +22,7 @@ import org.mule.runtime.core.api.lifecycle.Lifecycle;
 import org.mule.runtime.core.api.lifecycle.LifecycleStateEnabled;
 import org.mule.runtime.core.api.processor.MessageProcessor;
 import org.mule.runtime.core.api.retry.RetryPolicyTemplate;
+import org.mule.runtime.core.message.SessionHandler;
 import org.mule.runtime.core.model.streaming.CallbackOutputStream;
 import org.mule.runtime.core.processor.AbstractRedeliveryPolicy;
 

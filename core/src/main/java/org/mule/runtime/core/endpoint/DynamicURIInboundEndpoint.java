@@ -22,8 +22,8 @@ import org.mule.runtime.core.api.security.EndpointSecurityFilter;
 import org.mule.runtime.core.api.transaction.TransactionConfig;
 import org.mule.runtime.core.api.transport.Connector;
 import org.mule.runtime.core.config.i18n.CoreMessages;
+import org.mule.runtime.core.connector.ConnectException;
 import org.mule.runtime.core.processor.AbstractRedeliveryPolicy;
-import org.mule.runtime.core.transport.ConnectException;
 
 import java.util.List;
 import java.util.Map;

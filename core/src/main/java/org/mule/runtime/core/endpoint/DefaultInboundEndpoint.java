@@ -27,10 +27,10 @@ import org.mule.runtime.core.api.retry.RetryPolicyTemplate;
 import org.mule.runtime.core.api.transaction.TransactionConfig;
 import org.mule.runtime.core.api.transport.Connector;
 import org.mule.runtime.core.config.i18n.CoreMessages;
+import org.mule.runtime.core.connector.ConnectException;
 import org.mule.runtime.core.exception.ChoiceMessagingExceptionStrategy;
 import org.mule.runtime.core.exception.RollbackMessagingExceptionStrategy;
 import org.mule.runtime.core.processor.AbstractRedeliveryPolicy;
-import org.mule.runtime.core.transport.ConnectException;
 
 import java.beans.ExceptionListener;
 import java.util.List;

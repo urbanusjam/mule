@@ -6,7 +6,9 @@
  */
 package org.mule.runtime.core.transport;
 
+import org.mule.runtime.api.message.NullPayload;
 import org.mule.runtime.core.DefaultMuleMessage;
+import org.mule.runtime.core.PropertyScope;
 import org.mule.runtime.core.api.MuleException;
 import org.mule.runtime.core.api.MuleMessage;
 import org.mule.runtime.core.api.config.MuleProperties;
@@ -15,7 +17,6 @@ import org.mule.runtime.core.api.endpoint.InboundEndpoint;
 import org.mule.runtime.core.api.lifecycle.InitialisationException;
 import org.mule.runtime.core.api.transformer.Transformer;
 import org.mule.runtime.core.api.transport.MessageRequester;
-import org.mule.runtime.core.api.transport.PropertyScope;
 import org.mule.runtime.core.api.transport.ReceiveException;
 import org.mule.runtime.core.context.notification.EndpointMessageNotification;
 

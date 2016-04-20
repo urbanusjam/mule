@@ -6,6 +6,7 @@
  */
 package org.mule.runtime.core.transport;
 
+import org.mule.runtime.core.PropertyScope;
 import org.mule.runtime.core.api.MessagingException;
 import org.mule.runtime.core.api.MuleContext;
 import org.mule.runtime.core.api.MuleEvent;
@@ -15,7 +16,6 @@ import org.mule.runtime.core.api.config.MuleProperties;
 import org.mule.runtime.core.api.construct.FlowConstruct;
 import org.mule.runtime.core.api.endpoint.InboundEndpoint;
 import org.mule.runtime.core.api.source.MessageSource;
-import org.mule.runtime.core.api.transport.PropertyScope;
 import org.mule.runtime.core.execution.FlowProcessingPhaseTemplate;
 import org.mule.runtime.core.execution.MessageProcessContext;
 import org.mule.runtime.core.execution.ValidationPhaseTemplate;

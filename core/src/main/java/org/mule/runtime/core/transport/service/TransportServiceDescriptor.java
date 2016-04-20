@@ -23,8 +23,8 @@ import org.mule.runtime.core.api.transport.MessageDispatcherFactory;
 import org.mule.runtime.core.api.transport.MessageReceiver;
 import org.mule.runtime.core.api.transport.MessageRequesterFactory;
 import org.mule.runtime.core.api.transport.MuleMessageFactory;
-import org.mule.runtime.core.api.transport.SessionHandler;
 import org.mule.runtime.core.endpoint.EndpointURIEndpointBuilder;
+import org.mule.runtime.core.message.SessionHandler;
 
 import java.util.List;
 import java.util.Properties;

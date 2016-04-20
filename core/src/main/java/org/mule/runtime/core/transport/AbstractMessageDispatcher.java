@@ -6,11 +6,9 @@
  */
 package org.mule.runtime.core.transport;
 
-import static org.mule.runtime.core.api.transport.PropertyScope.INVOCATION;
-import static org.mule.runtime.core.api.transport.PropertyScope.OUTBOUND;
-
 import org.mule.runtime.core.DefaultMuleEvent;
 import org.mule.runtime.core.OptimizedRequestContext;
+import org.mule.runtime.core.PropertyScope;
 import org.mule.runtime.core.VoidMuleEvent;
 import org.mule.runtime.core.api.MessagingException;
 import org.mule.runtime.core.api.MuleEvent;
@@ -18,10 +16,10 @@ import org.mule.runtime.core.api.MuleException;
 import org.mule.runtime.core.api.MuleMessage;
 import org.mule.runtime.core.api.MuleSession;
 import org.mule.runtime.core.api.config.MuleProperties;
+import org.mule.runtime.core.api.connector.DispatchException;
 import org.mule.runtime.core.api.context.WorkManager;
 import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
 import org.mule.runtime.core.api.transformer.Transformer;
-import org.mule.runtime.core.api.transport.DispatchException;
 import org.mule.runtime.core.api.transport.MessageDispatcher;
 import org.mule.runtime.core.config.i18n.MessageFactory;
 
@@ -161,8 +159,8 @@ public abstract class AbstractMessageDispatcher extends AbstractTransportMessage
         }
         if (!remoteSync)
         {
-            event.getMessage().removeProperty(MuleProperties.MULE_REMOTE_SYNC_PROPERTY, OUTBOUND);
-            event.getMessage().removeProperty(MuleProperties.MULE_REMOTE_SYNC_PROPERTY, INVOCATION);
+            event.getMessage().removeProperty(MuleProperties.MULE_REMOTE_SYNC_PROPERTY, PropertyScope.OUTBOUND);
+            event.removeFlowVariable(MuleProperties.MULE_REMOTE_SYNC_PROPERTY);
         }
         return remoteSync;
     }

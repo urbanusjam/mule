@@ -9,7 +9,7 @@ package org.mule.runtime.core.endpoint.outbound;
 import org.mule.runtime.core.api.MuleEvent;
 import org.mule.runtime.core.api.MuleException;
 import org.mule.runtime.core.api.processor.MessageProcessor;
-import org.mule.runtime.core.api.transport.SessionHandler;
+import org.mule.runtime.core.message.SessionHandler;
 import org.mule.runtime.core.util.ObjectUtils;
 
 /**

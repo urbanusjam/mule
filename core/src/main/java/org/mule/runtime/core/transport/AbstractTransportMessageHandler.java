@@ -6,10 +6,12 @@
  */
 package org.mule.runtime.core.transport;
 
+import org.mule.runtime.api.message.NullPayload;
 import org.mule.runtime.core.TransformationService;
 import org.mule.runtime.core.api.MuleException;
 import org.mule.runtime.core.api.MuleMessage;
 import org.mule.runtime.core.api.config.MuleConfiguration;
+import org.mule.runtime.core.api.connector.Connectable;
 import org.mule.runtime.core.api.context.WorkManager;
 import org.mule.runtime.core.api.endpoint.ImmutableEndpoint;
 import org.mule.runtime.core.api.lifecycle.CreateException;
@@ -19,12 +21,12 @@ import org.mule.runtime.core.api.lifecycle.LifecycleState;
 import org.mule.runtime.core.api.lifecycle.LifecycleStateEnabled;
 import org.mule.runtime.core.api.retry.RetryContext;
 import org.mule.runtime.core.api.retry.RetryPolicyTemplate;
-import org.mule.runtime.core.api.transport.Connectable;
 import org.mule.runtime.core.api.transport.Connector;
 import org.mule.runtime.core.api.transport.MuleMessageFactory;
 import org.mule.runtime.core.config.i18n.CoreMessages;
 import org.mule.runtime.core.config.i18n.Message;
 import org.mule.runtime.core.config.i18n.MessageFactory;
+import org.mule.runtime.core.connector.ConnectException;
 import org.mule.runtime.core.context.notification.ConnectionNotification;
 import org.mule.runtime.core.util.ClassUtils;
 

@@ -565,7 +565,7 @@ public class DefaultMuleEvent implements MuleEvent, ThreadSafeAccess, Deserializ
                 {
                     // inbound endpoint flowVariables are in the invocation scope
                     Object value = endpoint.getProperties().get(prop);
-                    message.setInvocationProperty(prop, value);
+                    setFlowVariable(prop, value);
                 }
             }
         }

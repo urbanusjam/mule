@@ -49,7 +49,7 @@ public class OutboundEndpointPropertyMessageProcessor implements MessageProcesso
                 if (!ignoreProperty(event.getMessage(), prop))
                 {
                     // inbound endpoint properties are in the invocation scope
-                    event.getMessage().setInvocationProperty(prop, value);
+                    event.setFlowVariable(prop, value);
                 }
             }
         }
