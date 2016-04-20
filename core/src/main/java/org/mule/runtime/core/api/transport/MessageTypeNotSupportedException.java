@@ -6,9 +6,9 @@
  */
 package org.mule.runtime.core.api.transport;
 
-import org.mule.api.MuleException;
-import org.mule.api.MuleMessage;
-import org.mule.config.i18n.CoreMessages;
+import org.mule.runtime.core.api.MuleException;
+import org.mule.runtime.core.api.MuleMessage;
+import org.mule.runtime.core.config.i18n.CoreMessages;
 
 /**
  * <code>MessageTypeNotSupportedException</code> is thrown when a {@link MuleMessage} instance is 

@@ -6,12 +6,12 @@
  */
 package org.mule.runtime.core.routing.outbound;
 
-import org.mule.DefaultMuleMessage;
-import org.mule.api.MuleMessage;
-import org.mule.api.lifecycle.InitialisationException;
-import org.mule.api.processor.MessageProcessor;
-import org.mule.config.i18n.CoreMessages;
+import org.mule.runtime.core.DefaultMuleMessage;
+import org.mule.runtime.core.api.MuleMessage;
 import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
+import org.mule.runtime.core.api.lifecycle.InitialisationException;
+import org.mule.runtime.core.api.processor.MessageProcessor;
+import org.mule.runtime.core.config.i18n.CoreMessages;
 
 import java.util.HashMap;
 import java.util.Iterator;

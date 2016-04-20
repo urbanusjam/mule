@@ -6,9 +6,9 @@
  */
 package org.mule.runtime.core.endpoint;
 
-import org.mule.MessageExchangePattern;
-import org.mule.api.MuleContext;
-import org.mule.api.MuleException;
+import org.mule.runtime.core.MessageExchangePattern;
+import org.mule.runtime.core.api.MuleContext;
+import org.mule.runtime.core.api.MuleException;
 import org.mule.runtime.core.api.endpoint.EndpointBuilder;
 import org.mule.runtime.core.api.endpoint.EndpointCache;
 import org.mule.runtime.core.api.endpoint.InboundEndpoint;

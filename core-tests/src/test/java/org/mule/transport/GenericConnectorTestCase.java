@@ -7,6 +7,7 @@
 package org.mule.transport;
 
 import org.mule.api.MuleRuntimeException;
+import org.mule.runtime.core.transport.AbstractConnector;
 import org.mule.tck.junit4.AbstractMuleContextTestCase;
 
 import javax.resource.spi.work.Work;

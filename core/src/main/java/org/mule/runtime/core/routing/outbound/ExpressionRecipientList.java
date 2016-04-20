@@ -6,11 +6,11 @@
  */
 package org.mule.runtime.core.routing.outbound;
 
-import org.mule.api.MuleEvent;
-import org.mule.api.routing.CouldNotRouteOutboundMessageException;
-import org.mule.config.i18n.CoreMessages;
-import org.mule.expression.ExpressionConfig;
-import org.mule.util.StringUtils;
+import org.mule.runtime.core.api.MuleEvent;
+import org.mule.runtime.core.api.routing.CouldNotRouteOutboundMessageException;
+import org.mule.runtime.core.config.i18n.CoreMessages;
+import org.mule.runtime.core.expression.ExpressionConfig;
+import org.mule.runtime.core.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;

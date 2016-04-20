@@ -33,9 +33,9 @@ import org.mule.runtime.core.api.endpoint.EndpointURI;
 import org.mule.runtime.core.api.endpoint.InboundEndpoint;
 import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
 import org.mule.runtime.core.api.transport.ReceiveException;
+import org.mule.runtime.core.transport.NullPayload;
 import org.mule.security.MuleCredentials;
 import org.mule.transformer.TransformerUtils;
-import org.mule.transport.NullPayload;
 
 import java.util.HashMap;
 import java.util.List;

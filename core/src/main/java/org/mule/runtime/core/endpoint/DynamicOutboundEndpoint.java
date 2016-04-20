@@ -6,28 +6,27 @@
  */
 package org.mule.runtime.core.endpoint;
 
-import org.mule.MessageExchangePattern;
-import org.mule.api.MuleContext;
-import org.mule.api.MuleEvent;
-import org.mule.api.MuleException;
-import org.mule.api.exception.MessagingExceptionHandler;
-import org.mule.api.lifecycle.InitialisationException;
-import org.mule.api.processor.MessageProcessor;
-import org.mule.api.retry.RetryPolicyTemplate;
-import org.mule.api.routing.filter.Filter;
-import org.mule.api.transaction.TransactionConfig;
-import org.mule.api.transformer.Transformer;
-import org.mule.processor.AbstractRedeliveryPolicy;
+import org.mule.runtime.core.MessageExchangePattern;
+import org.mule.runtime.core.api.MuleContext;
+import org.mule.runtime.core.api.MuleEvent;
+import org.mule.runtime.core.api.MuleException;
 import org.mule.runtime.core.api.endpoint.EndpointBuilder;
 import org.mule.runtime.core.api.endpoint.EndpointException;
 import org.mule.runtime.core.api.endpoint.EndpointMessageProcessorChainFactory;
 import org.mule.runtime.core.api.endpoint.EndpointURI;
 import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
+import org.mule.runtime.core.api.exception.MessagingExceptionHandler;
+import org.mule.runtime.core.api.lifecycle.InitialisationException;
+import org.mule.runtime.core.api.processor.MessageProcessor;
+import org.mule.runtime.core.api.retry.RetryPolicyTemplate;
+import org.mule.runtime.core.api.routing.filter.Filter;
 import org.mule.runtime.core.api.security.EndpointSecurityFilter;
+import org.mule.runtime.core.api.transaction.TransactionConfig;
 import org.mule.runtime.core.api.transport.Connector;
 import org.mule.runtime.core.api.transport.DispatchException;
-import org.mule.transport.AbstractConnector;
-import org.mule.util.ObjectNameHelper;
+import org.mule.runtime.core.processor.AbstractRedeliveryPolicy;
+import org.mule.runtime.core.transport.AbstractConnector;
+import org.mule.runtime.core.util.ObjectNameHelper;
 
 import java.util.Collections;
 import java.util.List;
@@ -165,11 +164,13 @@ public class DynamicOutboundEndpoint implements OutboundEndpoint
         return System.identityHashCode(this);
     }
 
+    @Override
     public Connector getConnector()
     {
         throw new UnsupportedOperationException("No connector available");
     }
 
+    @Override
     public EndpointURI getEndpointURI()
     {
         return null;
@@ -181,106 +182,127 @@ public class DynamicOutboundEndpoint implements OutboundEndpoint
         return prototypeEndpoint.getRedeliveryPolicy();
     }
 
+    @Override
     public String getAddress()
     {
         return dynamicURIBuilder.getUriTemplate();
     }
 
+    @Override
     public RetryPolicyTemplate getRetryPolicyTemplate()
     {
         return prototypeEndpoint.getRetryPolicyTemplate();
     }
 
+    @Override
     public String getEncoding()
     {
         return prototypeEndpoint.getEncoding();
     }
 
+    @Override
     public String getMimeType()
     {
         return prototypeEndpoint.getMimeType();
     }
 
+    @Override
     public Filter getFilter()
     {
         return prototypeEndpoint.getFilter();
     }
 
+    @Override
     public String getInitialState()
     {
         return prototypeEndpoint.getInitialState();
     }
 
+    @Override
     public MuleContext getMuleContext()
     {
         return prototypeEndpoint.getMuleContext();
     }
 
+    @Override
     public String getName()
     {
         return prototypeEndpoint.getName();
     }
 
+    @Override
     public Map getProperties()
     {
         return prototypeEndpoint.getProperties();
     }
 
+    @Override
     public Object getProperty(Object key)
     {
         return prototypeEndpoint.getProperty(key);
     }
 
+    @Override
     public String getProtocol()
     {
         return prototypeEndpoint.getProtocol();
     }
 
+    @Override
     public int getResponseTimeout()
     {
         return prototypeEndpoint.getResponseTimeout();
     }
 
+    @Override
     public EndpointMessageProcessorChainFactory getMessageProcessorsFactory()
     {
         return prototypeEndpoint.getMessageProcessorsFactory();
     }
 
+    @Override
     public List<MessageProcessor> getMessageProcessors()
     {
         return prototypeEndpoint.getMessageProcessors();
     }
 
+    @Override
     public List<MessageProcessor> getResponseMessageProcessors()
     {
         return prototypeEndpoint.getResponseMessageProcessors();
     }
 
+    @Override
     public EndpointSecurityFilter getSecurityFilter()
     {
         return prototypeEndpoint.getSecurityFilter();
     }
 
+    @Override
     public TransactionConfig getTransactionConfig()
     {
         return prototypeEndpoint.getTransactionConfig();
     }
 
+    @Override
     public boolean isDeleteUnacceptedMessages()
     {
         return prototypeEndpoint.isDeleteUnacceptedMessages();
     }
 
+    @Override
     public boolean isReadOnly()
     {
         return prototypeEndpoint.isReadOnly();
     }
 
+    @Override
     public MessageExchangePattern getExchangePattern()
     {
         return prototypeEndpoint.getExchangePattern();
     }
 
+    @Override
     public List<String> getResponseProperties()
     {
         return prototypeEndpoint.getResponseProperties();
@@ -292,16 +314,19 @@ public class DynamicOutboundEndpoint implements OutboundEndpoint
         return true;
     }
 
+    @Override
     public String getEndpointBuilderName()
     {
         return prototypeEndpoint.getEndpointBuilderName();
     }
 
+    @Override
     public boolean isProtocolSupported(String protocol)
     {
         return prototypeEndpoint.isProtocolSupported(protocol);
     }
 
+    @Override
     public boolean isDisableTransportTransformer()
     {
         return prototypeEndpoint.isDisableTransportTransformer();

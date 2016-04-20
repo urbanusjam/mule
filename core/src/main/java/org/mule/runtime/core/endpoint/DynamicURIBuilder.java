@@ -9,11 +9,11 @@ package org.mule.runtime.core.endpoint;
 
 import static org.mule.runtime.core.endpoint.URIBuilder.URL_ENCODER;
 
-import org.mule.api.MuleContext;
-import org.mule.api.MuleEvent;
-import org.mule.api.expression.ExpressionManager;
-import org.mule.config.i18n.CoreMessages;
+import org.mule.runtime.core.api.MuleContext;
+import org.mule.runtime.core.api.MuleEvent;
 import org.mule.runtime.core.api.endpoint.MalformedEndpointException;
+import org.mule.runtime.core.api.expression.ExpressionManager;
+import org.mule.runtime.core.config.i18n.CoreMessages;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;

@@ -6,7 +6,6 @@
  */
 package org.mule.runtime.core.api;
 
-import org.mule.extension.api.ExtensionManager;
 import org.mule.runtime.core.DataTypeConversionResolver;
 import org.mule.runtime.core.TransformationService;
 import org.mule.runtime.core.api.client.LocalMuleClient;
@@ -42,6 +41,7 @@ import org.mule.runtime.core.management.stats.AllStatistics;
 import org.mule.runtime.core.management.stats.ProcessingTimeWatcher;
 import org.mule.runtime.core.util.lock.LockFactory;
 import org.mule.runtime.core.util.queue.QueueManager;
+import org.mule.runtime.extension.api.ExtensionManager;
 
 import java.io.Serializable;
 import java.util.Collection;

@@ -6,20 +6,15 @@
  */
 package org.mule.runtime.core.endpoint;
 
-import org.mule.api.MuleException;
-import org.mule.api.config.ConfigurationException;
-import org.mule.api.construct.FlowConstruct;
-import org.mule.api.processor.MessageProcessor;
-import org.mule.config.i18n.MessageFactory;
-import org.mule.lifecycle.processor.ProcessIfStartedMessageProcessor;
-import org.mule.processor.AbstractRedeliveryPolicy;
-import org.mule.processor.EndpointTransactionalInterceptingMessageProcessor;
-import org.mule.processor.chain.DefaultMessageProcessorChainBuilder;
-import org.mule.routing.requestreply.ReplyToPropertyRequestReplyReplier;
+import org.mule.runtime.core.api.MuleException;
+import org.mule.runtime.core.api.config.ConfigurationException;
+import org.mule.runtime.core.api.construct.FlowConstruct;
 import org.mule.runtime.core.api.endpoint.EndpointMessageProcessorChainFactory;
 import org.mule.runtime.core.api.endpoint.InboundEndpoint;
 import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
+import org.mule.runtime.core.api.processor.MessageProcessor;
 import org.mule.runtime.core.api.transport.Connector;
+import org.mule.runtime.core.config.i18n.MessageFactory;
 import org.mule.runtime.core.endpoint.inbound.InboundEndpointMimeTypeCheckingMessageProcessor;
 import org.mule.runtime.core.endpoint.inbound.InboundEndpointPropertyMessageProcessor;
 import org.mule.runtime.core.endpoint.inbound.InboundExceptionDetailsMessageProcessor;
@@ -32,6 +27,11 @@ import org.mule.runtime.core.endpoint.outbound.OutboundLoggingMessageProcessor;
 import org.mule.runtime.core.endpoint.outbound.OutboundResponsePropertiesMessageProcessor;
 import org.mule.runtime.core.endpoint.outbound.OutboundRootMessageIdPropertyMessageProcessor;
 import org.mule.runtime.core.endpoint.outbound.OutboundSessionHandlerMessageProcessor;
+import org.mule.runtime.core.lifecycle.processor.ProcessIfStartedMessageProcessor;
+import org.mule.runtime.core.processor.AbstractRedeliveryPolicy;
+import org.mule.runtime.core.processor.EndpointTransactionalInterceptingMessageProcessor;
+import org.mule.runtime.core.processor.chain.DefaultMessageProcessorChainBuilder;
+import org.mule.runtime.core.routing.requestreply.ReplyToPropertyRequestReplyReplier;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -94,6 +94,7 @@ public class DefaultEndpointMessageProcessorChainFactory implements EndpointMess
         return Collections.emptyList();
     }
     
+    @Override
     public MessageProcessor createInboundMessageProcessorChain(InboundEndpoint endpoint, FlowConstruct flowConstruct, MessageProcessor target) throws MuleException
     {
         // -- REQUEST CHAIN --
@@ -140,6 +141,7 @@ public class DefaultEndpointMessageProcessorChainFactory implements EndpointMess
         }
     }
 
+    @Override
     public MessageProcessor createOutboundMessageProcessorChain(OutboundEndpoint endpoint, MessageProcessor target) throws MuleException
     {
         // -- REQUEST CHAIN --

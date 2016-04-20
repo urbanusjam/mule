@@ -12,7 +12,6 @@ import static org.mule.runtime.core.api.config.MuleProperties.OBJECT_TRANSACTION
 import static org.mule.runtime.core.api.lifecycle.LifecycleUtils.startIfNeeded;
 import static org.mule.runtime.core.api.lifecycle.LifecycleUtils.stopIfNeeded;
 
-import org.mule.extension.api.ExtensionManager;
 import org.mule.runtime.core.api.Injector;
 import org.mule.runtime.core.api.MuleContext;
 import org.mule.runtime.core.api.MuleException;
@@ -79,6 +78,7 @@ import org.mule.runtime.core.util.UUID;
 import org.mule.runtime.core.util.concurrent.Latch;
 import org.mule.runtime.core.util.lock.LockFactory;
 import org.mule.runtime.core.util.queue.QueueManager;
+import org.mule.runtime.extension.api.ExtensionManager;
 
 import java.io.Serializable;
 import java.util.Collection;

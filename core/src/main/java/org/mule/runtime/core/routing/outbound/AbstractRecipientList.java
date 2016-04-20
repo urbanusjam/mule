@@ -6,20 +6,20 @@
  */
 package org.mule.runtime.core.routing.outbound;
 
-import org.mule.DefaultMuleMessage;
-import org.mule.MessageExchangePattern;
-import org.mule.api.DefaultMuleException;
-import org.mule.api.MuleEvent;
-import org.mule.api.MuleException;
-import org.mule.api.MuleMessage;
-import org.mule.api.registry.RegistrationException;
-import org.mule.api.routing.CouldNotRouteOutboundMessageException;
-import org.mule.api.routing.RoutingException;
-import org.mule.config.i18n.MessageFactory;
-import org.mule.routing.CorrelationMode;
+import org.mule.runtime.core.DefaultMuleMessage;
+import org.mule.runtime.core.MessageExchangePattern;
+import org.mule.runtime.core.api.DefaultMuleException;
+import org.mule.runtime.core.api.MuleEvent;
+import org.mule.runtime.core.api.MuleException;
+import org.mule.runtime.core.api.MuleMessage;
 import org.mule.runtime.core.api.endpoint.EndpointBuilder;
 import org.mule.runtime.core.api.endpoint.EndpointURI;
 import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
+import org.mule.runtime.core.api.registry.RegistrationException;
+import org.mule.runtime.core.api.routing.CouldNotRouteOutboundMessageException;
+import org.mule.runtime.core.api.routing.RoutingException;
+import org.mule.runtime.core.config.i18n.MessageFactory;
+import org.mule.runtime.core.routing.CorrelationMode;
 
 import java.util.ArrayList;
 import java.util.List;

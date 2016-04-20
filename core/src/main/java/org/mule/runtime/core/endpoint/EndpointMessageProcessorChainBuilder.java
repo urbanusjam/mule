@@ -6,11 +6,11 @@
  */
 package org.mule.runtime.core.endpoint;
 
-import org.mule.api.MuleException;
-import org.mule.api.construct.FlowConstruct;
-import org.mule.api.processor.MessageProcessor;
-import org.mule.processor.chain.SimpleMessageProcessorChainBuilder;
+import org.mule.runtime.core.api.MuleException;
+import org.mule.runtime.core.api.construct.FlowConstruct;
 import org.mule.runtime.core.api.endpoint.ImmutableEndpoint;
+import org.mule.runtime.core.api.processor.MessageProcessor;
+import org.mule.runtime.core.processor.chain.SimpleMessageProcessorChainBuilder;
 
 public class EndpointMessageProcessorChainBuilder extends SimpleMessageProcessorChainBuilder
 {

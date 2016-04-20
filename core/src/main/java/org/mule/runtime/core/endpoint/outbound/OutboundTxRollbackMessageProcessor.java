@@ -6,12 +6,12 @@
  */
 package org.mule.runtime.core.endpoint.outbound;
 
-import org.mule.api.MuleEvent;
-import org.mule.api.MuleException;
-import org.mule.api.transaction.Transaction;
-import org.mule.api.transaction.TransactionException;
-import org.mule.processor.AbstractInterceptingMessageProcessor;
-import org.mule.transaction.TransactionCoordination;
+import org.mule.runtime.core.api.MuleEvent;
+import org.mule.runtime.core.api.MuleException;
+import org.mule.runtime.core.api.transaction.Transaction;
+import org.mule.runtime.core.api.transaction.TransactionException;
+import org.mule.runtime.core.processor.AbstractInterceptingMessageProcessor;
+import org.mule.runtime.core.transaction.TransactionCoordination;
 
 /**
  * MessageProcessor implementation that stops outbound flow is the current
@@ -19,6 +19,7 @@ import org.mule.transaction.TransactionCoordination;
  */
 public class OutboundTxRollbackMessageProcessor extends AbstractInterceptingMessageProcessor
 {
+    @Override
     public MuleEvent process(MuleEvent event) throws MuleException
     {
         // No point continuing if the service has rolledback the transaction

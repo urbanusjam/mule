@@ -14,7 +14,7 @@ import org.mule.runtime.core.api.endpoint.ImmutableEndpoint;
  * These notifications are fired when either a message is either: received by an
  * endpoint, sent or dispatched from an endpoint or requested from an endpoint.
  */
-public class EndpointMessageNotification extends BaseConnectorMessageNotification
+public class EndpointMessageNotification extends ConnectorMessageNotification
 {
 
     public static final int MESSAGE_DISPATCH_BEGIN = MESSAGE_EVENT_ACTION_START_RANGE + 2;
@@ -46,7 +46,7 @@ public class EndpointMessageNotification extends BaseConnectorMessageNotificatio
                                FlowConstruct flowConstruct,
                                int action)
     {
-        super(resource, endpoint.getEndpointURI().toString(), flowConstruct, action);
+        super(null, resource, endpoint.getEndpointURI().toString(), flowConstruct, action);
         this.immutableEndpoint = endpoint;
     }
 

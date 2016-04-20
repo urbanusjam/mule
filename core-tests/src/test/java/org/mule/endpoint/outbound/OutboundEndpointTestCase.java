@@ -32,12 +32,12 @@ import org.mule.runtime.core.api.transport.Connector;
 import org.mule.runtime.core.api.transport.MessageDispatcher;
 import org.mule.runtime.core.context.notification.EndpointMessageNotification;
 import org.mule.runtime.core.endpoint.EndpointURIEndpointBuilder;
+import org.mule.runtime.core.transport.AbstractMessageDispatcher;
 import org.mule.tck.security.TestSecurityFilter;
 import org.mule.tck.testmodels.mule.TestMessageDispatcher;
 import org.mule.tck.testmodels.mule.TestMessageDispatcherFactory;
 import org.mule.transformer.simple.OutboundAppendTransformer;
 import org.mule.transformer.simple.ResponseAppendTransformer;
-import org.mule.transport.AbstractMessageDispatcher;
 import org.mule.util.concurrent.Latch;
 
 import java.util.concurrent.TimeUnit;

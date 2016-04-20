@@ -6,7 +6,6 @@
  */
 package org.mule.runtime.core.lifecycle.phases;
 
-import org.mule.extension.api.runtime.ConfigurationProvider;
 import org.mule.runtime.core.api.MuleContext;
 import org.mule.runtime.core.api.agent.Agent;
 import org.mule.runtime.core.api.component.Component;
@@ -22,6 +21,7 @@ import org.mule.runtime.core.api.transport.Connector;
 import org.mule.runtime.core.lifecycle.LifecycleObject;
 import org.mule.runtime.core.lifecycle.NotificationLifecycleObject;
 import org.mule.runtime.core.util.queue.QueueManager;
+import org.mule.runtime.extension.api.runtime.ConfigurationProvider;
 
 import java.util.LinkedHashSet;
 import java.util.Set;

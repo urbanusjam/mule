@@ -6,7 +6,7 @@
  */
 package org.mule.runtime.core.api.transport;
 
-import org.mule.api.MuleMessage;
+import org.mule.runtime.core.api.MuleMessage;
 
 /**
  * Defines generic methods for receiving events.

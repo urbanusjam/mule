@@ -6,8 +6,8 @@
  */
 package org.mule.runtime.core.api.endpoint;
 
-import org.mule.MessageExchangePattern;
-import org.mule.api.MuleException;
+import org.mule.runtime.core.MessageExchangePattern;
+import org.mule.runtime.core.api.MuleException;
 
 /**
  * Cache endpoints in order to prevent memory leaks.

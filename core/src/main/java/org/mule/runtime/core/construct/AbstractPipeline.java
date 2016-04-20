@@ -324,6 +324,8 @@ public abstract class AbstractPipeline extends AbstractFlowConstruct implements 
 
     private boolean isMessageSourceCompatibleWithAsync(MessageSource source)
     {
+        // TODO See MULE-9307 - check conditions over sources to define if it supports async processing strategies or
+        // not
         if (source instanceof InboundEndpoint)
         {
             InboundEndpoint endpoint = ((InboundEndpoint) source);
@@ -345,8 +347,6 @@ public abstract class AbstractPipeline extends AbstractFlowConstruct implements 
         {
             return true;
         }
-        //TODO See MULE-9307 - check conditions over sources to define if it supports async processing strategies or not
-        return true;
     }
 
     @Override

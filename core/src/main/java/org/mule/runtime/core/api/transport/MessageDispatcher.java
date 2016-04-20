@@ -6,12 +6,12 @@
  */
 package org.mule.runtime.core.api.transport;
 
-import org.mule.api.MuleException;
-import org.mule.api.MuleMessage;
-import org.mule.api.lifecycle.Disposable;
-import org.mule.api.lifecycle.LifecycleStateEnabled;
-import org.mule.api.processor.MessageProcessor;
+import org.mule.runtime.core.api.MuleException;
+import org.mule.runtime.core.api.MuleMessage;
 import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
+import org.mule.runtime.core.api.lifecycle.Disposable;
+import org.mule.runtime.core.api.lifecycle.LifecycleStateEnabled;
+import org.mule.runtime.core.api.processor.MessageProcessor;
 
 /**
  * Combine {@link MessageDispatching} with

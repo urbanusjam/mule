@@ -13,7 +13,7 @@ import org.mule.runtime.core.api.endpoint.EndpointException;
 import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
 import org.mule.runtime.core.endpoint.AbstractEndpoint;
 import org.mule.runtime.core.endpoint.EndpointURIEndpointBuilder;
-import org.mule.transport.service.TransportServiceDescriptor;
+import org.mule.runtime.core.transport.service.TransportServiceDescriptor;
 
 /**
  * Spring FactoryBean used to create concrete instances of outbound endpoints

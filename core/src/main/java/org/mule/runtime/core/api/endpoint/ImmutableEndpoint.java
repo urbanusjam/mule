@@ -6,16 +6,16 @@
  */
 package org.mule.runtime.core.api.endpoint;
 
-import org.mule.MessageExchangePattern;
-import org.mule.api.MuleContext;
-import org.mule.api.NamedObject;
-import org.mule.api.processor.MessageProcessor;
-import org.mule.api.retry.RetryPolicyTemplate;
-import org.mule.api.routing.filter.Filter;
-import org.mule.api.transaction.TransactionConfig;
-import org.mule.processor.AbstractRedeliveryPolicy;
+import org.mule.runtime.core.MessageExchangePattern;
+import org.mule.runtime.core.api.MuleContext;
+import org.mule.runtime.core.api.NamedObject;
+import org.mule.runtime.core.api.processor.MessageProcessor;
+import org.mule.runtime.core.api.retry.RetryPolicyTemplate;
+import org.mule.runtime.core.api.routing.filter.Filter;
 import org.mule.runtime.core.api.security.EndpointSecurityFilter;
+import org.mule.runtime.core.api.transaction.TransactionConfig;
 import org.mule.runtime.core.api.transport.Connector;
+import org.mule.runtime.core.processor.AbstractRedeliveryPolicy;
 
 import java.io.Serializable;
 import java.util.List;

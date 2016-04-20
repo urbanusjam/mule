@@ -6,11 +6,11 @@
  */
 package org.mule.runtime.core.endpoint;
 
-import org.mule.api.MuleContext;
+import org.mule.runtime.core.api.MuleContext;
 import org.mule.runtime.core.api.endpoint.EndpointURI;
 import org.mule.runtime.core.api.endpoint.EndpointURIBuilder;
 import org.mule.runtime.core.api.endpoint.MalformedEndpointException;
-import org.mule.util.PropertiesUtils;
+import org.mule.runtime.core.util.PropertiesUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
@@ -32,6 +32,7 @@ public abstract class AbstractEndpointURIBuilder implements EndpointURIBuilder
     protected String userInfo;
     private URI uri;
 
+    @Override
     public EndpointURI build(URI uri, MuleContext muleContext) throws MalformedEndpointException
     {
         this.uri = uri;

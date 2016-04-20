@@ -6,13 +6,13 @@
  */
 package org.mule.runtime.core.endpoint.inbound;
 
-import org.mule.api.MuleEvent;
-import org.mule.api.MuleException;
-import org.mule.api.MuleMessage;
-import org.mule.api.processor.MessageProcessor;
+import org.mule.runtime.core.api.MuleEvent;
+import org.mule.runtime.core.api.MuleException;
+import org.mule.runtime.core.api.MuleMessage;
 import org.mule.runtime.core.api.endpoint.InboundEndpoint;
-import org.mule.util.ObjectUtils;
-import org.mule.util.StringMessageUtils;
+import org.mule.runtime.core.api.processor.MessageProcessor;
+import org.mule.runtime.core.util.ObjectUtils;
+import org.mule.runtime.core.util.StringMessageUtils;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -27,6 +27,7 @@ public class InboundLoggingMessageProcessor implements MessageProcessor
         this.endpoint = endpoint;
     }
 
+    @Override
     public MuleEvent process(MuleEvent event) throws MuleException
     {
         MuleMessage message = event.getMessage();

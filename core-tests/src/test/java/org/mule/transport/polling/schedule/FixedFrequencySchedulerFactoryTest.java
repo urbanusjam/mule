@@ -11,8 +11,10 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import org.mule.api.schedule.Scheduler;
-import org.mule.transport.AbstractPollingMessageReceiver;
-import org.mule.transport.PollingReceiverWorker;
+import org.mule.runtime.core.transport.AbstractPollingMessageReceiver;
+import org.mule.runtime.core.transport.PollingReceiverWorker;
+import org.mule.runtime.core.transport.polling.schedule.FixedFrequencyScheduler;
+import org.mule.runtime.core.transport.polling.schedule.FixedFrequencySchedulerFactory;
 
 import java.util.concurrent.TimeUnit;
 

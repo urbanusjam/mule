@@ -6,28 +6,15 @@
  */
 package org.mule.runtime.core.endpoint;
 
-import static org.mule.util.ObjectNameHelper.getEndpointNameFor;
-import org.mule.AbstractAnnotatedObject;
-import org.mule.MessageExchangePattern;
-import org.mule.api.DefaultMuleException;
-import org.mule.api.MuleContext;
-import org.mule.api.MuleRuntimeException;
-import org.mule.api.NamedObject;
-import org.mule.api.config.MuleProperties;
-import org.mule.api.lifecycle.InitialisationException;
-import org.mule.api.processor.CloneableMessageProcessor;
-import org.mule.api.processor.MessageProcessor;
-import org.mule.api.registry.RegistrationException;
-import org.mule.api.registry.ServiceException;
-import org.mule.api.registry.ServiceType;
-import org.mule.api.retry.RetryPolicyTemplate;
-import org.mule.api.security.SecurityFilter;
-import org.mule.api.transaction.TransactionConfig;
-import org.mule.api.transformer.Transformer;
-import org.mule.config.i18n.CoreMessages;
-import org.mule.processor.AbstractRedeliveryPolicy;
-import org.mule.processor.SecurityFilterMessageProcessor;
-import org.mule.routing.MessageFilter;
+import static org.mule.runtime.core.util.ObjectNameHelper.getEndpointNameFor;
+
+import org.mule.runtime.core.AbstractAnnotatedObject;
+import org.mule.runtime.core.MessageExchangePattern;
+import org.mule.runtime.core.api.DefaultMuleException;
+import org.mule.runtime.core.api.MuleContext;
+import org.mule.runtime.core.api.MuleRuntimeException;
+import org.mule.runtime.core.api.NamedObject;
+import org.mule.runtime.core.api.config.MuleProperties;
 import org.mule.runtime.core.api.endpoint.EndpointBuilder;
 import org.mule.runtime.core.api.endpoint.EndpointException;
 import org.mule.runtime.core.api.endpoint.EndpointMessageProcessorChainFactory;
@@ -36,20 +23,34 @@ import org.mule.runtime.core.api.endpoint.ImmutableEndpoint;
 import org.mule.runtime.core.api.endpoint.InboundEndpoint;
 import org.mule.runtime.core.api.endpoint.MalformedEndpointException;
 import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
+import org.mule.runtime.core.api.lifecycle.InitialisationException;
+import org.mule.runtime.core.api.processor.CloneableMessageProcessor;
+import org.mule.runtime.core.api.processor.MessageProcessor;
+import org.mule.runtime.core.api.registry.RegistrationException;
+import org.mule.runtime.core.api.registry.ServiceException;
+import org.mule.runtime.core.api.registry.ServiceType;
+import org.mule.runtime.core.api.retry.RetryPolicyTemplate;
 import org.mule.runtime.core.api.security.EndpointSecurityFilter;
+import org.mule.runtime.core.api.security.SecurityFilter;
+import org.mule.runtime.core.api.transaction.TransactionConfig;
+import org.mule.runtime.core.api.transformer.Transformer;
 import org.mule.runtime.core.api.transport.Connector;
-import org.mule.transaction.MuleTransactionConfig;
-import org.mule.transformer.TransformerUtils;
-import org.mule.transport.AbstractConnector;
-import org.mule.transport.service.TransportFactory;
-import org.mule.transport.service.TransportFactoryException;
-import org.mule.transport.service.TransportServiceDescriptor;
-import org.mule.transport.service.TransportServiceException;
-import org.mule.util.ClassUtils;
-import org.mule.util.CollectionUtils;
-import org.mule.util.MapCombiner;
-import org.mule.util.ObjectNameHelper;
-import org.mule.util.StringUtils;
+import org.mule.runtime.core.config.i18n.CoreMessages;
+import org.mule.runtime.core.processor.AbstractRedeliveryPolicy;
+import org.mule.runtime.core.processor.SecurityFilterMessageProcessor;
+import org.mule.runtime.core.routing.MessageFilter;
+import org.mule.runtime.core.transaction.MuleTransactionConfig;
+import org.mule.runtime.core.transformer.TransformerUtils;
+import org.mule.runtime.core.transport.AbstractConnector;
+import org.mule.runtime.core.transport.service.TransportFactory;
+import org.mule.runtime.core.transport.service.TransportFactoryException;
+import org.mule.runtime.core.transport.service.TransportServiceDescriptor;
+import org.mule.runtime.core.transport.service.TransportServiceException;
+import org.mule.runtime.core.util.ClassUtils;
+import org.mule.runtime.core.util.CollectionUtils;
+import org.mule.runtime.core.util.MapCombiner;
+import org.mule.runtime.core.util.ObjectNameHelper;
+import org.mule.runtime.core.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -108,11 +109,13 @@ public abstract class AbstractEndpointBuilder extends AbstractAnnotatedObject im
 
     protected transient Log logger = LogFactory.getLog(getClass());
 
+    @Override
     public InboundEndpoint buildInboundEndpoint() throws EndpointException, InitialisationException
     {
         return doBuildInboundEndpoint();
     }
 
+    @Override
     public OutboundEndpoint buildOutboundEndpoint() throws EndpointException, InitialisationException
     {
         return doBuildOutboundEndpoint();
@@ -696,12 +699,14 @@ public abstract class AbstractEndpointBuilder extends AbstractAnnotatedObject im
 
     // Builder setters
 
+    @Override
     public void setConnector(Connector connector)
     {
         this.connector = connector;
     }
 
     /** @deprecated Use setMessageProcessors() */
+    @Override
     @Deprecated
     public void setTransformers(List<Transformer> newTransformers)
     {
@@ -725,6 +730,7 @@ public abstract class AbstractEndpointBuilder extends AbstractAnnotatedObject im
     }
 
     /** @deprecated Use setResponseMessageProcessors() */
+    @Override
     @Deprecated
     public void setResponseTransformers(List<Transformer> newResponseTransformers)
     {
@@ -735,11 +741,13 @@ public abstract class AbstractEndpointBuilder extends AbstractAnnotatedObject im
         this.responseTransformers = newResponseTransformers;
     }
 
+    @Override
     public void addMessageProcessor(MessageProcessor messageProcessor)
     {
         messageProcessors.add(messageProcessor);
     }
 
+    @Override
     public void setMessageProcessors(List<MessageProcessor> newMessageProcessors)
     {
         if (newMessageProcessors == null)
@@ -754,11 +762,13 @@ public abstract class AbstractEndpointBuilder extends AbstractAnnotatedObject im
         return messageProcessors;
     }
 
+    @Override
     public void addResponseMessageProcessor(MessageProcessor messageProcessor)
     {
         responseMessageProcessors.add(messageProcessor);
     }
 
+    @Override
     public void setResponseMessageProcessors(List<MessageProcessor> newResponseMessageProcessors)
     {
         if (newResponseMessageProcessors == null)
@@ -785,6 +795,7 @@ public abstract class AbstractEndpointBuilder extends AbstractAnnotatedObject im
         return false;
     }
 
+    @Override
     public void setName(String name)
     {
         this.name = name;
@@ -793,6 +804,7 @@ public abstract class AbstractEndpointBuilder extends AbstractAnnotatedObject im
     /**
      * NOTE - this appends properties.
      */
+    @Override
     public void setProperties(Map<Object, Object> properties)
     {
         if (null == this.properties)
@@ -808,36 +820,43 @@ public abstract class AbstractEndpointBuilder extends AbstractAnnotatedObject im
      * @param key the property key
      * @param value the value of the property
      */
+    @Override
     public void setProperty(Object key, Object value)
     {
         properties.put(key, value);
     }
 
+    @Override
     public void setTransactionConfig(TransactionConfig transactionConfig)
     {
         this.transactionConfig = transactionConfig;
     }
 
+    @Override
     public void setDeleteUnacceptedMessages(boolean deleteUnacceptedMessages)
     {
         this.deleteUnacceptedMessages = Boolean.valueOf(deleteUnacceptedMessages);
     }
 
+    @Override
     public void setExchangePattern(MessageExchangePattern mep)
     {
         messageExchangePattern = mep;
     }
 
+    @Override
     public void setResponseTimeout(int responseTimeout)
     {
         this.responseTimeout = Integer.valueOf(responseTimeout);
     }
 
+    @Override
     public void setInitialState(String initialState)
     {
         this.initialState = initialState;
     }
 
+    @Override
     public void setEncoding(String encoding)
     {
         this.encoding = encoding;
@@ -853,22 +872,26 @@ public abstract class AbstractEndpointBuilder extends AbstractAnnotatedObject im
         this.redeliveryPolicy = redeliveryPolicy;
     }
 
+    @Override
     public void setRegistryId(String registryId)
     {
         this.registryId = registryId;
     }
 
+    @Override
     public void setMuleContext(MuleContext muleContext)
     {
         this.muleContext = muleContext;
         objectNameHelper = new ObjectNameHelper(muleContext);
     }
 
+    @Override
     public void setRetryPolicyTemplate(RetryPolicyTemplate retryPolicyTemplate)
     {
         this.retryPolicyTemplate = retryPolicyTemplate;
     }
 
+    @Override
     public void setDisableTransportTransformer(boolean disableTransportTransformer)
     {
         this.disableTransportTransformer = Boolean.valueOf(disableTransportTransformer);
@@ -879,6 +902,7 @@ public abstract class AbstractEndpointBuilder extends AbstractAnnotatedObject im
         return uriBuilder;
     }
 
+    @Override
     public void setURIBuilder(URIBuilder URIBuilder)
     {
         this.uriBuilder = URIBuilder;

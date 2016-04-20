@@ -6,14 +6,14 @@
  */
 package org.mule.runtime.core.endpoint.outbound;
 
-import org.mule.OptimizedRequestContext;
-import org.mule.api.MuleEvent;
-import org.mule.api.MuleException;
-import org.mule.api.MuleMessage;
-import org.mule.api.config.MuleProperties;
-import org.mule.api.processor.MessageProcessor;
+import org.mule.runtime.core.OptimizedRequestContext;
+import org.mule.runtime.core.api.MuleEvent;
+import org.mule.runtime.core.api.MuleException;
+import org.mule.runtime.core.api.MuleMessage;
+import org.mule.runtime.core.api.config.MuleProperties;
 import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
-import org.mule.util.ObjectUtils;
+import org.mule.runtime.core.api.processor.MessageProcessor;
+import org.mule.runtime.core.util.ObjectUtils;
 
 import java.util.Iterator;
 
@@ -33,6 +33,7 @@ public class OutboundEndpointPropertyMessageProcessor implements MessageProcesso
         this.endpoint = endpoint;
     }
 
+    @Override
     public MuleEvent process(MuleEvent event) throws MuleException
     {
         event.getMessage().setOutboundProperty(MuleProperties.MULE_ENDPOINT_PROPERTY,

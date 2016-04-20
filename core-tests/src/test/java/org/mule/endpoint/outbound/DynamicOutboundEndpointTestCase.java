@@ -45,6 +45,7 @@ import org.mule.runtime.core.api.transport.MessageDispatcher;
 import org.mule.runtime.core.endpoint.DynamicOutboundEndpoint;
 import org.mule.runtime.core.endpoint.DynamicURIBuilder;
 import org.mule.runtime.core.endpoint.URIBuilder;
+import org.mule.runtime.core.transport.service.DefaultTransportServiceDescriptor;
 import org.mule.tck.probe.PollingProber;
 import org.mule.tck.probe.Probe;
 import org.mule.tck.probe.Prober;
@@ -53,7 +54,6 @@ import org.mule.tck.testmodels.mule.TestMessageDispatcher;
 import org.mule.tck.testmodels.mule.TestMessageDispatcherFactory;
 import org.mule.transformer.simple.OutboundAppendTransformer;
 import org.mule.transformer.simple.ResponseAppendTransformer;
-import org.mule.transport.service.DefaultTransportServiceDescriptor;
 
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
@@ -65,7 +65,7 @@ import org.junit.Test;
 
 /**
  * Tests flow of messages from {@link org.mule.runtime.core.endpoint.DynamicOutboundEndpoint#process(org.mule.api.MuleEvent)} down to
- * {@link org.mule.transport.AbstractMessageDispatcher} and the chain of MessageProcessor's that
+ * {@link org.mule.runtime.core.transport.AbstractMessageDispatcher} and the chain of MessageProcessor's that
  * implement the outbound endpoint processing.
  */
 public class DynamicOutboundEndpointTestCase extends AbstractMessageProcessorTestCase

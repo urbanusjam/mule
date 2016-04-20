@@ -6,28 +6,28 @@
  */
 package org.mule.runtime.core.endpoint;
 
-import org.mule.MessageExchangePattern;
-import org.mule.VoidMuleEvent;
-import org.mule.api.MuleContext;
-import org.mule.api.MuleEvent;
-import org.mule.api.MuleException;
-import org.mule.api.config.MuleProperties;
-import org.mule.api.construct.FlowConstruct;
-import org.mule.api.construct.FlowConstructAware;
-import org.mule.api.context.MuleContextAware;
-import org.mule.api.exception.MessagingExceptionHandler;
-import org.mule.api.exception.MessagingExceptionHandlerAware;
-import org.mule.api.lifecycle.Initialisable;
-import org.mule.api.processor.MessageProcessor;
-import org.mule.api.retry.RetryPolicyTemplate;
-import org.mule.api.transaction.TransactionConfig;
-import org.mule.processor.AbstractRedeliveryPolicy;
+import org.mule.runtime.core.MessageExchangePattern;
+import org.mule.runtime.core.VoidMuleEvent;
+import org.mule.runtime.core.api.MuleContext;
+import org.mule.runtime.core.api.MuleEvent;
+import org.mule.runtime.core.api.MuleException;
+import org.mule.runtime.core.api.config.MuleProperties;
+import org.mule.runtime.core.api.construct.FlowConstruct;
+import org.mule.runtime.core.api.construct.FlowConstructAware;
+import org.mule.runtime.core.api.context.MuleContextAware;
 import org.mule.runtime.core.api.endpoint.EndpointMessageProcessorChainFactory;
 import org.mule.runtime.core.api.endpoint.EndpointURI;
 import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
+import org.mule.runtime.core.api.exception.MessagingExceptionHandler;
+import org.mule.runtime.core.api.exception.MessagingExceptionHandlerAware;
+import org.mule.runtime.core.api.lifecycle.Initialisable;
+import org.mule.runtime.core.api.processor.MessageProcessor;
+import org.mule.runtime.core.api.retry.RetryPolicyTemplate;
+import org.mule.runtime.core.api.transaction.TransactionConfig;
 import org.mule.runtime.core.api.transport.Connector;
-import org.mule.transport.AbstractConnector;
-import org.mule.util.StringUtils;
+import org.mule.runtime.core.processor.AbstractRedeliveryPolicy;
+import org.mule.runtime.core.transport.AbstractConnector;
+import org.mule.runtime.core.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -84,6 +84,7 @@ public class DefaultOutboundEndpoint extends AbstractEndpoint implements Outboun
         }
     }
 
+    @Override
     public List<String> getResponseProperties()
     {
         return responseProperties;
@@ -95,6 +96,7 @@ public class DefaultOutboundEndpoint extends AbstractEndpoint implements Outboun
         return false;
     }
 
+    @Override
     public MuleEvent process(MuleEvent event) throws MuleException
     {
         MuleEvent result = getMessageProcessorChain(event.getFlowConstruct()).process(event);

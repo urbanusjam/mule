@@ -6,8 +6,8 @@
  */
 package org.mule.runtime.core.api.endpoint;
 
-import org.mule.config.i18n.CoreMessages;
-import org.mule.config.i18n.Message;
+import org.mule.runtime.core.config.i18n.CoreMessages;
+import org.mule.runtime.core.config.i18n.Message;
 
 /**
  * <code>EndpointNotFoundException</code> is thrown when an endpoint name or

@@ -12,6 +12,7 @@ import static org.mockito.Mockito.mock;
 import org.mule.MessageExchangePattern;
 import org.mule.api.construct.FlowConstruct;
 import org.mule.runtime.core.api.transport.Connector;
+import org.mule.runtime.core.transport.AbstractMessageReceiver;
 import org.mule.tck.junit4.AbstractMuleContextTestCase;
 import org.mule.tck.testmodels.mule.TestMessageReceiver;
 import org.mule.util.concurrent.Latch;

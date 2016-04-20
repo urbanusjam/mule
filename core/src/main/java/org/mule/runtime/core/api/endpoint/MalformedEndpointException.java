@@ -6,8 +6,8 @@
  */
 package org.mule.runtime.core.api.endpoint;
 
-import org.mule.config.i18n.CoreMessages;
-import org.mule.config.i18n.Message;
+import org.mule.runtime.core.config.i18n.CoreMessages;
+import org.mule.runtime.core.config.i18n.Message;
 
 /**
  * <code>MalformedEndpointException</code> is thrown by the MuleEndpointURI class

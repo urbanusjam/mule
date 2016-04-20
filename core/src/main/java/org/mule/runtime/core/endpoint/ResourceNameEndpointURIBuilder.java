@@ -7,7 +7,7 @@
 package org.mule.runtime.core.endpoint;
 
 import org.mule.runtime.core.api.endpoint.MalformedEndpointException;
-import org.mule.util.StringUtils;
+import org.mule.runtime.core.util.StringUtils;
 
 import java.net.URI;
 import java.util.Properties;
@@ -27,6 +27,7 @@ public class ResourceNameEndpointURIBuilder extends AbstractEndpointURIBuilder
     
     public static final String RESOURCE_INFO_PROPERTY = "resourceInfo";
 
+    @Override
     protected void setEndpoint(URI uri, Properties props) throws MalformedEndpointException
     {
         address = StringUtils.EMPTY;

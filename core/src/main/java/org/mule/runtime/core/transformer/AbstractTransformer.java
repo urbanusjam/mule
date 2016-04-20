@@ -319,7 +319,7 @@ public abstract class AbstractTransformer extends AbstractAnnotatedObject implem
             else
             {
                 Message msg = CoreMessages.transformOnObjectUnsupportedTypeOfEndpoint(getName(),
-                        payload.getClass(), endpoint);
+                        endpoint, payload.getClass());
                 /// FIXME
                 throw new TransformerException(msg, this);
             }

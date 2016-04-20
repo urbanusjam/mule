@@ -6,9 +6,9 @@
  */
 package org.mule.runtime.core.api.transport;
 
-import org.mule.config.i18n.CoreMessages;
-import org.mule.config.i18n.Message;
 import org.mule.runtime.core.api.endpoint.EndpointException;
+import org.mule.runtime.core.config.i18n.CoreMessages;
+import org.mule.runtime.core.config.i18n.Message;
 
 /**
  * <code>NoReceiverForEndpointException</code> is thrown when an enpoint is

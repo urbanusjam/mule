@@ -6,31 +6,31 @@
  */
 package org.mule.runtime.core.endpoint;
 
-import org.mule.MessageExchangePattern;
-import org.mule.api.MuleContext;
-import org.mule.api.MuleException;
-import org.mule.api.MuleMessage;
-import org.mule.api.construct.FlowConstruct;
-import org.mule.api.construct.FlowConstructAware;
-import org.mule.api.context.MuleContextAware;
-import org.mule.api.exception.MessagingExceptionHandler;
-import org.mule.api.exception.MessagingExceptionHandlerAcceptor;
-import org.mule.api.lifecycle.Initialisable;
-import org.mule.api.lifecycle.LifecycleException;
-import org.mule.api.lifecycle.Startable;
-import org.mule.api.lifecycle.Stoppable;
-import org.mule.api.processor.MessageProcessor;
-import org.mule.api.retry.RetryPolicyTemplate;
-import org.mule.api.transaction.TransactionConfig;
-import org.mule.config.i18n.CoreMessages;
-import org.mule.exception.ChoiceMessagingExceptionStrategy;
-import org.mule.exception.RollbackMessagingExceptionStrategy;
-import org.mule.processor.AbstractRedeliveryPolicy;
+import org.mule.runtime.core.MessageExchangePattern;
+import org.mule.runtime.core.api.MuleContext;
+import org.mule.runtime.core.api.MuleException;
+import org.mule.runtime.core.api.MuleMessage;
+import org.mule.runtime.core.api.construct.FlowConstruct;
+import org.mule.runtime.core.api.construct.FlowConstructAware;
+import org.mule.runtime.core.api.context.MuleContextAware;
 import org.mule.runtime.core.api.endpoint.EndpointMessageProcessorChainFactory;
 import org.mule.runtime.core.api.endpoint.EndpointURI;
 import org.mule.runtime.core.api.endpoint.InboundEndpoint;
+import org.mule.runtime.core.api.exception.MessagingExceptionHandler;
+import org.mule.runtime.core.api.exception.MessagingExceptionHandlerAcceptor;
+import org.mule.runtime.core.api.lifecycle.Initialisable;
+import org.mule.runtime.core.api.lifecycle.LifecycleException;
+import org.mule.runtime.core.api.lifecycle.Startable;
+import org.mule.runtime.core.api.lifecycle.Stoppable;
+import org.mule.runtime.core.api.processor.MessageProcessor;
+import org.mule.runtime.core.api.retry.RetryPolicyTemplate;
+import org.mule.runtime.core.api.transaction.TransactionConfig;
 import org.mule.runtime.core.api.transport.Connector;
-import org.mule.transport.ConnectException;
+import org.mule.runtime.core.config.i18n.CoreMessages;
+import org.mule.runtime.core.exception.ChoiceMessagingExceptionStrategy;
+import org.mule.runtime.core.exception.RollbackMessagingExceptionStrategy;
+import org.mule.runtime.core.processor.AbstractRedeliveryPolicy;
+import org.mule.runtime.core.transport.ConnectException;
 
 import java.beans.ExceptionListener;
 import java.util.List;
@@ -152,6 +152,7 @@ public class DefaultInboundEndpoint extends AbstractEndpoint implements InboundE
         return processorChain;
     }
 
+    @Override
     public void setFlowConstruct(FlowConstruct flowConstruct)
     {
         this.flowConstruct = flowConstruct;

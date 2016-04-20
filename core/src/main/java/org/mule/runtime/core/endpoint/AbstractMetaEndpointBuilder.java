@@ -6,13 +6,13 @@
  */
 package org.mule.runtime.core.endpoint;
 
-import org.mule.api.MuleContext;
+import org.mule.runtime.core.api.MuleContext;
 import org.mule.runtime.core.api.endpoint.EndpointException;
 import org.mule.runtime.core.api.endpoint.EndpointURI;
 import org.mule.runtime.core.api.endpoint.ImmutableEndpoint;
 import org.mule.runtime.core.api.transport.Connector;
-import org.mule.transport.AbstractConnector;
-import org.mule.util.BeanUtils;
+import org.mule.runtime.core.transport.AbstractConnector;
+import org.mule.runtime.core.util.BeanUtils;
 
 import java.util.Map;
 

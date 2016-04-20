@@ -6,9 +6,9 @@
  */
 package org.mule.runtime.core.api.transport;
 
-import org.mule.api.MuleException;
-import org.mule.api.MuleMessage;
-import org.mule.api.MuleSession;
+import org.mule.runtime.core.api.MuleException;
+import org.mule.runtime.core.api.MuleMessage;
+import org.mule.runtime.core.api.MuleSession;
 
 /**
  * An interface used for reading and writing session information to and from the

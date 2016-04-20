@@ -6,8 +6,8 @@
  */
 package org.mule.runtime.core.api.registry;
 
-import org.mule.util.ClassUtils;
-import org.mule.util.StringUtils;
+import org.mule.runtime.core.util.ClassUtils;
+import org.mule.runtime.core.util.StringUtils;
 
 import java.util.Map;
 import java.util.Properties;
@@ -30,6 +30,7 @@ public abstract class AbstractServiceDescriptor implements ServiceDescriptor
         this.service = service;
     }
 
+    @Override
     public String getService()
     {
         return service;

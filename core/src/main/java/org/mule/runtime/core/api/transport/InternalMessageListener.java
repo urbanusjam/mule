@@ -6,9 +6,9 @@
  */
 package org.mule.runtime.core.api.transport;
 
-import org.mule.api.MuleException;
-import org.mule.api.MuleMessage;
-import org.mule.api.transaction.Transaction;
+import org.mule.runtime.core.api.MuleException;
+import org.mule.runtime.core.api.MuleMessage;
+import org.mule.runtime.core.api.transaction.Transaction;
 
 import java.io.OutputStream;
 

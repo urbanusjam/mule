@@ -6,9 +6,9 @@
  */
 package org.mule.runtime.core.api.endpoint;
 
-import org.mule.api.MuleException;
-import org.mule.api.context.MuleContextAware;
-import org.mule.api.registry.Registry;
+import org.mule.runtime.core.api.MuleException;
+import org.mule.runtime.core.api.context.MuleContextAware;
+import org.mule.runtime.core.api.registry.Registry;
 import org.mule.runtime.core.endpoint.EndpointURIEndpointBuilder;
 
 /**

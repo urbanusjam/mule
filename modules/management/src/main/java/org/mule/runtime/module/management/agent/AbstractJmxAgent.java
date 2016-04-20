@@ -20,6 +20,7 @@ import org.mule.runtime.core.construct.AbstractFlowConstruct;
 import org.mule.runtime.core.context.notification.MuleContextNotification;
 import org.mule.runtime.core.context.notification.NotificationException;
 import org.mule.runtime.core.management.stats.FlowConstructStatistics;
+import org.mule.runtime.core.transport.AbstractConnector;
 import org.mule.runtime.core.util.StringUtils;
 import org.mule.runtime.module.management.i18n.ManagementMessages;
 import org.mule.runtime.module.management.mbean.ApplicationService;
@@ -37,7 +38,6 @@ import org.mule.runtime.module.management.support.AutoDiscoveryJmxSupportFactory
 import org.mule.runtime.module.management.support.JmxSupport;
 import org.mule.runtime.module.management.support.JmxSupportFactory;
 import org.mule.runtime.module.management.support.SimplePasswordJmxAuthenticator;
-import org.mule.transport.AbstractConnector;
 
 import java.lang.management.ManagementFactory;
 import java.net.URI;

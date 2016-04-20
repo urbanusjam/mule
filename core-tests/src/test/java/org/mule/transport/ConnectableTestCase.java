@@ -9,6 +9,8 @@ package org.mule.transport;
 import org.mule.api.context.WorkManager;
 import org.mule.runtime.core.api.endpoint.ImmutableEndpoint;
 import org.mule.runtime.core.api.transport.Connectable;
+import org.mule.runtime.core.transport.AbstractTransportMessageHandler;
+import org.mule.runtime.core.transport.ConnectableLifecycleManager;
 import org.mule.tck.junit4.AbstractMuleContextTestCase;
 
 import org.junit.Test;

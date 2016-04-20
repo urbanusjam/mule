@@ -10,10 +10,10 @@ package org.mule.transport.polling.watermark;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
+import org.mule.runtime.core.transport.polling.watermark.selector.MaxValueWatermarkSelector;
+import org.mule.runtime.core.transport.polling.watermark.selector.MinValueWatermarkSelector;
 import org.mule.tck.junit4.AbstractMuleTestCase;
 import org.mule.tck.size.SmallTest;
-import org.mule.transport.polling.watermark.selector.MaxValueWatermarkSelector;
-import org.mule.transport.polling.watermark.selector.MinValueWatermarkSelector;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

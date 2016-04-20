@@ -6,10 +6,10 @@
  */
 package org.mule.runtime.core.endpoint.dynamic;
 
-import org.mule.api.MuleContext;
-import org.mule.api.MuleException;
-import org.mule.api.lifecycle.InitialisationException;
-import org.mule.transport.AbstractConnector;
+import org.mule.runtime.core.api.MuleContext;
+import org.mule.runtime.core.api.MuleException;
+import org.mule.runtime.core.api.lifecycle.InitialisationException;
+import org.mule.runtime.core.transport.AbstractConnector;
 
 /**
  * A placeholder for a connector that has not been created yet. This used by dynamic endpoints who's actual endpoint is
@@ -65,6 +65,7 @@ public class NullConnector extends AbstractConnector
         //do nothing
     }
 
+    @Override
     public String getProtocol()
     {
         return "dynamic";

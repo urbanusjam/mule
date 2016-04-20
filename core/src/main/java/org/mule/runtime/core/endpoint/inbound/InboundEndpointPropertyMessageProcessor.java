@@ -6,14 +6,16 @@
  */
 package org.mule.runtime.core.endpoint.inbound;
 
-import org.mule.api.MuleEvent;
-import org.mule.api.MuleException;
-import org.mule.api.config.MuleProperties;
-import org.mule.api.processor.MessageProcessor;
+import org.mule.runtime.core.api.MuleEvent;
+import org.mule.runtime.core.api.MuleException;
+import org.mule.runtime.core.api.config.MuleProperties;
 import org.mule.runtime.core.api.endpoint.InboundEndpoint;
+import org.mule.runtime.core.api.processor.MessageProcessor;
 import org.mule.runtime.core.api.transport.PropertyScope;
-import org.mule.util.ObjectUtils;
-import org.mule.util.StringUtils;
+import org.mule.runtime.core.util.ObjectUtils;
+import org.mule.runtime.core.util.StringUtils;
+
+;
 
 
 /**
@@ -29,6 +31,7 @@ public class InboundEndpointPropertyMessageProcessor implements MessageProcessor
         this.endpoint = endpoint;
     }
 
+    @Override
     public MuleEvent process(MuleEvent event) throws MuleException
     {
         // If the endpoint has a logical name, use it, otherwise use the URI.

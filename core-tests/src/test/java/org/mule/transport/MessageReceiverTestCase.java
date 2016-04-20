@@ -24,6 +24,7 @@ import org.mule.runtime.core.api.endpoint.InboundEndpoint;
 import org.mule.runtime.core.api.transport.MessageReceiver;
 import org.mule.runtime.core.api.transport.PropertyScope;
 import org.mule.runtime.core.endpoint.MuleEndpointURI;
+import org.mule.runtime.core.transport.AbstractConnector;
 import org.mule.session.NullSessionHandler;
 import org.mule.tck.junit4.AbstractMuleTestCase;
 import org.mule.tck.size.SmallTest;

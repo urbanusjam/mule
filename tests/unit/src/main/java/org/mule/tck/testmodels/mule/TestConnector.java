@@ -19,12 +19,12 @@ import org.mule.runtime.core.api.transport.MessageDispatcher;
 import org.mule.runtime.core.api.transport.MessageReceiver;
 import org.mule.runtime.core.api.transport.MessageRequester;
 import org.mule.runtime.core.endpoint.AbstractEndpoint;
-import org.mule.transport.AbstractConnector;
-import org.mule.transport.AbstractMessageDispatcherFactory;
-import org.mule.transport.AbstractMessageReceiver;
-import org.mule.transport.AbstractMessageRequesterFactory;
-import org.mule.transport.ConfigurableKeyedObjectPool;
-import org.mule.transport.service.TransportServiceDescriptor;
+import org.mule.runtime.core.transport.AbstractConnector;
+import org.mule.runtime.core.transport.AbstractMessageDispatcherFactory;
+import org.mule.runtime.core.transport.AbstractMessageReceiver;
+import org.mule.runtime.core.transport.AbstractMessageRequesterFactory;
+import org.mule.runtime.core.transport.ConfigurableKeyedObjectPool;
+import org.mule.runtime.core.transport.service.TransportServiceDescriptor;
 
 /**
  * <code>TestConnector</code> use a mock connector

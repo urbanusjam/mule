@@ -6,12 +6,12 @@
  */
 package org.mule.runtime.core.construct.builder;
 
-import org.mule.MessageExchangePattern;
-import org.mule.api.MuleContext;
-import org.mule.api.MuleException;
-import org.mule.construct.AbstractFlowConstruct;
+import org.mule.runtime.core.MessageExchangePattern;
+import org.mule.runtime.core.api.MuleContext;
+import org.mule.runtime.core.api.MuleException;
 import org.mule.runtime.core.api.endpoint.EndpointBuilder;
 import org.mule.runtime.core.api.endpoint.InboundEndpoint;
+import org.mule.runtime.core.construct.AbstractFlowConstruct;
 
 @SuppressWarnings("unchecked")
 public abstract class AbstractFlowConstructWithSingleInboundEndpointBuilder<T extends AbstractFlowConstructBuilder<?, ?>, F extends AbstractFlowConstruct>

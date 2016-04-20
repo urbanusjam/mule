@@ -39,8 +39,8 @@ import org.mule.runtime.core.api.security.EndpointSecurityFilter;
 import org.mule.runtime.core.context.notification.EndpointMessageNotification;
 import org.mule.runtime.core.endpoint.EndpointAware;
 import org.mule.runtime.core.endpoint.EndpointURIEndpointBuilder;
+import org.mule.runtime.core.transport.NullPayload;
 import org.mule.tck.junit4.AbstractMuleContextTestCase;
-import org.mule.transport.NullPayload;
 import org.mule.util.concurrent.Latch;
 
 import java.util.ArrayList;

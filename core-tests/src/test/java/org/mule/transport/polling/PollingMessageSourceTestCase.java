@@ -21,11 +21,12 @@ import org.mule.api.MuleException;
 import org.mule.api.construct.FlowConstruct;
 import org.mule.api.processor.MessageProcessor;
 import org.mule.api.schedule.Scheduler;
+import org.mule.runtime.core.transport.NullPayload;
+import org.mule.runtime.core.transport.polling.PollingMessageSource;
+import org.mule.runtime.core.transport.polling.MessageProcessorPollingOverride.NullOverride;
+import org.mule.runtime.core.transport.polling.schedule.FixedFrequencySchedulerFactory;
 import org.mule.tck.SensingNullMessageProcessor;
 import org.mule.tck.junit4.AbstractMuleContextTestCase;
-import org.mule.transport.NullPayload;
-import org.mule.transport.polling.MessageProcessorPollingOverride.NullOverride;
-import org.mule.transport.polling.schedule.FixedFrequencySchedulerFactory;
 
 import java.util.Collection;
 

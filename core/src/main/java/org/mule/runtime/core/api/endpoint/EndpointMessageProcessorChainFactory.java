@@ -6,9 +6,9 @@
  */
 package org.mule.runtime.core.api.endpoint;
 
-import org.mule.api.MuleException;
-import org.mule.api.construct.FlowConstruct;
-import org.mule.api.processor.MessageProcessor;
+import org.mule.runtime.core.api.MuleException;
+import org.mule.runtime.core.api.construct.FlowConstruct;
+import org.mule.runtime.core.api.processor.MessageProcessor;
 
 public interface EndpointMessageProcessorChainFactory
 {

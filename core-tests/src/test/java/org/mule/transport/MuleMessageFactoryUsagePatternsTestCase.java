@@ -16,6 +16,9 @@ import org.mule.runtime.core.api.transport.MessageDispatcher;
 import org.mule.runtime.core.api.transport.MessageReceiver;
 import org.mule.runtime.core.api.transport.MessageRequester;
 import org.mule.runtime.core.api.transport.MuleMessageFactory;
+import org.mule.runtime.core.transport.AbstractConnector;
+import org.mule.runtime.core.transport.AbstractMessageDispatcher;
+import org.mule.runtime.core.transport.AbstractMessageDispatcherFactory;
 import org.mule.tck.junit4.AbstractMuleContextTestCase;
 
 import org.junit.Test;

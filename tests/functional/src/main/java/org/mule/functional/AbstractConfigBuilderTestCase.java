@@ -27,9 +27,9 @@ import org.mule.processor.strategy.AsynchronousProcessingStrategy;
 import org.mule.routing.filters.MessagePropertyFilter;
 import org.mule.runtime.core.api.endpoint.ImmutableEndpoint;
 import org.mule.runtime.core.api.endpoint.InboundEndpoint;
+import org.mule.runtime.core.transport.AbstractConnector;
 import org.mule.tck.testmodels.mule.TestCompressionTransformer;
 import org.mule.transformer.types.DataTypeFactory;
-import org.mule.transport.AbstractConnector;
 
 import org.junit.Test;
 

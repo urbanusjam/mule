@@ -6,15 +6,15 @@
  */
 package org.mule.runtime.core.endpoint.outbound;
 
-import org.mule.api.MessagingException;
-import org.mule.api.MuleEvent;
-import org.mule.api.MuleMessage;
-import org.mule.api.config.MuleProperties;
-import org.mule.api.processor.MessageProcessor;
-import org.mule.config.i18n.CoreMessages;
+import org.mule.runtime.core.api.MessagingException;
+import org.mule.runtime.core.api.MuleEvent;
+import org.mule.runtime.core.api.MuleMessage;
+import org.mule.runtime.core.api.config.MuleProperties;
 import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
+import org.mule.runtime.core.api.processor.MessageProcessor;
 import org.mule.runtime.core.api.transport.PropertyScope;
-import org.mule.util.ObjectUtils;
+import org.mule.runtime.core.config.i18n.CoreMessages;
+import org.mule.runtime.core.util.ObjectUtils;
 
 import javax.activation.MimeType;
 import javax.activation.MimeTypeParseException;
@@ -32,6 +32,7 @@ public class OutboundEndpointMimeTypeCheckingMessageProcessor implements Message
         this.endpoint = endpoint;
     }
 
+    @Override
     public MuleEvent process(MuleEvent event) throws MessagingException
     {
         String endpointMimeType = endpoint.getMimeType();

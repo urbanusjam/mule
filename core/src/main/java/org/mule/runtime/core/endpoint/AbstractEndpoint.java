@@ -6,29 +6,29 @@
  */
 package org.mule.runtime.core.endpoint;
 
-import org.mule.AbstractAnnotatedObject;
-import org.mule.MessageExchangePattern;
-import org.mule.api.MuleContext;
-import org.mule.api.MuleEvent;
-import org.mule.api.MuleException;
-import org.mule.api.construct.FlowConstruct;
-import org.mule.api.lifecycle.Disposable;
-import org.mule.api.processor.MessageProcessor;
-import org.mule.api.processor.MessageProcessorChain;
-import org.mule.api.retry.RetryPolicyTemplate;
-import org.mule.api.routing.filter.Filter;
-import org.mule.api.security.SecurityFilter;
-import org.mule.api.transaction.TransactionConfig;
-import org.mule.api.transformer.Transformer;
-import org.mule.processor.AbstractRedeliveryPolicy;
-import org.mule.processor.SecurityFilterMessageProcessor;
-import org.mule.routing.MessageFilter;
+import org.mule.runtime.core.AbstractAnnotatedObject;
+import org.mule.runtime.core.MessageExchangePattern;
+import org.mule.runtime.core.api.MuleContext;
+import org.mule.runtime.core.api.MuleEvent;
+import org.mule.runtime.core.api.MuleException;
+import org.mule.runtime.core.api.construct.FlowConstruct;
 import org.mule.runtime.core.api.endpoint.EndpointMessageProcessorChainFactory;
 import org.mule.runtime.core.api.endpoint.EndpointURI;
 import org.mule.runtime.core.api.endpoint.ImmutableEndpoint;
+import org.mule.runtime.core.api.lifecycle.Disposable;
+import org.mule.runtime.core.api.processor.MessageProcessor;
+import org.mule.runtime.core.api.processor.MessageProcessorChain;
+import org.mule.runtime.core.api.retry.RetryPolicyTemplate;
+import org.mule.runtime.core.api.routing.filter.Filter;
 import org.mule.runtime.core.api.security.EndpointSecurityFilter;
+import org.mule.runtime.core.api.security.SecurityFilter;
+import org.mule.runtime.core.api.transaction.TransactionConfig;
+import org.mule.runtime.core.api.transformer.Transformer;
 import org.mule.runtime.core.api.transport.Connector;
-import org.mule.util.ClassUtils;
+import org.mule.runtime.core.processor.AbstractRedeliveryPolicy;
+import org.mule.runtime.core.processor.SecurityFilterMessageProcessor;
+import org.mule.runtime.core.routing.MessageFilter;
+import org.mule.runtime.core.util.ClassUtils;
 
 import java.net.URI;
 import java.util.Collections;
@@ -186,11 +186,13 @@ public abstract class AbstractEndpoint extends AbstractAnnotatedObject implement
         }
     }
 
+    @Override
     public EndpointURI getEndpointURI()
     {
         return endpointUri;
     }
 
+    @Override
     public String getAddress()
     {
         EndpointURI uri = getEndpointURI();
@@ -204,52 +206,62 @@ public abstract class AbstractEndpoint extends AbstractAnnotatedObject implement
         }
     }
 
+    @Override
     public String getEncoding()
     {
         return endpointEncoding;
     }
 
+    @Override
     public String getMimeType()
     {
         return endpointMimeType;
     }
 
+    @Override
     public Connector getConnector()
     {
         return connector;
     }
 
+    @Override
     public String getName()
     {
         return name;
     }
 
+    @Override
     public EndpointMessageProcessorChainFactory getMessageProcessorsFactory()
     {
         return messageProcessorsFactory;
     }
 
+    @Override
     public List <MessageProcessor> getMessageProcessors()
     {
         return messageProcessors;
     }
 
+    @Override
     public List <MessageProcessor> getResponseMessageProcessors()
     {
         return responseMessageProcessors;
     }
 
     /** @deprecated use getMessageProcessors() */
+    @Deprecated
     public List<Transformer> getTransformers()
     {
         return getTransformersFromProcessorList(messageProcessors);
     }
 
+    @Override
     public Map getProperties()
     {
         return properties;
     }
 
+    @Override
     public boolean isReadOnly()
     {
         return true;
@@ -301,11 +313,13 @@ public abstract class AbstractEndpoint extends AbstractAnnotatedObject implement
                 + disableTransportTransformer + "}";
     }
 
+    @Override
     public String getProtocol()
     {
         return connector.getProtocol();
     }
 
+    @Override
     public TransactionConfig getTransactionConfig()
     {
         return transactionConfig;
@@ -367,6 +381,7 @@ public abstract class AbstractEndpoint extends AbstractAnnotatedObject implement
                 disableTransportTransformer ? Boolean.TRUE : Boolean.FALSE});
     }
 
+    @Override
     public Filter getFilter()
     {
         // Call the first MessageFilter in the chain "the filter".
@@ -380,6 +395,7 @@ public abstract class AbstractEndpoint extends AbstractAnnotatedObject implement
         return null;
     }
 
+    @Override
     public boolean isDeleteUnacceptedMessages()
     {
         return deleteUnacceptedMessages;
@@ -393,6 +409,7 @@ public abstract class AbstractEndpoint extends AbstractAnnotatedObject implement
      *         this endpoint.
      * @see org.mule.runtime.core.api.security.EndpointSecurityFilter
      */
+    @Override
     public EndpointSecurityFilter getSecurityFilter()
     {
         for (MessageProcessor mp : messageProcessors)
@@ -410,6 +427,7 @@ public abstract class AbstractEndpoint extends AbstractAnnotatedObject implement
         return null;
     }
 
+    @Override
     public MessageExchangePattern getExchangePattern()
     {
         return messageExchangePattern;
@@ -420,6 +438,7 @@ public abstract class AbstractEndpoint extends AbstractAnnotatedObject implement
      *
      * @return the timeout in milliseconds
      */
+    @Override
     public int getResponseTimeout()
     {
         if (muleContext.getConfiguration().isDisableTimeouts())
@@ -435,6 +454,7 @@ public abstract class AbstractEndpoint extends AbstractAnnotatedObject implement
      *
      * @return the endpoint starting state
      */
+    @Override
     public String getInitialState()
     {
         return initialState;
@@ -457,41 +477,49 @@ public abstract class AbstractEndpoint extends AbstractAnnotatedObject implement
         return transformers;
     }
 
+    @Override
     public Object getProperty(Object key)
     {
         return properties.get(key);
     }
 
+    @Override
     public MuleContext getMuleContext()
     {
         return muleContext;
     }
 
+    @Override
     public RetryPolicyTemplate getRetryPolicyTemplate()
     {
         return retryPolicyTemplate;
     }
 
+    @Override
     public AbstractRedeliveryPolicy getRedeliveryPolicy()
     {
         return redeliveryPolicy;
     }
 
+    @Override
     public String getEndpointBuilderName()
     {
         return endpointBuilderName;
     }
 
+    @Override
     public boolean isProtocolSupported(String protocol)
     {
         return connector.supportsProtocol(protocol);
     }
     
+    @Override
     public boolean isDisableTransportTransformer() 
     {
         return disableTransportTransformer;
     }
 
+    @Override
     public void dispose()
     {
         this.muleContext = null;

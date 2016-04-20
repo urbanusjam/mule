@@ -6,10 +6,10 @@
  */
 package org.mule.runtime.core.api.transport;
 
-import org.mule.api.MessagingException;
-import org.mule.api.MuleEvent;
-import org.mule.api.MuleException;
-import org.mule.api.MuleMessage;
+import org.mule.runtime.core.api.MessagingException;
+import org.mule.runtime.core.api.MuleEvent;
+import org.mule.runtime.core.api.MuleException;
+import org.mule.runtime.core.api.MuleMessage;
 
 /**
  * <code>ReplyToHandler</code> is used to handle routing where a replyTo endpointUri is

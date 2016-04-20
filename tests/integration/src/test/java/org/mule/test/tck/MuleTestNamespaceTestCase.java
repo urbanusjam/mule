@@ -17,11 +17,11 @@ import org.mule.functional.functional.FunctionalTestComponent;
 import org.mule.functional.functional.ResponseWriterCallback;
 import org.mule.functional.junit4.FunctionalTestCase;
 import org.mule.runtime.core.api.transport.Connector;
+import org.mule.runtime.core.transport.ConfigurableKeyedObjectPool;
+import org.mule.runtime.core.transport.ConfigurableKeyedObjectPoolFactory;
+import org.mule.runtime.core.transport.DefaultConfigurableKeyedObjectPool;
+import org.mule.runtime.core.transport.DefaultConfigurableKeyedObjectPoolFactory;
 import org.mule.tck.testmodels.mule.TestConnector;
-import org.mule.transport.ConfigurableKeyedObjectPool;
-import org.mule.transport.ConfigurableKeyedObjectPoolFactory;
-import org.mule.transport.DefaultConfigurableKeyedObjectPool;
-import org.mule.transport.DefaultConfigurableKeyedObjectPoolFactory;
 
 import java.io.IOException;
 

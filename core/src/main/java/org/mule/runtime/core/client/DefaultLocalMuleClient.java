@@ -121,7 +121,7 @@ public class DefaultLocalMuleClient implements LocalMuleClient
             OutboundEndpoint endpoint = endpointCache.getOutboundEndpoint(url, MessageExchangePattern.REQUEST_RESPONSE, null);
             return returnMessage(endpoint.process(createMuleEvent(message, endpoint)));
         }
-        throw createUnsupportedUrlException(url);
+        // throw createUnsupportedUrlException(url);
     }
 
     // private MuleException createUnsupportedUrlException(String url)

@@ -6,8 +6,8 @@
  */
 package org.mule.runtime.core.api.endpoint;
 
-import org.mule.api.exception.MessagingExceptionHandlerAware;
-import org.mule.api.processor.MessageProcessor;
+import org.mule.runtime.core.api.exception.MessagingExceptionHandlerAware;
+import org.mule.runtime.core.api.processor.MessageProcessor;
 
 import java.util.List;
 

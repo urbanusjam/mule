@@ -7,7 +7,7 @@
 package org.mule.runtime.core.api.endpoint;
 
 
-import org.mule.api.MuleContext;
+import org.mule.runtime.core.api.MuleContext;
 
 import java.net.URI;
 

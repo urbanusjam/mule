@@ -13,6 +13,9 @@ import org.mule.api.retry.RetryCallback;
 import org.mule.api.retry.RetryPolicyTemplate;
 import org.mule.runtime.core.api.endpoint.ImmutableEndpoint;
 import org.mule.runtime.core.endpoint.MuleEndpointURI;
+import org.mule.runtime.core.transport.AbstractConnector;
+import org.mule.runtime.core.transport.AbstractTransportMessageHandler;
+import org.mule.runtime.core.transport.ConnectableLifecycleManager;
 import org.mule.transport.MuleAbstractTransportMessageHandlerTestCase.MethodInvocation.MethodPart;
 
 import java.util.List;

@@ -6,8 +6,8 @@
  */
 package org.mule.runtime.core.api.transport;
 
-import org.mule.api.lifecycle.Lifecycle;
-import org.mule.api.retry.RetryContext;
+import org.mule.runtime.core.api.lifecycle.Lifecycle;
+import org.mule.runtime.core.api.retry.RetryContext;
 
 /**
  * Interface for objects that should connect to a resource.

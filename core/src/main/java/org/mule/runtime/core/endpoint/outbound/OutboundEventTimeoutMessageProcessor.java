@@ -6,16 +6,17 @@
  */
 package org.mule.runtime.core.endpoint.outbound;
 
-import org.mule.api.MuleEvent;
-import org.mule.api.MuleException;
-import org.mule.api.config.MuleProperties;
-import org.mule.api.processor.MessageProcessor;
-import org.mule.util.ObjectUtils;
+import org.mule.runtime.core.api.MuleEvent;
+import org.mule.runtime.core.api.MuleException;
+import org.mule.runtime.core.api.config.MuleProperties;
+import org.mule.runtime.core.api.processor.MessageProcessor;
+import org.mule.runtime.core.util.ObjectUtils;
 
 
 public class OutboundEventTimeoutMessageProcessor implements MessageProcessor
 {
 
+    @Override
     public MuleEvent process(MuleEvent event) throws MuleException
     {
         int timeout = event.getMessage().getOutboundProperty(MuleProperties.MULE_EVENT_TIMEOUT_PROPERTY, -1);

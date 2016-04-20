@@ -15,6 +15,9 @@ import org.mule.api.lifecycle.LifecycleState;
 import org.mule.api.lifecycle.Startable;
 import org.mule.api.lifecycle.Stoppable;
 import org.mule.runtime.core.api.transport.MessageDispatcher;
+import org.mule.runtime.core.transport.AbstractConnector;
+import org.mule.runtime.core.transport.ConnectorLifecycleManager;
+import org.mule.runtime.core.transport.MessageDispatcherUtils;
 import org.mule.tck.junit4.AbstractMuleTestCase;
 import org.mule.tck.size.SmallTest;
 

@@ -11,7 +11,7 @@ import org.mule.api.MuleException;
 import org.mule.api.lifecycle.InitialisationException;
 import org.mule.api.processor.MessageProcessor;
 import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
-import org.mule.transport.AbstractConnector;
+import org.mule.runtime.core.transport.AbstractConnector;
 
 import java.util.ArrayList;
 import java.util.List;

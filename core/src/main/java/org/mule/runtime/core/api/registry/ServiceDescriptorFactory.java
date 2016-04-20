@@ -6,14 +6,14 @@
  */
 package org.mule.runtime.core.api.registry;
 
-import org.mule.api.MuleContext;
-import org.mule.api.config.MuleProperties;
-import org.mule.config.i18n.CoreMessages;
-import org.mule.transport.service.DefaultTransportServiceDescriptor;
-import org.mule.transport.service.MetaTransportServiceDescriptor;
-import org.mule.transport.service.TransportServiceDescriptor;
-import org.mule.util.ClassUtils;
-import org.mule.util.SpiUtils;
+import org.mule.runtime.core.api.MuleContext;
+import org.mule.runtime.core.api.config.MuleProperties;
+import org.mule.runtime.core.config.i18n.CoreMessages;
+import org.mule.runtime.core.transport.service.DefaultTransportServiceDescriptor;
+import org.mule.runtime.core.transport.service.MetaTransportServiceDescriptor;
+import org.mule.runtime.core.transport.service.TransportServiceDescriptor;
+import org.mule.runtime.core.util.ClassUtils;
+import org.mule.runtime.core.util.SpiUtils;
 
 import java.util.Properties;
 

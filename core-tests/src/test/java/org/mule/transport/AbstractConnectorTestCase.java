@@ -20,6 +20,7 @@ import org.mule.runtime.core.api.transport.Connector;
 import org.mule.runtime.core.api.transport.MessageDispatcherFactory;
 import org.mule.runtime.core.api.transport.MessageRequesterFactory;
 import org.mule.runtime.core.api.transport.MuleMessageFactory;
+import org.mule.runtime.core.transport.AbstractConnector;
 import org.mule.tck.junit4.AbstractMuleContextTestCase;
 import org.mule.tck.testmodels.fruit.Apple;
 

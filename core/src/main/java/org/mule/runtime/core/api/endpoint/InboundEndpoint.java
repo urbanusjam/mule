@@ -6,12 +6,12 @@
  */
 package org.mule.runtime.core.api.endpoint;
 
-import org.mule.api.construct.FlowConstructAware;
-import org.mule.api.lifecycle.Startable;
-import org.mule.api.lifecycle.Stoppable;
-import org.mule.api.source.MessageSource;
-import org.mule.processor.AbstractRedeliveryPolicy;
+import org.mule.runtime.core.api.construct.FlowConstructAware;
+import org.mule.runtime.core.api.lifecycle.Startable;
+import org.mule.runtime.core.api.lifecycle.Stoppable;
+import org.mule.runtime.core.api.source.MessageSource;
 import org.mule.runtime.core.api.transport.MessageRequesting;
+import org.mule.runtime.core.processor.AbstractRedeliveryPolicy;
 
 public interface InboundEndpoint
     extends ImmutableEndpoint, MessageRequesting, MessageSource, FlowConstructAware, Startable, Stoppable

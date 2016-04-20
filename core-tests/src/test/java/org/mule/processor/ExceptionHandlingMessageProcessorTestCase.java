@@ -12,7 +12,7 @@ import org.mule.api.MuleEvent;
 import org.mule.api.processor.InterceptingMessageProcessor;
 import org.mule.endpoint.AbstractMessageProcessorTestCase;
 import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
-import org.mule.transport.NullPayload;
+import org.mule.runtime.core.transport.NullPayload;
 
 import org.junit.Test;
 

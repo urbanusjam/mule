@@ -6,13 +6,13 @@
  */
 package org.mule.runtime.core.api.endpoint;
 
-import org.mule.MessageExchangePattern;
-import org.mule.api.context.MuleContextAware;
-import org.mule.api.lifecycle.InitialisationException;
-import org.mule.api.processor.MessageProcessor;
-import org.mule.api.retry.RetryPolicyTemplate;
-import org.mule.api.transaction.TransactionConfig;
-import org.mule.api.transformer.Transformer;
+import org.mule.runtime.core.MessageExchangePattern;
+import org.mule.runtime.core.api.context.MuleContextAware;
+import org.mule.runtime.core.api.lifecycle.InitialisationException;
+import org.mule.runtime.core.api.processor.MessageProcessor;
+import org.mule.runtime.core.api.retry.RetryPolicyTemplate;
+import org.mule.runtime.core.api.transaction.TransactionConfig;
+import org.mule.runtime.core.api.transformer.Transformer;
 import org.mule.runtime.core.api.transport.Connector;
 import org.mule.runtime.core.endpoint.URIBuilder;
 

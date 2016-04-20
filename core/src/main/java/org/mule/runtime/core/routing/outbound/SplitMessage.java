@@ -6,8 +6,8 @@
  */
 package org.mule.runtime.core.routing.outbound;
 
-import org.mule.config.i18n.CoreMessages;
 import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
+import org.mule.runtime.core.config.i18n.CoreMessages;
 
 import java.util.ArrayList;
 import java.util.List;

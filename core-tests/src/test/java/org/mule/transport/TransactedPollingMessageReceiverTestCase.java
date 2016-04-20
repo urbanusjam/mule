@@ -19,6 +19,8 @@ import org.mule.api.lifecycle.CreateException;
 import org.mule.config.i18n.CoreMessages;
 import org.mule.runtime.core.api.endpoint.InboundEndpoint;
 import org.mule.runtime.core.api.transport.Connector;
+import org.mule.runtime.core.transport.AbstractConnector;
+import org.mule.runtime.core.transport.TransactedPollingMessageReceiver;
 
 import java.util.List;
 

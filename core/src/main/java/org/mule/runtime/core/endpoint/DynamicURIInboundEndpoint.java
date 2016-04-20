@@ -6,25 +6,24 @@
  */
 package org.mule.runtime.core.endpoint;
 
-import org.mule.MessageExchangePattern;
-import org.mule.api.MuleContext;
-import org.mule.api.MuleException;
-import org.mule.api.MuleMessage;
-import org.mule.api.construct.FlowConstruct;
-import org.mule.api.lifecycle.LifecycleException;
-import org.mule.api.processor.MessageProcessor;
-import org.mule.api.retry.RetryPolicyTemplate;
-import org.mule.api.routing.filter.Filter;
-import org.mule.api.transaction.TransactionConfig;
-import org.mule.api.transformer.Transformer;
-import org.mule.config.i18n.CoreMessages;
-import org.mule.processor.AbstractRedeliveryPolicy;
+import org.mule.runtime.core.MessageExchangePattern;
+import org.mule.runtime.core.api.MuleContext;
+import org.mule.runtime.core.api.MuleException;
+import org.mule.runtime.core.api.MuleMessage;
+import org.mule.runtime.core.api.construct.FlowConstruct;
 import org.mule.runtime.core.api.endpoint.EndpointMessageProcessorChainFactory;
 import org.mule.runtime.core.api.endpoint.EndpointURI;
 import org.mule.runtime.core.api.endpoint.InboundEndpoint;
+import org.mule.runtime.core.api.lifecycle.LifecycleException;
+import org.mule.runtime.core.api.processor.MessageProcessor;
+import org.mule.runtime.core.api.retry.RetryPolicyTemplate;
+import org.mule.runtime.core.api.routing.filter.Filter;
 import org.mule.runtime.core.api.security.EndpointSecurityFilter;
+import org.mule.runtime.core.api.transaction.TransactionConfig;
 import org.mule.runtime.core.api.transport.Connector;
-import org.mule.transport.ConnectException;
+import org.mule.runtime.core.config.i18n.CoreMessages;
+import org.mule.runtime.core.processor.AbstractRedeliveryPolicy;
+import org.mule.runtime.core.transport.ConnectException;
 
 import java.util.List;
 import java.util.Map;
@@ -58,6 +57,7 @@ public class DynamicURIInboundEndpoint implements InboundEndpoint
         setEndpointURI(dynamicEndpointURI);
     }
 
+    @Override
     public EndpointURI getEndpointURI()
     {
         if (dynamicEndpointURI != null)
@@ -70,6 +70,7 @@ public class DynamicURIInboundEndpoint implements InboundEndpoint
         }
     }
 
+    @Override
     public String getAddress()
     {
         EndpointURI uri = getEndpointURI();
@@ -88,6 +89,7 @@ public class DynamicURIInboundEndpoint implements InboundEndpoint
         this.dynamicEndpointURI = dynamicEndpointURI;
     }
 
+    @Override
     public RetryPolicyTemplate getRetryPolicyTemplate()
     {
         return endpoint.getRetryPolicyTemplate();
@@ -99,116 +101,139 @@ public class DynamicURIInboundEndpoint implements InboundEndpoint
         return endpoint.getRedeliveryPolicy();
     }
 
+    @Override
     public Connector getConnector()
     {
         return endpoint.getConnector();
     }
 
+    @Override
     public String getEncoding()
     {
         return endpoint.getEncoding();
     }
 
+    @Override
     public String getMimeType()
     {
         return endpoint.getMimeType();
     }
 
+    @Override
     public Filter getFilter()
     {
         return endpoint.getFilter();
     }
 
+    @Override
     public String getInitialState()
     {
         return endpoint.getInitialState();
     }
 
+    @Override
     public MuleContext getMuleContext()
     {
         return endpoint.getMuleContext();
     }
 
+    @Override
     public String getName()
     {
         return endpoint.getName();
     }
 
+    @Override
     public Map getProperties()
     {
         return endpoint.getProperties();
     }
 
+    @Override
     public Object getProperty(Object key)
     {
         return endpoint.getProperty(key);
     }
 
+    @Override
     public String getProtocol()
     {
         return endpoint.getProtocol();
     }
 
+    @Override
     public int getResponseTimeout()
     {
         return endpoint.getResponseTimeout();
     }
 
+    @Override
     public EndpointMessageProcessorChainFactory getMessageProcessorsFactory()
     {
         return endpoint.getMessageProcessorsFactory();
     }
     
+    @Override
     public List <MessageProcessor> getMessageProcessors()
     {
         return endpoint.getMessageProcessors();
     }
 
+    @Override
     public List<MessageProcessor> getResponseMessageProcessors()
     {
         return endpoint.getResponseMessageProcessors();
     }
 
+    @Override
     public EndpointSecurityFilter getSecurityFilter()
     {
         return endpoint.getSecurityFilter();
     }
 
+    @Override
     public TransactionConfig getTransactionConfig()
     {
         return endpoint.getTransactionConfig();
     }
 
+    @Override
     public boolean isDeleteUnacceptedMessages()
     {
         return endpoint.isDeleteUnacceptedMessages();
     }
 
+    @Override
     public boolean isReadOnly()
     {
         return endpoint.isReadOnly();
     }
     
+    @Override
     public MessageExchangePattern getExchangePattern()
     {
         return endpoint.getExchangePattern();
     }
 
+    @Override
     public MuleMessage request(long timeout) throws Exception
     {
         return getConnector().request(this, timeout);
     }
 
+    @Override
     public String getEndpointBuilderName()
     {
         return endpoint.getEndpointBuilderName();
     }
 
+    @Override
     public boolean isProtocolSupported(String protocol)
     {
         return getConnector().supportsProtocol(protocol);
     }
 
+    @Override
     public boolean isDisableTransportTransformer()
     {
         return endpoint.isDisableTransportTransformer();
@@ -271,6 +296,7 @@ public class DynamicURIInboundEndpoint implements InboundEndpoint
         return true;
     }
 
+    @Override
     public void start() throws MuleException
     {
         try
@@ -288,6 +314,7 @@ public class DynamicURIInboundEndpoint implements InboundEndpoint
         }
     }
 
+    @Override
     public void stop() throws MuleException
     {
         try
@@ -300,11 +327,13 @@ public class DynamicURIInboundEndpoint implements InboundEndpoint
         }
     }
 
+    @Override
     public void setFlowConstruct(FlowConstruct flowConstruct)
     {
         this.flowConstruct = flowConstruct;
     }
 
+    @Override
     public void setListener(MessageProcessor listener)
     {
         this.listener = listener;

@@ -10,11 +10,11 @@ import static java.net.URLEncoder.encode;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.apache.commons.collections.TransformerUtils.nopTransformer;
 
-import org.mule.AbstractAnnotatedObject;
-import org.mule.api.MuleContext;
+import org.mule.runtime.core.AbstractAnnotatedObject;
+import org.mule.runtime.core.api.MuleContext;
 import org.mule.runtime.core.api.endpoint.EndpointException;
 import org.mule.runtime.core.api.endpoint.EndpointURI;
-import org.mule.util.ClassUtils;
+import org.mule.runtime.core.util.ClassUtils;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;

@@ -6,11 +6,8 @@
  */
 package org.mule.runtime.core.endpoint;
 
-import org.mule.api.MuleContext;
-import org.mule.api.MuleException;
-import org.mule.api.registry.RegistrationException;
-import org.mule.api.registry.ServiceType;
-import org.mule.config.i18n.CoreMessages;
+import org.mule.runtime.core.api.MuleContext;
+import org.mule.runtime.core.api.MuleException;
 import org.mule.runtime.core.api.endpoint.EndpointBuilder;
 import org.mule.runtime.core.api.endpoint.EndpointException;
 import org.mule.runtime.core.api.endpoint.EndpointFactory;
@@ -18,7 +15,10 @@ import org.mule.runtime.core.api.endpoint.EndpointURI;
 import org.mule.runtime.core.api.endpoint.ImmutableEndpoint;
 import org.mule.runtime.core.api.endpoint.InboundEndpoint;
 import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
-import org.mule.transport.service.TransportServiceDescriptor;
+import org.mule.runtime.core.api.registry.RegistrationException;
+import org.mule.runtime.core.api.registry.ServiceType;
+import org.mule.runtime.core.config.i18n.CoreMessages;
+import org.mule.runtime.core.transport.service.TransportServiceDescriptor;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -34,6 +34,7 @@ public class DefaultEndpointFactory implements EndpointFactory
 
     protected MuleContext muleContext;
 
+    @Override
     public InboundEndpoint getInboundEndpoint(String uri)
             throws MuleException
     {
@@ -47,6 +48,7 @@ public class DefaultEndpointFactory implements EndpointFactory
         return getInboundEndpoint(endpointBuilder);
     }
 
+    @Override
     public OutboundEndpoint getOutboundEndpoint(String uri)
             throws MuleException
     {
@@ -74,6 +76,7 @@ public class DefaultEndpointFactory implements EndpointFactory
         return endpointBuilder;
     }
 
+    @Override
     public InboundEndpoint getInboundEndpoint(EndpointBuilder builder) throws MuleException
     {
         InboundEndpoint endpoint = builder.buildInboundEndpoint();
@@ -81,6 +84,7 @@ public class DefaultEndpointFactory implements EndpointFactory
         return (InboundEndpoint) registerEndpoint(endpoint);
     }
 
+    @Override
     public OutboundEndpoint getOutboundEndpoint(EndpointBuilder builder) throws MuleException
     {
         return builder.buildOutboundEndpoint();
@@ -102,6 +106,7 @@ public class DefaultEndpointFactory implements EndpointFactory
         return registryEndpoint;
     }
 
+    @Override
     public EndpointBuilder getEndpointBuilder(String uri)
             throws MuleException
     {
@@ -128,6 +133,7 @@ public class DefaultEndpointFactory implements EndpointFactory
         return endpointBuilder;
     }
 
+    @Override
     public void setMuleContext(MuleContext context)
     {
         this.muleContext = context;
@@ -137,6 +143,7 @@ public class DefaultEndpointFactory implements EndpointFactory
     {
         return (OutboundEndpoint) getEndpoint(uri, new EndpointSource()
         {
+            @Override
             public ImmutableEndpoint getEndpoint(EndpointBuilder builder) throws MuleException
             {
                 return getOutboundEndpoint(builder);

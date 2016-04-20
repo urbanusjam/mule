@@ -6,11 +6,11 @@
  */
 package org.mule.runtime.core.endpoint;
 
-import org.mule.api.MuleContext;
-import org.mule.api.processor.MessageProcessor;
+import org.mule.runtime.core.api.MuleContext;
 import org.mule.runtime.core.api.endpoint.EndpointException;
 import org.mule.runtime.core.api.endpoint.EndpointURI;
 import org.mule.runtime.core.api.endpoint.ImmutableEndpoint;
+import org.mule.runtime.core.api.processor.MessageProcessor;
 
 import java.util.Collections;
 

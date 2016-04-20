@@ -10,12 +10,13 @@ package org.mule.transport.polling.schedule;
 import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.mock;
 import org.mule.api.MuleException;
+import org.mule.runtime.core.transport.AbstractPollingMessageReceiver;
+import org.mule.runtime.core.transport.PollingReceiverWorker;
+import org.mule.runtime.core.transport.polling.schedule.FixedFrequencyScheduler;
 import org.mule.tck.junit4.AbstractMuleContextTestCase;
 import org.mule.tck.probe.PollingProber;
 import org.mule.tck.probe.Probe;
 import org.mule.tck.probe.Prober;
-import org.mule.transport.AbstractPollingMessageReceiver;
-import org.mule.transport.PollingReceiverWorker;
 
 import java.util.concurrent.TimeUnit;
 

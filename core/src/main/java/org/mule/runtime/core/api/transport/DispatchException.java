@@ -6,10 +6,10 @@
  */
 package org.mule.runtime.core.api.transport;
 
-import org.mule.api.MuleEvent;
-import org.mule.api.processor.MessageProcessor;
-import org.mule.api.routing.RoutingException;
-import org.mule.config.i18n.Message;
+import org.mule.runtime.core.api.MuleEvent;
+import org.mule.runtime.core.api.processor.MessageProcessor;
+import org.mule.runtime.core.api.routing.RoutingException;
+import org.mule.runtime.core.config.i18n.Message;
 
 /**
  * <code>DispatchException</code> is thrown when an endpoint dispatcher fails to

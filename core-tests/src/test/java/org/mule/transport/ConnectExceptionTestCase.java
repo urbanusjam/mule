@@ -13,9 +13,9 @@ import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.assertTrue;
 
 import org.mule.runtime.core.api.transport.Connectable;
+import org.mule.runtime.core.transport.ConnectException;
 import org.mule.tck.SerializationTestUtils;
 import org.mule.tck.junit4.AbstractMuleContextTestCase;
-import org.mule.transport.ConnectException;
 
 import org.junit.Test;
 

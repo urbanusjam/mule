@@ -14,7 +14,7 @@ import org.mule.runtime.core.api.exception.SystemExceptionHandler;
 import org.mule.runtime.core.connector.ConnectException;
 import org.mule.runtime.core.message.DefaultExceptionPayload;
 import org.mule.runtime.core.transaction.TransactionCoordination;
-import org.mule.transport.AbstractConnector;
+import org.mule.runtime.core.transport.AbstractConnector;
 
 import javax.resource.spi.work.Work;
 

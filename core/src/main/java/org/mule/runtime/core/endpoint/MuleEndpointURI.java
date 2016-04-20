@@ -6,19 +6,19 @@
  */
 package org.mule.runtime.core.endpoint;
 
-import org.mule.api.MuleContext;
-import org.mule.api.lifecycle.InitialisationException;
-import org.mule.api.registry.ServiceException;
-import org.mule.api.registry.ServiceType;
-import org.mule.config.i18n.CoreMessages;
+import org.mule.runtime.core.api.MuleContext;
 import org.mule.runtime.core.api.endpoint.EndpointException;
 import org.mule.runtime.core.api.endpoint.EndpointURI;
 import org.mule.runtime.core.api.endpoint.EndpointURIBuilder;
 import org.mule.runtime.core.api.endpoint.MalformedEndpointException;
-import org.mule.transport.service.TransportServiceDescriptor;
-import org.mule.util.ClassUtils;
-import org.mule.util.PropertiesUtils;
-import org.mule.util.StringUtils;
+import org.mule.runtime.core.api.lifecycle.InitialisationException;
+import org.mule.runtime.core.api.registry.ServiceException;
+import org.mule.runtime.core.api.registry.ServiceType;
+import org.mule.runtime.core.config.i18n.CoreMessages;
+import org.mule.runtime.core.transport.service.TransportServiceDescriptor;
+import org.mule.runtime.core.util.ClassUtils;
+import org.mule.runtime.core.util.PropertiesUtils;
+import org.mule.runtime.core.util.StringUtils;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -211,6 +211,7 @@ public class MuleEndpointURI implements EndpointURI
         return uriString;
     }
 
+    @Override
     public void initialise() throws InitialisationException
     {
         try
@@ -270,16 +271,19 @@ public class MuleEndpointURI implements EndpointURI
         this.userInfo = endpointUri.getUserInfo();
     }
 
+    @Override
     public String getAddress()
     {
         return address;
     }
 
+    @Override
     public String getEndpointName()
     {
         return (StringUtils.isEmpty(endpointName) ? null : endpointName);
     }
 
+    @Override
     public Properties getParams()
     {
         // TODO fix this so that the query string properties are not lost.
@@ -291,6 +295,7 @@ public class MuleEndpointURI implements EndpointURI
         return params;
     }
 
+    @Override
     public Properties getUserParams()
     {
         Properties p = new Properties();
@@ -326,6 +331,7 @@ public class MuleEndpointURI implements EndpointURI
         return uri.relativize(uri);
     }
 
+    @Override
     public String getScheme()
     {
         return isDynamic() ? getDynamicScheme() : uri.getScheme();
@@ -337,6 +343,7 @@ public class MuleEndpointURI implements EndpointURI
         return address.substring(0, colon);
     }
 
+    @Override
     public String getFullScheme()
     {
         String scheme;
@@ -376,6 +383,7 @@ public class MuleEndpointURI implements EndpointURI
         return uri.getRawAuthority();
     }
 
+    @Override
     public String getAuthority()
     {
         return uri.getAuthority();
@@ -386,16 +394,19 @@ public class MuleEndpointURI implements EndpointURI
         return uri.getRawUserInfo();
     }
 
+    @Override
     public String getUserInfo()
     {
         return userInfo;
     }
 
+    @Override
     public String getHost()
     {
         return uri.getHost();
     }
 
+    @Override
     public int getPort()
     {
         return uri.getPort();
@@ -406,6 +417,7 @@ public class MuleEndpointURI implements EndpointURI
         return uri.getRawPath();
     }
 
+    @Override
     public String getPath()
     {
         return uri.getPath();
@@ -416,6 +428,7 @@ public class MuleEndpointURI implements EndpointURI
         return uri.getRawQuery();
     }
 
+    @Override
     public String getQuery()
     {
         return uri.getQuery();
@@ -462,36 +475,43 @@ public class MuleEndpointURI implements EndpointURI
         return uri.toASCIIString().replace(rawUserInfo, maskedUserInfo);
     }
 
+    @Override
     public String getTransformers()
     {
         return transformers;
     }
 
+    @Override
     public URI getUri()
     {
         return uri;
     }
 
+    @Override
     public String getConnectorName()
     {
         return connectorName;
     }
 
+    @Override
     public String getSchemeMetaInfo()
     {
         return (schemeMetaInfo == null ? uri.getScheme() : schemeMetaInfo);
     }
 
+    @Override
     public String getResourceInfo()
     {
         return resourceInfo;
     }
 
+    @Override
     public String getFilterAddress()
     {
         return filterAddress;
     }
 
+    @Override
     public String getUser()
     {
         if (StringUtils.isNotBlank(userInfo))
@@ -509,11 +529,13 @@ public class MuleEndpointURI implements EndpointURI
         return null;
     }
 
+    @Override
     public String getResponseTransformers()
     {
         return responseTransformers;
     }
 
+    @Override
     public String getPassword()
     {
         if (StringUtils.isNotBlank(userInfo))
@@ -527,6 +549,7 @@ public class MuleEndpointURI implements EndpointURI
         return null;
     }
 
+    @Override
     public MuleContext getMuleContext()
     {
         return muleContext;

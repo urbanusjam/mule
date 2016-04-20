@@ -6,16 +6,16 @@
  */
 package org.mule.runtime.core.endpoint.inbound;
 
-import org.mule.VoidMuleEvent;
-import org.mule.api.MuleContext;
-import org.mule.api.MuleEvent;
-import org.mule.api.MuleException;
-import org.mule.api.MuleMessage;
-import org.mule.api.context.MuleContextAware;
-import org.mule.api.processor.MessageProcessor;
-import org.mule.config.ExceptionHelper;
+import org.mule.runtime.core.VoidMuleEvent;
+import org.mule.runtime.core.api.MuleContext;
+import org.mule.runtime.core.api.MuleEvent;
+import org.mule.runtime.core.api.MuleException;
+import org.mule.runtime.core.api.MuleMessage;
+import org.mule.runtime.core.api.context.MuleContextAware;
+import org.mule.runtime.core.api.processor.MessageProcessor;
 import org.mule.runtime.core.api.transport.Connector;
-import org.mule.util.ObjectUtils;
+import org.mule.runtime.core.config.ExceptionHelper;
+import org.mule.runtime.core.util.ObjectUtils;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -42,6 +42,7 @@ public class InboundExceptionDetailsMessageProcessor implements MessageProcessor
         this.connector = connector;
     }
 
+    @Override
     public MuleEvent process(MuleEvent event) throws MuleException
     {
         if (event != null && !VoidMuleEvent.getInstance().equals(event))

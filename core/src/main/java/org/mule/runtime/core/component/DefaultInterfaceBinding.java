@@ -6,19 +6,19 @@
  */
 package org.mule.runtime.core.component;
 
-import org.mule.OptimizedRequestContext;
-import org.mule.RequestContext;
-import org.mule.api.MuleEvent;
-import org.mule.api.MuleException;
-import org.mule.api.MuleRuntimeException;
-import org.mule.api.component.InterfaceBinding;
-import org.mule.api.exception.MessagingExceptionHandler;
-import org.mule.api.exception.MessagingExceptionHandlerAware;
-import org.mule.api.lifecycle.Initialisable;
-import org.mule.api.lifecycle.InitialisationException;
-import org.mule.config.i18n.CoreMessages;
+import org.mule.runtime.core.OptimizedRequestContext;
+import org.mule.runtime.core.RequestContext;
+import org.mule.runtime.core.api.MuleEvent;
+import org.mule.runtime.core.api.MuleException;
+import org.mule.runtime.core.api.MuleRuntimeException;
+import org.mule.runtime.core.api.component.InterfaceBinding;
 import org.mule.runtime.core.api.endpoint.ImmutableEndpoint;
 import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
+import org.mule.runtime.core.api.exception.MessagingExceptionHandler;
+import org.mule.runtime.core.api.exception.MessagingExceptionHandlerAware;
+import org.mule.runtime.core.api.lifecycle.Initialisable;
+import org.mule.runtime.core.api.lifecycle.InitialisationException;
+import org.mule.runtime.core.config.i18n.CoreMessages;
 
 import java.lang.reflect.Proxy;
 
@@ -38,32 +38,38 @@ public class DefaultInterfaceBinding implements InterfaceBinding, MessagingExcep
     // The router used to actually dispatch the message
     protected OutboundEndpoint endpoint;
 
+    @Override
     public MuleEvent process(MuleEvent event) throws MuleException
     {
         OptimizedRequestContext.unsafeRewriteEvent(event.getMessage());
         return endpoint.process(RequestContext.getEvent());
     }
 
+    @Override
     public void setInterface(Class<?> interfaceClass)
     {
         this.interfaceClass = interfaceClass;
     }
 
+    @Override
     public Class<?> getInterface()
     {
         return interfaceClass;
     }
 
+    @Override
     public String getMethod()
     {
         return methodName;
     }
 
+    @Override
     public void setMethod(String methodName)
     {
         this.methodName = methodName;
     }
 
+    @Override
     public Object createProxy(Object target)
     {
         try
@@ -83,6 +89,7 @@ public class DefaultInterfaceBinding implements InterfaceBinding, MessagingExcep
         }
     }
 
+    @Override
     public void setEndpoint(ImmutableEndpoint e) throws MuleException
     {
         if (e instanceof OutboundEndpoint)
@@ -111,6 +118,7 @@ public class DefaultInterfaceBinding implements InterfaceBinding, MessagingExcep
         return sb.toString();
     }
 
+    @Override
     public ImmutableEndpoint getEndpoint()
     {
         if (endpoint != null)

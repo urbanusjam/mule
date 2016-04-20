@@ -8,7 +8,7 @@ package org.mule.runtime.core.util;
 
 import org.mule.runtime.core.api.registry.ServiceType;
 import org.mule.runtime.core.config.ExceptionHelper;
-import org.mule.transport.service.TransportFactory;
+import org.mule.runtime.core.transport.service.TransportFactory;
 
 import java.io.IOException;
 import java.io.InputStream;

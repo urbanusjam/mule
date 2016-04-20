@@ -6,23 +6,23 @@
  */
 package org.mule.runtime.core.api.transport;
 
-import org.mule.MessageExchangePattern;
-import org.mule.api.MuleContext;
-import org.mule.api.MuleEvent;
-import org.mule.api.MuleException;
-import org.mule.api.MuleMessage;
-import org.mule.api.NameableObject;
-import org.mule.api.construct.FlowConstruct;
-import org.mule.api.lifecycle.CreateException;
-import org.mule.api.lifecycle.Lifecycle;
-import org.mule.api.lifecycle.LifecycleStateEnabled;
-import org.mule.api.processor.MessageProcessor;
-import org.mule.api.retry.RetryPolicyTemplate;
-import org.mule.model.streaming.CallbackOutputStream;
-import org.mule.processor.AbstractRedeliveryPolicy;
+import org.mule.runtime.core.MessageExchangePattern;
+import org.mule.runtime.core.api.MuleContext;
+import org.mule.runtime.core.api.MuleEvent;
+import org.mule.runtime.core.api.MuleException;
+import org.mule.runtime.core.api.MuleMessage;
+import org.mule.runtime.core.api.NameableObject;
+import org.mule.runtime.core.api.construct.FlowConstruct;
 import org.mule.runtime.core.api.endpoint.EndpointURI;
 import org.mule.runtime.core.api.endpoint.InboundEndpoint;
 import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
+import org.mule.runtime.core.api.lifecycle.CreateException;
+import org.mule.runtime.core.api.lifecycle.Lifecycle;
+import org.mule.runtime.core.api.lifecycle.LifecycleStateEnabled;
+import org.mule.runtime.core.api.processor.MessageProcessor;
+import org.mule.runtime.core.api.retry.RetryPolicyTemplate;
+import org.mule.runtime.core.model.streaming.CallbackOutputStream;
+import org.mule.runtime.core.processor.AbstractRedeliveryPolicy;
 
 import java.io.OutputStream;
 import java.util.List;
@@ -65,6 +65,7 @@ public interface Connector extends Lifecycle, NameableObject, Connectable, Lifec
      */
     boolean isStarted();
 
+    @Override
     boolean isConnected();
 
     /**

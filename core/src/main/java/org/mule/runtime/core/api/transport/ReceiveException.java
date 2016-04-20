@@ -6,11 +6,11 @@
  */
 package org.mule.runtime.core.api.transport;
 
-import org.mule.api.MuleException;
-import org.mule.config.i18n.CoreMessages;
-import org.mule.config.i18n.Message;
+import org.mule.runtime.core.api.MuleException;
 import org.mule.runtime.core.api.endpoint.ImmutableEndpoint;
-import org.mule.util.ObjectUtils;
+import org.mule.runtime.core.config.i18n.CoreMessages;
+import org.mule.runtime.core.config.i18n.Message;
+import org.mule.runtime.core.util.ObjectUtils;
 
 /**
  * <code>ReceiveException</code> is specifically thrown by the Provider receive

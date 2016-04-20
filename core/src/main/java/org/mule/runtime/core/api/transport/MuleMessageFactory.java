@@ -6,8 +6,8 @@
  */
 package org.mule.runtime.core.api.transport;
 
-import org.mule.api.MuleContext;
-import org.mule.api.MuleMessage;
+import org.mule.runtime.core.api.MuleContext;
+import org.mule.runtime.core.api.MuleMessage;
 
 /**
  * <code>MuleMessageFactory</code> is a factory for creating a {@link MuleMessage} from a transport's

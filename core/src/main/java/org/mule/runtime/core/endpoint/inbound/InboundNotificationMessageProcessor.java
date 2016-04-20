@@ -6,13 +6,13 @@
  */
 package org.mule.runtime.core.endpoint.inbound;
 
-import org.mule.api.MuleEvent;
-import org.mule.api.MuleException;
-import org.mule.api.processor.MessageProcessor;
+import org.mule.runtime.core.api.MuleEvent;
+import org.mule.runtime.core.api.MuleException;
 import org.mule.runtime.core.api.endpoint.InboundEndpoint;
+import org.mule.runtime.core.api.processor.MessageProcessor;
 import org.mule.runtime.core.context.notification.EndpointMessageNotification;
-import org.mule.transport.AbstractConnector;
-import org.mule.util.ObjectUtils;
+import org.mule.runtime.core.transport.AbstractConnector;
+import org.mule.runtime.core.util.ObjectUtils;
 
 /**
  * Publishes a {@link EndpointMessageNotification}'s when a message is received.
@@ -26,6 +26,7 @@ public class InboundNotificationMessageProcessor implements MessageProcessor
         this.endpoint = endpoint;
     }
 
+    @Override
     public MuleEvent process(MuleEvent event) throws MuleException
     {
         AbstractConnector connector = (AbstractConnector) endpoint.getConnector();

@@ -6,15 +6,15 @@
  */
 package org.mule.runtime.core.api.transport;
 
-import org.mule.api.MuleEvent;
-import org.mule.api.MuleException;
-import org.mule.api.MuleMessage;
-import org.mule.api.construct.FlowConstruct;
-import org.mule.api.source.MessageSource;
-import org.mule.api.transaction.Transaction;
+import org.mule.runtime.core.api.MuleEvent;
+import org.mule.runtime.core.api.MuleException;
+import org.mule.runtime.core.api.MuleMessage;
+import org.mule.runtime.core.api.construct.FlowConstruct;
 import org.mule.runtime.core.api.endpoint.EndpointURI;
 import org.mule.runtime.core.api.endpoint.ImmutableEndpoint;
 import org.mule.runtime.core.api.endpoint.InboundEndpoint;
+import org.mule.runtime.core.api.source.MessageSource;
+import org.mule.runtime.core.api.transaction.Transaction;
 
 import java.io.OutputStream;
 

@@ -17,10 +17,10 @@ import org.mule.runtime.core.api.transformer.Transformer;
 import org.mule.runtime.core.api.transformer.TransformerException;
 import org.mule.runtime.core.config.i18n.CoreMessages;
 import org.mule.runtime.core.transformer.types.DataTypeFactory;
+import org.mule.runtime.core.transport.service.TransportFactoryException;
+import org.mule.runtime.core.transport.service.TransportServiceDescriptor;
 import org.mule.runtime.core.util.ClassUtils;
 import org.mule.runtime.core.util.StringUtils;
-import org.mule.transport.service.TransportFactoryException;
-import org.mule.transport.service.TransportServiceDescriptor;
 
 import java.util.Iterator;
 import java.util.LinkedList;
