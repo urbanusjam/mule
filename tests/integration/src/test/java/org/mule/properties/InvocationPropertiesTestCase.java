@@ -89,7 +89,7 @@ public class InvocationPropertiesTestCase extends FunctionalTestCase
     }
 
     @Test
-    public void propagationThroughOneWayFlowSedaQueue() throws Exception
+    public void propagationThroughOneWayFlow() throws Exception
     {
         Object nonSerializable = new Object();
         FlowRunner runner = flowRunner("AsyncFlow").withPayload("data")

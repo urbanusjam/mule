@@ -6,16 +6,6 @@
  */
 package org.mule.runtime.config.spring.handlers;
 
-import org.mule.runtime.core.api.config.MuleProperties;
-import org.mule.runtime.core.api.config.ThreadingProfile;
-import org.mule.runtime.core.api.processor.LoggerMessageProcessor;
-import org.mule.runtime.core.api.source.MessageSource;
-import org.mule.runtime.core.component.DefaultJavaComponent;
-import org.mule.runtime.core.component.PooledJavaComponent;
-import org.mule.runtime.core.component.SimpleCallableJavaComponent;
-import org.mule.runtime.core.component.simple.EchoComponent;
-import org.mule.runtime.core.component.simple.LogComponent;
-import org.mule.runtime.core.component.simple.NullComponent;
 import org.mule.runtime.config.spring.factories.AggregationStrategyDefinitionParser;
 import org.mule.runtime.config.spring.factories.ChoiceRouterFactoryBean;
 import org.mule.runtime.config.spring.factories.CompositeMessageSourceFactoryBean;
@@ -93,6 +83,16 @@ import org.mule.runtime.config.spring.parsers.specific.TypedPropertyMapEntryDefi
 import org.mule.runtime.config.spring.parsers.specific.XaTransactionDefinitionParser;
 import org.mule.runtime.config.spring.parsers.specific.endpoint.support.ChildEndpointDefinitionParser;
 import org.mule.runtime.config.spring.util.SpringBeanLookup;
+import org.mule.runtime.core.api.config.MuleProperties;
+import org.mule.runtime.core.api.config.ThreadingProfile;
+import org.mule.runtime.core.api.processor.LoggerMessageProcessor;
+import org.mule.runtime.core.api.source.MessageSource;
+import org.mule.runtime.core.component.DefaultJavaComponent;
+import org.mule.runtime.core.component.PooledJavaComponent;
+import org.mule.runtime.core.component.SimpleCallableJavaComponent;
+import org.mule.runtime.core.component.simple.EchoComponent;
+import org.mule.runtime.core.component.simple.LogComponent;
+import org.mule.runtime.core.component.simple.NullComponent;
 import org.mule.runtime.core.context.notification.ListenerSubscriptionPair;
 import org.mule.runtime.core.el.ExpressionLanguageComponent;
 import org.mule.runtime.core.enricher.MessageEnricher;
@@ -122,9 +122,6 @@ import org.mule.runtime.core.processor.IdempotentRedeliveryPolicy;
 import org.mule.runtime.core.processor.InvokerMessageProcessor;
 import org.mule.runtime.core.processor.strategy.AsynchronousProcessingStrategy;
 import org.mule.runtime.core.processor.strategy.NonBlockingProcessingStrategy;
-import org.mule.runtime.core.processor.strategy.QueuedAsynchronousProcessingStrategy;
-import org.mule.runtime.core.processor.strategy.QueuedThreadPerProcessorProcessingStrategy;
-import org.mule.runtime.core.processor.strategy.ThreadPerProcessorProcessingStrategy;
 import org.mule.runtime.core.retry.notifiers.ConnectNotifier;
 import org.mule.runtime.core.retry.policies.RetryForeverPolicyTemplate;
 import org.mule.runtime.core.retry.policies.SimpleRetryPolicyTemplate;
@@ -160,6 +157,7 @@ import org.mule.runtime.core.security.PasswordBasedEncryptionStrategy;
 import org.mule.runtime.core.security.SecretKeyEncryptionStrategy;
 import org.mule.runtime.core.security.UsernamePasswordAuthenticationFilter;
 import org.mule.runtime.core.security.filters.MuleEncryptionEndpointSecurityFilter;
+import org.mule.runtime.core.source.polling.schedule.FixedFrequencySchedulerFactory;
 import org.mule.runtime.core.transaction.XaTransactionFactory;
 import org.mule.runtime.core.transaction.lookup.GenericTransactionManagerLookupFactory;
 import org.mule.runtime.core.transaction.lookup.JBossTransactionManagerLookupFactory;
@@ -199,7 +197,6 @@ import org.mule.runtime.core.transformer.simple.RemoveSessionVariableTransformer
 import org.mule.runtime.core.transformer.simple.SerializableToByteArray;
 import org.mule.runtime.core.transformer.simple.SetPayloadMessageProcessor;
 import org.mule.runtime.core.transformer.simple.StringAppendTransformer;
-import org.mule.runtime.core.source.polling.schedule.FixedFrequencySchedulerFactory;
 import org.mule.runtime.core.util.store.InMemoryObjectStore;
 import org.mule.runtime.core.util.store.ManagedObjectStore;
 import org.mule.runtime.core.util.store.TextFileObjectStore;
@@ -414,15 +411,6 @@ public class MuleNamespaceHandler extends AbstractMuleNamespaceHandler
         // Processing Strategies
         registerMuleBeanDefinitionParser("asynchronous-processing-strategy",
             new OrphanDefinitionParser(AsynchronousProcessingStrategy.class, false)).addMapping(
-            "poolExhaustedAction", ThreadingProfile.POOL_EXHAUSTED_ACTIONS).addIgnored("name");
-        registerMuleBeanDefinitionParser("queued-asynchronous-processing-strategy",
-            new OrphanDefinitionParser(QueuedAsynchronousProcessingStrategy.class, false)).addMapping(
-            "poolExhaustedAction", ThreadingProfile.POOL_EXHAUSTED_ACTIONS).addIgnored("name");
-        registerMuleBeanDefinitionParser("thread-per-processor-processing-strategy",
-            new OrphanDefinitionParser(ThreadPerProcessorProcessingStrategy.class, false)).addMapping(
-            "poolExhaustedAction", ThreadingProfile.POOL_EXHAUSTED_ACTIONS).addIgnored("name");
-        registerMuleBeanDefinitionParser("queued-thread-per-processor-processing-strategy",
-            new OrphanDefinitionParser(QueuedThreadPerProcessorProcessingStrategy.class, false)).addMapping(
             "poolExhaustedAction", ThreadingProfile.POOL_EXHAUSTED_ACTIONS).addIgnored("name");
         registerMuleBeanDefinitionParser("non-blocking-processing-strategy",
             new OrphanDefinitionParser(NonBlockingProcessingStrategy.class, false)).addMapping(
