@@ -4,18 +4,18 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
-package org.mule.module.client;
+package org.mule.runtime.module.client;
 
-import org.mule.MessageExchangePattern;
-import org.mule.api.MuleException;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
+
+import org.mule.runtime.core.MessageExchangePattern;
+import org.mule.runtime.core.api.MuleException;
 import org.mule.runtime.core.api.endpoint.InboundEndpoint;
 import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
 import org.mule.tck.junit4.AbstractMuleContextTestCase;
 
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
 
 public abstract class AbstractMuleClientTestCase extends AbstractMuleContextTestCase
 {

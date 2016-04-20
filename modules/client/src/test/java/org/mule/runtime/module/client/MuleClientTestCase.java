@@ -4,15 +4,15 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
-package org.mule.module.client;
-
-import org.mule.api.MuleException;
-
-import org.junit.Test;
+package org.mule.runtime.module.client;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+
+import org.mule.runtime.core.api.MuleException;
+
+import org.junit.Test;
 
 public class MuleClientTestCase extends AbstractMuleClientTestCase
 {

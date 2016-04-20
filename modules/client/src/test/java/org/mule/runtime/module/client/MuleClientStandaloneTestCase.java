@@ -4,20 +4,21 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
-package org.mule.module.client;
-
-import org.mule.api.MuleContext;
-import org.mule.api.MuleException;
-
-import org.junit.Test;
+package org.mule.runtime.module.client;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
+import org.mule.runtime.core.api.MuleContext;
+import org.mule.runtime.core.api.MuleException;
+
+import org.junit.Test;
+
 public class MuleClientStandaloneTestCase extends AbstractMuleClientTestCase
 {
 
+    @Override
     protected MuleContext createMuleContext() throws Exception
     {
         return null;
