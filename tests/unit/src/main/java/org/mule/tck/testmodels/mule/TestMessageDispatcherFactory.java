@@ -6,7 +6,7 @@
  */
 package org.mule.tck.testmodels.mule;
 
-import org.mule.api.MuleException;
+import org.mule.runtime.core.api.MuleException;
 import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
 import org.mule.runtime.core.api.transport.MessageDispatcher;
 import org.mule.runtime.core.transport.AbstractMessageDispatcherFactory;
@@ -18,6 +18,7 @@ import org.mule.runtime.core.transport.AbstractMessageDispatcherFactory;
 public class TestMessageDispatcherFactory extends AbstractMessageDispatcherFactory
 {
 
+    @Override
     public MessageDispatcher create(OutboundEndpoint endpoint) throws MuleException
     {
         return new TestMessageDispatcher(endpoint);

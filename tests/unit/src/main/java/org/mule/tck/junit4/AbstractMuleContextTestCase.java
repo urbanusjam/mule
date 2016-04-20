@@ -6,6 +6,7 @@
  */
 package org.mule.tck.junit4;
 
+import org.mule.runtime.api.metadata.DataType;
 import org.mule.runtime.core.DefaultMuleMessage;
 import org.mule.runtime.core.MessageExchangePattern;
 import org.mule.runtime.core.api.MuleContext;
@@ -20,10 +21,13 @@ import org.mule.runtime.core.api.construct.FlowConstruct;
 import org.mule.runtime.core.api.context.MuleContextBuilder;
 import org.mule.runtime.core.api.context.MuleContextFactory;
 import org.mule.runtime.core.api.context.notification.MuleContextNotificationListener;
-import org.mule.runtime.api.metadata.DataType;
+import org.mule.runtime.core.api.endpoint.InboundEndpoint;
+import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
 import org.mule.runtime.core.api.processor.MessageProcessor;
 import org.mule.runtime.core.api.registry.RegistrationException;
+import org.mule.runtime.core.api.routing.filter.Filter;
 import org.mule.runtime.core.api.transformer.Transformer;
+import org.mule.runtime.core.api.transport.Connector;
 import org.mule.runtime.core.config.DefaultMuleConfiguration;
 import org.mule.runtime.core.config.builders.DefaultsConfigurationBuilder;
 import org.mule.runtime.core.config.builders.SimpleConfigurationBuilder;
@@ -31,15 +35,16 @@ import org.mule.runtime.core.construct.Flow;
 import org.mule.runtime.core.context.DefaultMuleContextBuilder;
 import org.mule.runtime.core.context.DefaultMuleContextFactory;
 import org.mule.runtime.core.context.notification.MuleContextNotification;
-import org.mule.tck.MuleTestUtils;
-import org.mule.tck.SensingNullMessageProcessor;
-import org.mule.tck.TestingWorkListener;
-import org.mule.tck.TriggerableMessageSource;
 import org.mule.runtime.core.transformer.types.DataTypeFactory;
 import org.mule.runtime.core.util.ClassUtils;
 import org.mule.runtime.core.util.FileUtils;
 import org.mule.runtime.core.util.StringUtils;
 import org.mule.runtime.core.util.concurrent.Latch;
+import org.mule.tck.MuleTestUtils;
+import org.mule.tck.SensingNullMessageProcessor;
+import org.mule.tck.TestingWorkListener;
+import org.mule.tck.TriggerableMessageSource;
+import org.mule.tck.testmodels.mule.TestConnector;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -436,11 +441,6 @@ public abstract class AbstractMuleContextTestCase extends AbstractMuleTestCase
     public static MuleEvent getTestEvent(Object data, MessageExchangePattern mep) throws Exception
     {
         return MuleTestUtils.getTestEvent(data, mep, muleContext);
-    }
-
-    public static MuleEvent getTestEvent(Object data, MuleSession session) throws Exception
-    {
-        return MuleTestUtils.getTestEvent(data, session, muleContext);
     }
 
     public static MuleEventContext getTestEventContext(Object data) throws Exception

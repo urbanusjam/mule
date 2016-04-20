@@ -6,8 +6,6 @@
  */
 package org.mule.runtime.config.spring;
 
-import org.mule.extension.api.ExtensionManager;
-import org.mule.extension.api.runtime.ConfigurationProvider;
 import org.mule.runtime.core.api.MuleContext;
 import org.mule.runtime.core.api.agent.Agent;
 import org.mule.runtime.core.api.component.Component;
@@ -41,6 +39,8 @@ import org.mule.runtime.core.lifecycle.phases.NotInLifecyclePhase;
 import org.mule.runtime.core.processor.AbstractMessageProcessorOwner;
 import org.mule.runtime.core.registry.AbstractRegistryBroker;
 import org.mule.runtime.core.routing.requestreply.AbstractAsyncRequestReplyRequester;
+import org.mule.runtime.extension.api.ExtensionManager;
+import org.mule.runtime.extension.api.runtime.ConfigurationProvider;
 
 import java.util.LinkedHashSet;
 import java.util.Set;

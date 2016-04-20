@@ -6,8 +6,6 @@
  */
 package org.mule.runtime.config.spring.editors;
 
-import org.mule.config.spring.editors.ConnectorPropertyEditor;
-import org.mule.config.spring.editors.URIBuilderPropertyEditor;
 import org.mule.runtime.core.MessageExchangePattern;
 import org.mule.runtime.core.api.MuleContext;
 import org.mule.runtime.core.api.context.MuleContextAware;

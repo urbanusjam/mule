@@ -42,17 +42,19 @@ public class IdempotentMessageFilterTestCase extends AbstractMuleContextTestCase
 
         MuleMessage okMessage = new DefaultMuleMessage("OK", muleContext);
         okMessage.setOutboundProperty("id", "1");
-        MuleEvent event = new DefaultMuleEvent(okMessage, endpoint1, getTestFlow(), session);
+        DefaultMuleEvent event = new DefaultMuleEvent(okMessage, getTestFlow(), session);
+        event.populateFieldsFromInboundEndpoint(endpoint1);
 
         // This one will process the event on the target endpoint
-        event = ir.process(event);
-        assertNotNull(event);
+        MuleEvent processedEvent = ir.process(event);
+        assertNotNull(processedEvent);
 
          // This will not process, because the ID is a duplicate
         okMessage = new DefaultMuleMessage("OK", muleContext);
         okMessage.setOutboundProperty("id", "1");
-        event = new DefaultMuleEvent(okMessage, endpoint1, getTestFlow(), session);
-        event = ir.process(event);
-        assertNull(event);
+        event = new DefaultMuleEvent(okMessage, getTestFlow(), session);
+        event.populateFieldsFromInboundEndpoint(endpoint1);
+        processedEvent = ir.process(event);
+        assertNull(processedEvent);
     }
 }

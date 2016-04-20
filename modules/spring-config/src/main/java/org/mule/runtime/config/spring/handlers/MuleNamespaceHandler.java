@@ -6,15 +6,15 @@
  */
 package org.mule.runtime.config.spring.handlers;
 
-import org.mule.config.spring.factories.InboundEndpointFactoryBean;
-import org.mule.config.spring.factories.OutboundEndpointFactoryBean;
 import org.mule.runtime.config.spring.factories.AggregationStrategyDefinitionParser;
 import org.mule.runtime.config.spring.factories.ChoiceRouterFactoryBean;
 import org.mule.runtime.config.spring.factories.CompositeMessageSourceFactoryBean;
 import org.mule.runtime.config.spring.factories.DefaultMemoryQueueStoreFactoryBean;
 import org.mule.runtime.config.spring.factories.DefaultPersistentQueueStoreFactoryBean;
 import org.mule.runtime.config.spring.factories.FileQueueStoreFactoryBean;
+import org.mule.runtime.config.spring.factories.InboundEndpointFactoryBean;
 import org.mule.runtime.config.spring.factories.MessageProcessorFilterPairFactoryBean;
+import org.mule.runtime.config.spring.factories.OutboundEndpointFactoryBean;
 import org.mule.runtime.config.spring.factories.PollingMessageSourceFactoryBean;
 import org.mule.runtime.config.spring.factories.QueueProfileFactoryBean;
 import org.mule.runtime.config.spring.factories.ScatterGatherRouterFactoryBean;
@@ -164,6 +164,7 @@ import org.mule.runtime.core.routing.filters.logic.NotFilter;
 import org.mule.runtime.core.routing.filters.logic.OrFilter;
 import org.mule.runtime.core.routing.outbound.ExpressionRecipientList;
 import org.mule.runtime.core.routing.outbound.MulticastingRouter;
+import org.mule.runtime.core.routing.requestreply.SimpleAsyncRequestReplyRequester;
 import org.mule.runtime.core.security.PasswordBasedEncryptionStrategy;
 import org.mule.runtime.core.security.SecretKeyEncryptionStrategy;
 import org.mule.runtime.core.security.UsernamePasswordAuthenticationFilter;

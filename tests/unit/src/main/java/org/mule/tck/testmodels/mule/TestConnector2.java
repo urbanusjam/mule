@@ -6,7 +6,7 @@
  */
 package org.mule.tck.testmodels.mule;
 
-import org.mule.api.MuleContext;
+import org.mule.runtime.core.api.MuleContext;
 
 /**
  * <code>TestConnector</code> use a mock connector
@@ -19,6 +19,7 @@ public class TestConnector2 extends TestConnector
         super(context);
     }
     
+    @Override
     public String getProtocol()
     {
         return "test2";

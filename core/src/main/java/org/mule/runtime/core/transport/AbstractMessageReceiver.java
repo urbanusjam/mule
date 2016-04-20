@@ -298,12 +298,16 @@ public abstract class AbstractMessageReceiver extends AbstractTransportMessageHa
         }
         if (message.getReplyTo() != null)
         {
-            event = new DefaultMuleEvent(message, getEndpoint(), flowConstruct, session, replyToHandler, message.getReplyTo(), ros);
+            DefaultMuleEvent newEvent = new DefaultMuleEvent(message, flowConstruct, session, replyToHandler, message.getReplyTo(), ros);
+            newEvent.populateFieldsFromInboundEndpoint(getEndpoint());
+            event = newEvent;
             message.setReplyTo(null);
         }
         else
         {
-            event = new DefaultMuleEvent(message, getEndpoint(), flowConstruct, session, null, null, ros);
+            DefaultMuleEvent newEvent = new DefaultMuleEvent(message, flowConstruct, session, null, null, ros);
+            newEvent.populateFieldsFromInboundEndpoint(getEndpoint());
+            event = newEvent;
         }
         event = OptimizedRequestContext.unsafeSetEvent(event);
         if (session.getSecurityContext() != null && session.getSecurityContext().getAuthentication() != null)

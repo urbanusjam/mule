@@ -6,7 +6,7 @@
  */
 package org.mule.runtime.module.management.config;
 
-import org.mule.config.spring.factories.OutboundEndpointFactoryBean;
+import org.mule.runtime.config.spring.factories.OutboundEndpointFactoryBean;
 import org.mule.runtime.config.spring.handlers.AbstractMuleNamespaceHandler;
 import org.mule.runtime.config.spring.parsers.MuleDefinitionParserConfiguration;
 import org.mule.runtime.config.spring.parsers.collection.ChildMapDefinitionParser;

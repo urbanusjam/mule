@@ -78,14 +78,14 @@ public class DefaultMuleEvent implements MuleEvent, ThreadSafeAccess, Deserializ
     private final MuleSession session;
     private transient FlowConstruct flowConstruct;
 
-    private final Credentials credentials;
-    private final String encoding;
-    private final MessageExchangePattern exchangePattern;
-    private final URI messageSourceURI;
-    private final String messageSourceName;
+    private Credentials credentials;
+    private String encoding;
+    private MessageExchangePattern exchangePattern;
+    private URI messageSourceURI;
+    private String messageSourceName;
     private final ReplyToHandler replyToHandler;
-    private final boolean transacted;
-    private final boolean synchronous;
+    private boolean transacted;
+    private boolean synchronous;
 
     /** Mutable MuleEvent state **/
     private boolean stopFurtherProcessing = false;
@@ -260,20 +260,18 @@ public class DefaultMuleEvent implements MuleEvent, ThreadSafeAccess, Deserializ
     // Constructors for inbound endpoint
 
     public DefaultMuleEvent(MuleMessage message,
-            InboundEndpoint endpoint,
                             FlowConstruct flowConstruct,
                             MuleSession session)
     {
-        this(message, endpoint, flowConstruct, session, null, null, null);
+        this(message, flowConstruct, session, null, null, null);
     }
 
-    public DefaultMuleEvent(MuleMessage message, InboundEndpoint endpoint, FlowConstruct flowConstruct)
+    public DefaultMuleEvent(MuleMessage message, FlowConstruct flowConstruct)
     {
-        this(message, endpoint, flowConstruct, new DefaultMuleSession(), null, null, null);
+        this(message, flowConstruct, new DefaultMuleSession(), null, null, null);
     }
 
     public DefaultMuleEvent(MuleMessage message,
-            InboundEndpoint endpoint,
                             FlowConstruct flowConstruct,
                             MuleSession session,
                             ReplyToHandler replyToHandler,
@@ -290,6 +288,19 @@ public class DefaultMuleEvent implements MuleEvent, ThreadSafeAccess, Deserializ
         this.replyToHandler = replyToHandler;
         this.replyToDestination = replyToDestination;
         //TODO See MULE-9307 - define where to get these values from
+        this.credentials = null;
+        this.encoding = getMuleContext().getConfiguration().getDefaultEncoding();
+        this.exchangePattern = MessageExchangePattern.REQUEST_RESPONSE;
+        this.messageSourceName = null;
+        this.messageSourceURI = null;
+        this.timeout = 0;
+        this.transacted = false;
+
+        this.synchronous = resolveEventSynchronicity();
+    }
+
+    public void populateFieldsFromInboundEndpoint(InboundEndpoint endpoint)
+    {
         this.credentials = extractCredentials(endpoint);
         this.encoding = endpoint.getEncoding();
         this.exchangePattern = endpoint.getExchangePattern();
