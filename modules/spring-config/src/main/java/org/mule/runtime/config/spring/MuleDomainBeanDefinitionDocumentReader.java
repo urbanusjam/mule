@@ -6,6 +6,7 @@
  */
 package org.mule.runtime.config.spring;
 
+import org.mule.runtime.config.spring.model.BeanDefinitionFactory;
 import org.mule.runtime.config.spring.parsers.specific.DomainElementsValidator;
 
 import org.springframework.beans.factory.xml.XmlReaderContext;
@@ -19,9 +20,14 @@ import org.springframework.beans.factory.xml.XmlReaderContext;
 public class MuleDomainBeanDefinitionDocumentReader extends MuleBeanDefinitionDocumentReader
 {
 
+    public MuleDomainBeanDefinitionDocumentReader(BeanDefinitionFactory beanDefinitionFactory)
+    {
+        super(beanDefinitionFactory);
+    }
+
     @Override
     protected MuleHierarchicalBeanDefinitionParserDelegate createBeanDefinitionParserDelegate(XmlReaderContext readerContext)
     {
-        return new MuleHierarchicalBeanDefinitionParserDelegate(readerContext, this, new DomainElementsValidator());
+        return new MuleHierarchicalBeanDefinitionParserDelegate(readerContext, this, null, null, new DomainElementsValidator());
     }
 }

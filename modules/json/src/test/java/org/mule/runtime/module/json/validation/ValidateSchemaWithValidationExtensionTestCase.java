@@ -4,40 +4,40 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
-package org.mule.runtime.module.json.validation;
-
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-
-import org.mule.runtime.core.api.MessagingException;
-import org.mule.extension.validation.api.ValidationException;
-import org.mule.extension.validation.internal.ValidationExtension;
-import org.mule.functional.junit4.ExtensionFunctionalTestCase;
-
-import org.apache.commons.lang.exception.ExceptionUtils;
-import org.junit.Test;
-
-public class ValidateSchemaWithValidationExtensionTestCase extends ExtensionFunctionalTestCase
-{
-
-    @Override
-    protected Class<?>[] getAnnotatedExtensionClasses()
-    {
-        return new Class<?>[] {ValidationExtension.class};
-    }
-
-    @Override
-    protected String getConfigFile()
-    {
-        return "validate-schema-with-validation-module-config.xml";
-    }
-
-    @Test
-    public void validateInGroup() throws Exception
-    {
-        MessagingException e = flowRunner("validate").runExpectingException();
-        Throwable cause = ExceptionUtils.getRootCause(e);
-        assertThat(cause, is(instanceOf(ValidationException.class)));
-    }
-}
+//package org.mule.runtime.module.json.validation;
+//
+//import static org.hamcrest.CoreMatchers.instanceOf;
+//import static org.hamcrest.CoreMatchers.is;
+//import static org.junit.Assert.assertThat;
+//
+//import org.mule.runtime.core.api.MessagingException;
+//import org.mule.extension.validation.api.ValidationException;
+//import org.mule.extension.validation.internal.ValidationExtension;
+//import org.mule.functional.junit4.ExtensionFunctionalTestCase;
+//
+//import org.apache.commons.lang.exception.ExceptionUtils;
+//import org.junit.Test;
+//
+//public class ValidateSchemaWithValidationExtensionTestCase extends ExtensionFunctionalTestCase
+//{
+//
+//    @Override
+//    protected Class<?>[] getAnnotatedExtensionClasses()
+//    {
+//        return new Class<?>[] {ValidationExtension.class};
+//    }
+//
+//    @Override
+//    protected String getConfigFile()
+//    {
+//        return "validate-schema-with-validation-module-config.xml";
+//    }
+//
+//    @Test
+//    public void validateInGroup() throws Exception
+//    {
+//        MessagingException e = flowRunner("validate").runExpectingException();
+//        Throwable cause = ExceptionUtils.getRootCause(e);
+//        assertThat(cause, is(instanceOf(ValidationException.class)));
+//    }
+//}

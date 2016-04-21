@@ -85,7 +85,10 @@ public class FilterRefDefinitionParser extends ParentDefinitionParser
         public void copyBeanToTarget()
         {
             String oldName = "messageProcessor";
-            assertTargetPresent();
+            if (target == null)
+            {
+                return;
+            }
             String newName = bestGuessName(targetConfig, oldName, target.getBeanClassName());
             MutablePropertyValues targetProperties = target.getPropertyValues();
             MutablePropertyValues beanProperties = bean.getBeanDefinition().getPropertyValues();

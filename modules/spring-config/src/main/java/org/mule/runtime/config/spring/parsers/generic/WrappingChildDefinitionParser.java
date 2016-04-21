@@ -122,30 +122,34 @@ public class WrappingChildDefinitionParser extends ChildDefinitionParser
 
         public void insertBeanInTarget(String oldName)
         {
-            assertTargetPresent();
-            String newName = bestGuessName(targetConfig, oldName, target.getBeanClassName());
-            MutablePropertyValues targetProperties = target.getPropertyValues();
-            PropertyValue pv = targetProperties.getPropertyValue(newName);
-            Object oldValue = null == pv ? null : pv.getValue();
-
-            BeanDefinitionBuilder wrapper = BeanDefinitionBuilder.genericBeanDefinition(wrapperClass);
-            wrapper.addPropertyValue(propertyNameInWrapper, bean.getBeanDefinition());
-
-            if (oldValue == null)
+            if (target == null)
             {
-                oldValue = new ManagedList();
-                pv = new PropertyValue(newName, oldValue);
-                targetProperties.addPropertyValue(pv);
+                return;
             }
-            if (targetConfig.isCollection(oldName))
-            {
-                List list = retrieveList(oldValue);
-                list.add(wrapper.getBeanDefinition());
-            }
-            else
-            {
-                targetProperties.addPropertyValue(newName, wrapper.getBeanDefinition());
-            }
+            //assertTargetPresent();
+            //String newName = bestGuessName(targetConfig, oldName, target.getBeanClassName());
+            //MutablePropertyValues targetProperties = target.getPropertyValues();
+            //PropertyValue pv = targetProperties.getPropertyValue(newName);
+            //Object oldValue = null == pv ? null : pv.getValue();
+            //
+            //BeanDefinitionBuilder wrapper = BeanDefinitionBuilder.genericBeanDefinition(wrapperClass);
+            //wrapper.addPropertyValue(propertyNameInWrapper, bean.getBeanDefinition());
+            //
+            //if (oldValue == null)
+            //{
+            //    oldValue = new ManagedList();
+            //    pv = new PropertyValue(newName, oldValue);
+            //    targetProperties.addPropertyValue(pv);
+            //}
+            //if (targetConfig.isCollection(oldName))
+            //{
+            //    List list = retrieveList(oldValue);
+            //    list.add(wrapper.getBeanDefinition());
+            //}
+            //else
+            //{
+            //    targetProperties.addPropertyValue(newName, wrapper.getBeanDefinition());
+            //}
         }
     }
 }

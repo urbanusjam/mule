@@ -412,7 +412,7 @@ public abstract class AbstractMuleBeanDefinitionParser extends AbstractBeanDefin
     {
         BeanAssembler assembler = getBeanAssembler(element, builder);
 
-        processMetadataAnnotations(element, context, builder);
+        processMetadataAnnotations(element, context.getReaderContext().getResource(), builder);
 
         NamedNodeMap attributes = element.getAttributes();
         for (int x = 0; x < attributes.getLength(); x++)
@@ -424,15 +424,18 @@ public abstract class AbstractMuleBeanDefinitionParser extends AbstractBeanDefin
         postProcess(getParserContext(), assembler, element);
     }
 
-    protected void processMetadataAnnotations(Element element, ParserContext context, BeanDefinitionBuilder builder)
+    protected void processMetadataAnnotations(Element element, Resource readerResource, BeanDefinitionBuilder builder)
     {
+        processMetadataAnnotationsHelper(element, readerResource, builder);
+    }
+
+    public static Map<QName, Object> processMetadataAnnotationsHelper(Element element, Resource readerResource, BeanDefinitionBuilder builder)
+    {
+        Map<QName, Object> annotations = new HashMap<>();
         // Ensure we have a placeholder for internally generated annotations, even if the XML config doesn't have any
         // defined for this element.
         if (AnnotatedObject.class.isAssignableFrom(builder.getBeanDefinition().getBeanClass()))
         {
-            Map<QName, Object> annotations = new HashMap<QName, Object>();
-
-            Resource readerResource = context.getReaderContext().getResource();
 
             XmlMetadataAnnotations elementMetadata = (XmlMetadataAnnotations) element.getUserData(METADATA_ANNOTATIONS_KEY);
             addMetadataAnnotationsFromXml(annotations, readerResource.getFilename() != null ? readerResource.getFilename() : readerResource.getDescription(),
@@ -440,6 +443,7 @@ public abstract class AbstractMuleBeanDefinitionParser extends AbstractBeanDefin
 
             builder.getBeanDefinition().getPropertyValues().addPropertyValue(AnnotatedObject.PROPERTY_NAME, annotations);
         }
+        return annotations;
     }
 
     @Override

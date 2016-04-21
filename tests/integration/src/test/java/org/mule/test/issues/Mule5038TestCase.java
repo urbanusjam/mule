@@ -11,6 +11,7 @@ import static org.junit.Assert.assertNotSame;
 import org.mule.runtime.core.api.processor.MessageProcessor;
 import org.mule.runtime.core.api.routing.filter.Filter;
 import org.mule.runtime.core.api.transformer.Transformer;
+import org.mule.runtime.core.config.model.ReferenceMessageProcessor;
 import org.mule.runtime.core.construct.Flow;
 import org.mule.runtime.core.routing.MessageFilter;
 import org.mule.functional.junit4.FunctionalTestCase;
@@ -29,9 +30,9 @@ public class Mule5038TestCase extends FunctionalTestCase
     public void testTransformerOnGlobalEndpoint()
     {
         Flow flow1 = muleContext.getRegistry().lookupObject("flow1");
-        Filter flow1Filter = ((MessageFilter) flow1.getMessageProcessors().get(0)).getFilter();
+        Filter flow1Filter = ((MessageFilter) ((ReferenceMessageProcessor)flow1.getMessageProcessors().get(0)).getMessageProcessor()).getFilter();
         Flow flow2 = muleContext.getRegistry().lookupObject("flow2");
-        Filter flow2Filter = ((MessageFilter) flow2.getMessageProcessors().get(0)).getFilter();
+        Filter flow2Filter = ((MessageFilter) ((ReferenceMessageProcessor)flow2.getMessageProcessors().get(0)).getMessageProcessor()).getFilter();
 
         assertNotSame(flow1Filter, flow2Filter);
     }
@@ -40,9 +41,9 @@ public class Mule5038TestCase extends FunctionalTestCase
     public void testFilterOnGlobalEndpoint()
     {
         Flow flow1 = muleContext.getRegistry().lookupObject("flow1");
-        Transformer flow1Transoformer = (Transformer) flow1.getMessageProcessors().get(1);
+        Transformer flow1Transoformer = (Transformer) ((ReferenceMessageProcessor)flow1.getMessageProcessors().get(1)).getMessageProcessor();
         Flow flow2 = muleContext.getRegistry().lookupObject("flow2");
-        Transformer flow2Transoformer = (Transformer) flow2.getMessageProcessors().get(1);
+        Transformer flow2Transoformer = (Transformer) ((ReferenceMessageProcessor)flow2.getMessageProcessors().get(1)).getMessageProcessor();
 
         assertNotSame(flow1Transoformer, flow2Transoformer);
     }

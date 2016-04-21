@@ -13,6 +13,7 @@ import org.mule.runtime.core.api.processor.InterceptingMessageProcessor;
 import org.mule.runtime.core.api.processor.MessageProcessor;
 import org.mule.runtime.core.api.processor.MessageProcessorChain;
 import org.mule.runtime.core.api.processor.MessageProcessorPathElement;
+import org.mule.runtime.core.config.model.ReferenceMessageProcessor;
 import org.mule.runtime.core.util.NotificationUtils;
 
 import java.util.ArrayList;
@@ -41,6 +42,10 @@ public class SubflowInterceptingChainLifecycleWrapper extends InterceptingChainL
         List<MessageProcessor> filteredMessageProcessorList = new ArrayList<MessageProcessor>();
         for (MessageProcessor messageProcessor : processors)
         {
+            if (messageProcessor instanceof ReferenceMessageProcessor)
+            {
+                messageProcessor = ((ReferenceMessageProcessor) messageProcessor).getMessageProcessor();
+            }
             if (messageProcessor instanceof InterceptingMessageProcessor)
             {
                 filteredMessageProcessorList.add(messageProcessor);

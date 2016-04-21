@@ -109,6 +109,10 @@ public abstract class AbstractMuleNamespaceHandler extends NamespaceHandlerSuppo
             {
                 DefaultBeanAssembler assembler = (DefaultBeanAssembler) beanAssembler;
 
+                if (assembler.getTarget() == null)
+                {
+                    return;
+                }
                 if (assembler.isAnnotationsPropertyAvailable(assembler.getTarget().getBeanClassName()))
                 {
                     for (Node node = element.getFirstChild(); node != null; node = node.getNextSibling())

@@ -6,6 +6,8 @@
  */
 package org.mule.runtime.config.spring.factories;
 
+import org.mule.runtime.core.api.MuleContext;
+import org.mule.runtime.core.api.context.MuleContextAware;
 import org.mule.runtime.core.routing.AbstractSelectiveRouter;
 import org.mule.runtime.core.routing.ChoiceRouter;
 
