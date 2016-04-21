@@ -8,9 +8,9 @@ package org.mule.runtime.management.mbeans;
 
 import static org.junit.Assert.assertEquals;
 
-import org.mule.management.AbstractMuleJmxTestCase;
-import org.mule.module.management.agent.JmxApplicationAgent;
 import org.mule.runtime.core.api.transport.Connector;
+import org.mule.runtime.management.AbstractMuleJmxTestCase;
+import org.mule.runtime.module.management.agent.JmxApplicationAgent;
 import org.mule.tck.testmodels.mule.TestConnector;
 
 import java.util.Set;
