@@ -4,15 +4,15 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
-package org.mule.module.management.mbean;
+package org.mule.runtime.module.management.mbean;
 
-import org.mule.MessageExchangePattern;
-import org.mule.config.i18n.CoreMessages;
+import org.mule.runtime.core.MessageExchangePattern;
 import org.mule.runtime.core.api.endpoint.ImmutableEndpoint;
 import org.mule.runtime.core.api.endpoint.InboundEndpoint;
 import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
 import org.mule.runtime.core.api.transport.MessageReceiver;
-import org.mule.util.ObjectNameHelper;
+import org.mule.runtime.core.config.i18n.CoreMessages;
+import org.mule.runtime.core.util.ObjectNameHelper;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -66,21 +66,25 @@ public class EndpointService implements EndpointServiceMBean
         name = new ObjectNameHelper(endpoint.getMuleContext()).getEndpointName(endpoint.getEndpointURI());
     }
 
+    @Override
     public String getAddress()
     {
         return endpoint.getEndpointURI().getAddress();
     }
 
+    @Override
     public String getName()
     {
         return name;
     }
 
+    @Override
     public boolean isConnected()
     {
         return receiver == null || receiver.isConnected();
     }
 
+    @Override
     public void connect() throws Exception
     {
         if (receiver != null && !receiver.isConnected())
@@ -93,6 +97,7 @@ public class EndpointService implements EndpointServiceMBean
         }
     }
 
+    @Override
     public void disconnect() throws Exception
     {
         if (receiver != null && receiver.isConnected())
@@ -105,21 +110,25 @@ public class EndpointService implements EndpointServiceMBean
         }
     }
 
+    @Override
     public boolean isInbound()
     {
         return endpoint instanceof InboundEndpoint;
     }
 
+    @Override
     public boolean isOutbound()
     {
         return endpoint instanceof OutboundEndpoint;
     }
 
+    @Override
     public MessageExchangePattern getMessageExchangePattern()
     {
         return endpoint.getExchangePattern();
     }
     
+    @Override
     public String getComponentName()
     {
         return componentName;

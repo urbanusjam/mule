@@ -4,16 +4,16 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
-package org.mule.module.cxf;
+package org.mule.runtime.module.cxf;
 
-import org.mule.api.config.MuleProperties;
+import static org.junit.Assert.assertEquals;
+
+import org.mule.runtime.core.api.config.MuleProperties;
 import org.mule.runtime.core.api.endpoint.EndpointURI;
 import org.mule.runtime.core.endpoint.MuleEndpointURI;
 import org.mule.tck.junit4.AbstractMuleContextTestCase;
 
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
 
 public class CxfSoapEndpointTestCase extends AbstractMuleContextTestCase
 {

@@ -6,7 +6,6 @@
  */
 package org.mule.runtime.module.cxf.config;
 
-import org.mule.module.cxf.component.WebServiceWrapperComponent;
 import org.mule.runtime.config.spring.handlers.AbstractMuleNamespaceHandler;
 import org.mule.runtime.config.spring.parsers.collection.ChildListDefinitionParser;
 import org.mule.runtime.config.spring.parsers.collection.ChildMapDefinitionParser;
@@ -19,6 +18,7 @@ import org.mule.runtime.config.spring.parsers.specific.MessageProcessorDefinitio
 import org.mule.runtime.core.api.lifecycle.Initialisable;
 import org.mule.runtime.module.cxf.CxfConfiguration;
 import org.mule.runtime.module.cxf.CxfConstants;
+import org.mule.runtime.module.cxf.component.WebServiceWrapperComponent;
 import org.mule.runtime.module.cxf.support.MuleSecurityManagerValidator;
 import org.mule.runtime.module.cxf.support.StaxFeature;
 

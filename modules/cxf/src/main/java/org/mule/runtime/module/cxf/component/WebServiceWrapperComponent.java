@@ -4,17 +4,17 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
-package org.mule.module.cxf.component;
+package org.mule.runtime.module.cxf.component;
 
-import org.mule.MessageExchangePattern;
-import org.mule.VoidMuleEvent;
-import org.mule.api.MuleContext;
-import org.mule.api.MuleEvent;
-import org.mule.api.MuleMessage;
-import org.mule.config.i18n.CoreMessages;
-import org.mule.module.cxf.endpoint.CxfEndpointBuilder;
+import org.mule.runtime.core.MessageExchangePattern;
+import org.mule.runtime.core.VoidMuleEvent;
+import org.mule.runtime.core.api.MuleContext;
+import org.mule.runtime.core.api.MuleEvent;
+import org.mule.runtime.core.api.MuleMessage;
 import org.mule.runtime.core.api.endpoint.EndpointBuilder;
 import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
+import org.mule.runtime.core.config.i18n.CoreMessages;
+import org.mule.runtime.module.cxf.endpoint.CxfEndpointBuilder;
 
 @Deprecated
 public class WebServiceWrapperComponent extends AbstractWebServiceWrapperComponent
@@ -22,6 +22,7 @@ public class WebServiceWrapperComponent extends AbstractWebServiceWrapperCompone
     private String wsdlPort;
     private String operation;
 
+    @Override
     protected MuleMessage doInvoke(MuleEvent event) throws Exception
     {
         MuleContext muleContext = event.getMuleContext();

@@ -4,21 +4,21 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
-package org.mule.module.cxf.endpoint;
+package org.mule.runtime.module.cxf.endpoint;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import org.mule.api.MuleContext;
-import org.mule.api.lifecycle.InitialisationException;
-import org.mule.api.processor.MessageProcessor;
-import org.mule.module.cxf.builder.WsdlClientMessageProcessorBuilder;
-import org.mule.module.cxf.config.FlowConfiguringMessageProcessor;
+import org.mule.runtime.core.api.MuleContext;
 import org.mule.runtime.core.api.endpoint.EndpointException;
 import org.mule.runtime.core.api.endpoint.InboundEndpoint;
 import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
+import org.mule.runtime.core.api.lifecycle.InitialisationException;
+import org.mule.runtime.core.api.processor.MessageProcessor;
 import org.mule.runtime.core.endpoint.AbstractMetaEndpointBuilder;
 import org.mule.runtime.core.endpoint.EndpointURIEndpointBuilder;
+import org.mule.runtime.module.cxf.builder.WsdlClientMessageProcessorBuilder;
+import org.mule.runtime.module.cxf.config.FlowConfiguringMessageProcessor;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class WsdlCxfEndpointBuilder extends AbstractMetaEndpointBuilder
 {

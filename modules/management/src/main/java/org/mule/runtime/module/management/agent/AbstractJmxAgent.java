@@ -6,8 +6,6 @@
  */
 package org.mule.runtime.module.management.agent;
 
-import org.mule.module.management.mbean.ConnectorService;
-import org.mule.module.management.mbean.EndpointService;
 import org.mule.runtime.core.AbstractAgent;
 import org.mule.runtime.core.api.MuleException;
 import org.mule.runtime.core.api.MuleRuntimeException;
@@ -24,7 +22,9 @@ import org.mule.runtime.core.transport.AbstractConnector;
 import org.mule.runtime.core.util.StringUtils;
 import org.mule.runtime.module.management.i18n.ManagementMessages;
 import org.mule.runtime.module.management.mbean.ApplicationService;
+import org.mule.runtime.module.management.mbean.ConnectorService;
 import org.mule.runtime.module.management.mbean.ConnectorServiceMBean;
+import org.mule.runtime.module.management.mbean.EndpointService;
 import org.mule.runtime.module.management.mbean.EndpointServiceMBean;
 import org.mule.runtime.module.management.mbean.FlowConstructService;
 import org.mule.runtime.module.management.mbean.FlowConstructServiceMBean;
