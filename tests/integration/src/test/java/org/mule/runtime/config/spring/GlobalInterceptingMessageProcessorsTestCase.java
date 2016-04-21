@@ -44,7 +44,7 @@ public class GlobalInterceptingMessageProcessorsTestCase extends FunctionalTestC
         assertTrue(mp1 instanceof IdempotentMessageFilter);
         IdempotentMessageFilter imf = (IdempotentMessageFilter) mp1;
         assertEquals(imf.getIdExpression(), "#[payload:]");
-        assertMpPresent(mpList, mp1, IdempotentMessageFilter.class);
+         assertMpPresent(mpList, mp1, IdempotentMessageFilter.class);
 
         MessageProcessor mp2 = muleContext.getRegistry().lookupObject("messageFilter");
         assertTrue(mp2 instanceof MessageFilter);

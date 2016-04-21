@@ -11,6 +11,7 @@ import org.mule.runtime.config.spring.parsers.generic.AutoIdUtils;
 import org.mule.runtime.config.spring.parsers.generic.ChildDefinitionParser;
 import org.mule.functional.client.QueueWriterMessageProcessor;
 
+import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.w3c.dom.Element;
 
 /**

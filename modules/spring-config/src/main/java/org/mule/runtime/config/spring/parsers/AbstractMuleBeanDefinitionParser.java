@@ -9,6 +9,7 @@ package org.mule.runtime.config.spring.parsers;
 import static org.mule.runtime.config.spring.parsers.XmlMetadataAnnotations.METADATA_ANNOTATIONS_KEY;
 import static org.mule.runtime.core.api.execution.LocationExecutionContextProvider.addMetadataAnnotationsFromXml;
 import org.mule.runtime.config.spring.MuleHierarchicalBeanDefinitionParserDelegate;
+import org.mule.runtime.config.spring.model.BeanDefinitionFactory;
 import org.mule.runtime.config.spring.parsers.assembly.BeanAssembler;
 import org.mule.runtime.config.spring.parsers.assembly.BeanAssemblerFactory;
 import org.mule.runtime.config.spring.parsers.assembly.DefaultBeanAssemblerFactory;
@@ -313,14 +314,7 @@ public abstract class AbstractMuleBeanDefinitionParser extends AbstractBeanDefin
 
     protected void checkElementNameUnique(Element element)
     {
-        if (null != element.getAttributeNode(ATTRIBUTE_NAME))
-        {
-            String name = element.getAttribute(ATTRIBUTE_NAME);
-            if (getRegistry().containsBeanDefinition(name))
-            {
-                throw new IllegalArgumentException("A service named " + name + " already exists.");
-            }
-        }
+        BeanDefinitionFactory.checkElementNameUnique(getRegistry(), element);
     }
 
     protected BeanDefinitionBuilder createBeanDefinitionBuilder(Element element, Class<?> beanClass)

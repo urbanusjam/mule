@@ -9,6 +9,7 @@ package org.mule.runtime.config.spring;
 import org.mule.runtime.config.spring.model.ApplicationModel;
 import org.mule.runtime.config.spring.model.BeanDefinitionFactory;
 import org.mule.runtime.config.spring.model.ComponentDefinitionModel;
+import org.mule.runtime.config.spring.parsers.AbstractMuleBeanDefinitionParser;
 import org.mule.runtime.config.spring.util.SpringXMLUtils;
 import org.mule.runtime.core.api.routing.filter.Filter;
 import org.mule.runtime.core.util.StringUtils;
@@ -127,6 +128,7 @@ public class MuleHierarchicalBeanDefinitionParserDelegate extends BeanDefinition
                             {
                                 name = resolvedComponent.getNamespace() + ":" + resolvedComponent.getIdentifier();
                             }
+                            BeanDefinitionFactory.checkElementNameUnique(registry, element);
                             registry.registerBeanDefinition(name, resolvedComponent.getBeanDefinition());
                         }
                     }, (mpElement, beanDefinition) -> {
@@ -164,7 +166,14 @@ public class MuleHierarchicalBeanDefinitionParserDelegate extends BeanDefinition
                                         catch (InstantiationException e)
                                         {
                                             //TODO DB Factory beans do not have a default constructor. This should be the prefered method anyway.
-                                            type = (Class<?>) ((ParameterizedType)Class.forName(finalChild.getBeanClassName()).getGenericInterfaces()[0]).getActualTypeArguments()[0];
+                                            try
+                                            {
+                                                type = (Class<?>) ((ParameterizedType)Class.forName(finalChild.getBeanClassName()).getGenericInterfaces()[0]).getActualTypeArguments()[0];
+                                            }
+                                            catch (Exception e2)
+                                            {
+                                                type = Object.class;
+                                            }
                                         }
                                     }
                                     componentDefinitionModel.setType(type);

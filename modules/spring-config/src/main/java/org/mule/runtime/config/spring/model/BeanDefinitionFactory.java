@@ -58,6 +58,7 @@ import org.w3c.dom.Node;
 
 public class BeanDefinitionFactory
 {
+    public static final String ATTRIBUTE_NAME = "name";
 
     private Logger logger = LoggerFactory.getLogger(BeanDefinitionFactory.class);
 
@@ -542,6 +543,18 @@ public class BeanDefinitionFactory
                 annotations.put(new QName(attribute.getNamespaceURI(), attribute.getLocalName()), annotationKey.getValue());
             }
         });
+    }
+
+    public static void checkElementNameUnique(BeanDefinitionRegistry registry, Element element)
+    {
+        if (null != element.getAttributeNode(ATTRIBUTE_NAME))
+        {
+            String name = element.getAttribute(ATTRIBUTE_NAME);
+            if (registry.containsBeanDefinition(name))
+            {
+                throw new IllegalArgumentException("A service named " + name + " already exists.");
+            }
+        }
     }
 
     private void processNestedAnnotations(ComponentDefinitionModel componentDefinitionModel, Map<QName, Object> previousAnnotations)
