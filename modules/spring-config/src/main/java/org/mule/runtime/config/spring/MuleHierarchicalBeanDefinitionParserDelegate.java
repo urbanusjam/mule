@@ -15,6 +15,7 @@ import org.mule.runtime.core.util.StringUtils;
 
 import com.google.common.collect.ImmutableList;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -156,7 +157,15 @@ public class MuleHierarchicalBeanDefinitionParserDelegate extends BeanDefinition
                                     Class<?> type = Class.forName(finalChild.getBeanClassName());
                                     if (FactoryBean.class.isAssignableFrom(type))
                                     {
-                                        type = ((FactoryBean)type.newInstance()).getObjectType();
+                                        try
+                                        {
+                                            type = ((FactoryBean)type.newInstance()).getObjectType();
+                                        }
+                                        catch (InstantiationException e)
+                                        {
+                                            //TODO DB Factory beans do not have a default constructor. This should be the prefered method anyway.
+                                            type = (Class<?>) ((ParameterizedType)Class.forName(finalChild.getBeanClassName()).getGenericInterfaces()[0]).getActualTypeArguments()[0];
+                                        }
                                     }
                                     componentDefinitionModel.setType(type);
                                 }

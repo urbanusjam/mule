@@ -18,6 +18,7 @@ import org.mule.runtime.core.api.lifecycle.Lifecycle;
 import org.mule.runtime.core.api.lifecycle.LifecycleUtils;
 import org.mule.runtime.core.api.processor.MessageProcessor;
 import org.mule.runtime.core.api.routing.filter.Filter;
+import org.mule.runtime.core.execution.MessageProcessorExecutionTemplate;
 import org.mule.runtime.core.routing.MessageFilter;
 
 import org.slf4j.Logger;
@@ -32,6 +33,7 @@ public class ReferenceMessageProcessor implements Lifecycle, MuleContextAware, F
     private Filter filter;
     private FlowConstruct flowConstruct;
     private MuleContext muleContext;
+    private MessageProcessorExecutionTemplate notificationExecutionTemplate;
 
     public void setMessageProcessor(MessageProcessor messageProcessor)
     {
@@ -57,6 +59,7 @@ public class ReferenceMessageProcessor implements Lifecycle, MuleContextAware, F
             messageProcessor = new MessageFilter(filter);
         }
         LifecycleUtils.initialiseIfNeeded(messageProcessor, muleContext, flowConstruct);
+        notificationExecutionTemplate = MessageProcessorExecutionTemplate.createNotificationExecutionTemplate();
     }
 
     @Override
@@ -86,7 +89,7 @@ public class ReferenceMessageProcessor implements Lifecycle, MuleContextAware, F
     @Override
     public MuleEvent process(MuleEvent event) throws MuleException
     {
-        return messageProcessor.process(event);
+        return notificationExecutionTemplate.execute(messageProcessor, event);
     }
 
     public MessageProcessor getMessageProcessor()

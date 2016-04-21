@@ -14,6 +14,7 @@ import org.mule.runtime.core.api.construct.FlowConstruct;
 import org.mule.runtime.core.api.construct.FlowConstructAware;
 import org.mule.runtime.core.api.context.MuleContextAware;
 import org.mule.runtime.core.api.exception.MessagingExceptionHandler;
+import org.mule.runtime.core.api.exception.MessagingExceptionHandlerAcceptor;
 import org.mule.runtime.core.api.lifecycle.InitialisationException;
 import org.mule.runtime.core.api.lifecycle.Lifecycle;
 import org.mule.runtime.core.api.lifecycle.LifecycleUtils;
@@ -27,7 +28,7 @@ import org.slf4j.LoggerFactory;
 
 //TODO Improve so delegation of start and stop and flow construct injection is not necessary
 //TODO see if we can get rid of this class and revert this change
-public class MessagingExceptionStrategyRef implements MessagingExceptionHandler, Lifecycle, FlowConstructAware, MessageProcessorContainer, GlobalNameableObject, MuleContextAware
+public class MessagingExceptionStrategyRef implements MessagingExceptionHandlerAcceptor, Lifecycle, FlowConstructAware, MessageProcessorContainer, GlobalNameableObject, MuleContextAware
 {
     private Logger logger = LoggerFactory.getLogger(MessagingExceptionStrategyRef.class);
     private MessagingExceptionHandler delegate;
@@ -103,5 +104,25 @@ public class MessagingExceptionStrategyRef implements MessagingExceptionHandler,
     public void setMuleContext(MuleContext context)
     {
         this.muleContext = context;
+    }
+
+    @Override
+    public boolean accept(MuleEvent event)
+    {
+        if (delegate instanceof MessagingExceptionHandlerAcceptor)
+        {
+            return ((MessagingExceptionHandlerAcceptor) delegate).accept(event);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean acceptsAll()
+    {
+        if (delegate instanceof MessagingExceptionHandlerAcceptor)
+        {
+            return ((MessagingExceptionHandlerAcceptor) delegate).acceptsAll();
+        }
+        return true;
     }
 }

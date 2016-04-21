@@ -66,6 +66,7 @@ import org.mule.runtime.core.routing.outbound.MulticastingRouter;
 import org.mule.runtime.core.source.polling.MessageProcessorPollingOverride;
 import org.mule.runtime.core.source.polling.PollingMessageSource;
 import org.mule.runtime.core.source.polling.schedule.FixedFrequencySchedulerFactory;
+import org.mule.runtime.core.source.polling.watermark.Watermark;
 import org.mule.runtime.core.transaction.lookup.GenericTransactionManagerLookupFactory;
 import org.mule.runtime.core.transaction.lookup.JBossTransactionManagerLookupFactory;
 import org.mule.runtime.core.transaction.lookup.JRunTransactionManagerLookupFactory;
@@ -386,6 +387,7 @@ public class CoreComponentBuildingDefinitionProvider implements ComponentBuildin
                                                  .withObjectFactoryType(ResponseMessageProcessorsFactoryBean.class)
                                                  .withSetterParameterDefinition("messageProcessors", fromChildListConfiguration(MessageProcessor.class).build())
                                                  .build());
+
         componentBuildingDefinitions.add(new ComponentBuildingDefinition.Builder()
                                                  .withName("poll")
                                                  .withNamespace("mule")
@@ -395,7 +397,6 @@ public class CoreComponentBuildingDefinitionProvider implements ComponentBuildin
                                                  .withSetterParameterDefinition("frequency", fromSimpleParameter("frequency").build())
                                                  .withSetterParameterDefinition("override", fromChildConfiguration(MessageProcessorPollingOverride.class).build())
                                                  .build());
-
 
         componentBuildingDefinitions.add(new ComponentBuildingDefinition.Builder()
                                                  .withName("fixed-frequency-scheduler")
@@ -410,14 +411,14 @@ public class CoreComponentBuildingDefinitionProvider implements ComponentBuildin
                                                  .withName("watermark")
                                                  .withNamespace("mule")
                                                  .withSetterParameterDefinition("variable", fromSimpleParameter("variable").build())
-                                                 .withSetterParameterDefinition("defaultExpression", fromSimpleParameter("defaultExpression").build())
-                                                 .withSetterParameterDefinition("updateExpression", fromSimpleParameter("updateExpression").build())
+                                                 .withSetterParameterDefinition("defaultExpression", fromSimpleParameter("default-expression").build())
+                                                 .withSetterParameterDefinition("updateExpression", fromSimpleParameter("update-expression").build())
                                                  .withSetterParameterDefinition("objectStore", fromSimpleReferenceParameter("object-store-ref").build())
                                                  .withSetterParameterDefinition("selector", fromSimpleParameter("selector").build())
-                                                 .withSetterParameterDefinition("selector-expression", fromSimpleParameter("selected-expression").build())
-                                                 .withTypeDefinitionBuilder(fromType(WatermarkFactoryBean.class))
+                                                 .withSetterParameterDefinition("selectorExpression", fromSimpleParameter("selector-expression").build())
+                                                 .withTypeDefinitionBuilder(fromType(Watermark.class))
+                                                 .withObjectFactoryType(WatermarkFactoryBean.class)
                                                  .build());
-
 
         return componentBuildingDefinitions;
     }
