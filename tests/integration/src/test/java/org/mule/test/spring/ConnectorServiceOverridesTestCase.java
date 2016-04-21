@@ -9,16 +9,16 @@ package org.mule.test.spring;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import org.mule.MessageExchangePattern;
 import org.mule.functional.junit4.FunctionalTestCase;
+import org.mule.runtime.core.MessageExchangePattern;
 import org.mule.runtime.core.api.endpoint.InboundEndpoint;
 import org.mule.runtime.core.api.transport.MessageReceiver;
 import org.mule.runtime.core.api.transport.MuleMessageFactory;
+import org.mule.runtime.core.transaction.MuleTransactionConfig;
+import org.mule.runtime.core.transaction.XaTransactionFactory;
 import org.mule.runtime.core.transport.service.TransportServiceDescriptor;
 import org.mule.tck.testmodels.mule.TestConnector;
 import org.mule.tck.testmodels.mule.TestMessageReceiver;
-import org.mule.transaction.MuleTransactionConfig;
-import org.mule.transaction.XaTransactionFactory;
 
 import java.util.Arrays;
 import java.util.List;

@@ -9,20 +9,19 @@ package org.mule.test.config;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import org.mule.api.MuleEvent;
-import org.mule.api.lifecycle.InitialisationException;
-import org.mule.api.processor.MessageProcessor;
-import org.mule.api.security.CryptoFailureException;
-import org.mule.api.security.EncryptionStrategyNotFoundException;
-import org.mule.api.security.SecurityException;
-import org.mule.api.security.SecurityProviderNotFoundException;
-import org.mule.api.security.UnknownAuthenticationTypeException;
-import org.mule.processor.SecurityFilterMessageProcessor;
+import org.mule.functional.junit4.FunctionalTestCase;
+import org.mule.runtime.core.api.MuleEvent;
 import org.mule.runtime.core.api.endpoint.EndpointBuilder;
 import org.mule.runtime.core.api.endpoint.InboundEndpoint;
-import org.mule.security.AbstractAuthenticationFilter;
-import org.mule.security.filters.MuleEncryptionEndpointSecurityFilter;
-import org.mule.functional.junit4.FunctionalTestCase;
+import org.mule.runtime.core.api.lifecycle.InitialisationException;
+import org.mule.runtime.core.api.processor.MessageProcessor;
+import org.mule.runtime.core.api.security.CryptoFailureException;
+import org.mule.runtime.core.api.security.EncryptionStrategyNotFoundException;
+import org.mule.runtime.core.api.security.SecurityProviderNotFoundException;
+import org.mule.runtime.core.api.security.UnknownAuthenticationTypeException;
+import org.mule.runtime.core.processor.SecurityFilterMessageProcessor;
+import org.mule.runtime.core.security.AbstractAuthenticationFilter;
+import org.mule.runtime.core.security.filters.MuleEncryptionEndpointSecurityFilter;
 
 import java.util.List;
 
