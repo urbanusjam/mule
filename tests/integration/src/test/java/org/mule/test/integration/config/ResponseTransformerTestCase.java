@@ -8,11 +8,12 @@ package org.mule.test.integration.config;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import org.mule.api.NameableObject;
-import org.mule.api.processor.MessageProcessor;
-import org.mule.processor.chain.InterceptingChainLifecycleWrapper;
-import org.mule.runtime.core.api.endpoint.ImmutableEndpoint;
+
 import org.mule.functional.junit4.FunctionalTestCase;
+import org.mule.runtime.core.api.NameableObject;
+import org.mule.runtime.core.api.endpoint.ImmutableEndpoint;
+import org.mule.runtime.core.api.processor.MessageProcessor;
+import org.mule.runtime.core.processor.chain.InterceptingChainLifecycleWrapper;
 
 import java.util.Iterator;
 import java.util.List;

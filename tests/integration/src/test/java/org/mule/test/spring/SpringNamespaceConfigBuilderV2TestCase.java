@@ -9,16 +9,17 @@ package org.mule.test.spring;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import org.mule.DefaultMuleEvent;
-import org.mule.DefaultMuleMessage;
-import org.mule.MessageExchangePattern;
-import org.mule.api.MuleEvent;
-import org.mule.api.MuleMessage;
-import org.mule.api.routing.MessageInfoMapping;
-import org.mule.api.transformer.Transformer;
-import org.mule.construct.Flow;
-import org.mule.routing.ExpressionMessageInfoMapping;
+
 import org.mule.functional.AbstractConfigBuilderTestCase;
+import org.mule.runtime.core.DefaultMuleEvent;
+import org.mule.runtime.core.DefaultMuleMessage;
+import org.mule.runtime.core.MessageExchangePattern;
+import org.mule.runtime.core.api.MuleEvent;
+import org.mule.runtime.core.api.MuleMessage;
+import org.mule.runtime.core.api.routing.MessageInfoMapping;
+import org.mule.runtime.core.api.transformer.Transformer;
+import org.mule.runtime.core.construct.Flow;
+import org.mule.runtime.core.routing.ExpressionMessageInfoMapping;
 import org.mule.tck.testmodels.fruit.Apple;
 import org.mule.tck.testmodels.mule.TestCompressionTransformer;
 

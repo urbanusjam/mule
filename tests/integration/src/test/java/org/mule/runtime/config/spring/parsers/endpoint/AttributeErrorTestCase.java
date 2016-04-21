@@ -4,9 +4,9 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
-package org.mule.config.spring.parsers.endpoint;
+package org.mule.runtime.config.spring.parsers.endpoint;
 
-import org.mule.config.spring.parsers.AbstractBadConfigTestCase;
+import org.mule.runtime.config.spring.parsers.AbstractBadConfigTestCase;
 
 import org.junit.Test;
 

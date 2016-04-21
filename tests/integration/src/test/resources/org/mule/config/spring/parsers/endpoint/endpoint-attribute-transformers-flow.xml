@@ -36,9 +36,9 @@
             </response>
         </inbound-endpoint>
         <outbound-endpoint address="test://ep5" transformer-refs="t1" responseTransformer-refs="rt1">
-            <message-properties-transformer/>
+            <base64-encoder-transformer/>
             <response>
-                <message-properties-transformer/>
+                <base64-decoder-transformer/>
             </response>
         </outbound-endpoint>
     </flow>

@@ -6,11 +6,11 @@
  */
 package org.mule.test.integration.transport;
 
-import org.mule.api.MuleContext;
-import org.mule.api.MuleException;
-import org.mule.api.lifecycle.InitialisationException;
-import org.mule.api.processor.MessageProcessor;
+import org.mule.runtime.core.api.MuleContext;
+import org.mule.runtime.core.api.MuleException;
 import org.mule.runtime.core.api.endpoint.OutboundEndpoint;
+import org.mule.runtime.core.api.lifecycle.InitialisationException;
+import org.mule.runtime.core.api.processor.MessageProcessor;
 import org.mule.runtime.core.transport.AbstractConnector;
 
 import java.util.ArrayList;
@@ -36,17 +36,20 @@ public class ConnectorLifecycleTracker extends AbstractConnector
         return tracker;
     }
 
+    @Override
     public String getProtocol()
     {
         return "test";
     }
 
+    @Override
     public void doConnect() throws Exception
     {
         connected = true;
         getTracker().add("connect");
     }
 
+    @Override
     public void doDisconnect() throws Exception
     {
         connected = false;
@@ -59,20 +62,24 @@ public class ConnectorLifecycleTracker extends AbstractConnector
         tracker.add("setProperty");
     }
 
+    @Override
     public void doInitialise() throws InitialisationException
     {
         tracker.add("initialise");
     }
 
+    @Override
     public void doStart() throws MuleException
     {
         tracker.add("start");
     }
 
+    @Override
     public void doStop() throws MuleException {
         tracker.add("stop");
     }
 
+    @Override
     public void doDispose() {
         tracker.add("dispose");
     }

@@ -4,21 +4,21 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
-package org.mule.config.spring.handlers;
+package org.mule.runtime.config.spring.handlers;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import org.mule.api.retry.RetryNotifier;
-import org.mule.api.retry.RetryPolicyTemplate;
-import org.mule.retry.async.AsynchronousRetryTemplate;
-import org.mule.retry.notifiers.ConnectNotifier;
-import org.mule.retry.policies.NoRetryPolicyTemplate;
-import org.mule.retry.policies.RetryForeverPolicyTemplate;
-import org.mule.retry.policies.SimpleRetryPolicyTemplate;
-import org.mule.runtime.core.api.transport.Connector;
 import org.mule.functional.junit4.FunctionalTestCase;
+import org.mule.runtime.core.api.retry.RetryNotifier;
+import org.mule.runtime.core.api.retry.RetryPolicyTemplate;
+import org.mule.runtime.core.api.transport.Connector;
+import org.mule.runtime.core.retry.async.AsynchronousRetryTemplate;
+import org.mule.runtime.core.retry.notifiers.ConnectNotifier;
+import org.mule.runtime.core.retry.policies.NoRetryPolicyTemplate;
+import org.mule.runtime.core.retry.policies.RetryForeverPolicyTemplate;
+import org.mule.runtime.core.retry.policies.SimpleRetryPolicyTemplate;
 
 import org.junit.Test;
 

@@ -9,9 +9,9 @@ package org.mule.test.spring;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import org.mule.construct.Flow;
 import org.mule.functional.junit4.FunctionalTestCase;
 import org.mule.runtime.core.api.endpoint.ImmutableEndpoint;
+import org.mule.runtime.core.construct.Flow;
 
 import org.junit.Test;
 

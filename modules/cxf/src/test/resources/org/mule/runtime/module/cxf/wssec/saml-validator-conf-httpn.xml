@@ -22,7 +22,7 @@
             <cxf:ws-security>
                 <cxf:ws-config>
                     <cxf:property key="action" value="SAMLTokenUnsigned"/>
-                    <cxf:property key="samlPropFile" value="org/mule/module/cxf/wssec/saml2.properties"/>
+                    <cxf:property key="samlPropFile" value="org/mule/runtime/module/cxf/wssec/saml2.properties"/>
                     <cxf:property key="samlCallbackRef" value-ref="saml2CallbackHandler" />
                 </cxf:ws-config>
             </cxf:ws-security>
@@ -54,7 +54,7 @@
             <cxf:ws-security>
                 <cxf:ws-config>
                     <cxf:property key="action" value="SAMLTokenSigned"/>
-                    <cxf:property key="samlPropFile" value="org/mule/module/cxf/wssec/saml2.properties"/>
+                    <cxf:property key="samlPropFile" value="org/mule/runtime/module/cxf/wssec/saml2.properties"/>
                     <cxf:property key="signatureKeyIdentifier" value="DirectReference"/>
                     <cxf:property key="user" value="joe"/>
                     <cxf:property key="passwordCallbackRef" value-ref="passwordCallbackHandler" />
@@ -71,7 +71,7 @@
             <cxf:ws-security>
                 <cxf:ws-config>
                     <cxf:property key="action" value="SAMLTokenUnsigned Signature"/>
-                    <cxf:property key="signaturePropFile" value="org/mule/module/cxf/wssec/wssecurity.properties" />
+                    <cxf:property key="signaturePropFile" value="org/mule/runtime/module/cxf/wssec/wssecurity.properties" />
                 </cxf:ws-config>
                 <cxf:ws-custom-validator>
                     <cxf:saml1-token-validator ref="samlCustomValidator" />

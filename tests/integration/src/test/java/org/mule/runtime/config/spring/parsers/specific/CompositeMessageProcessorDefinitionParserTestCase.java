@@ -4,15 +4,15 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
-package org.mule.config.spring.parsers.specific;
+package org.mule.runtime.config.spring.parsers.specific;
 
 import static org.junit.Assert.assertEquals;
 
-import org.mule.api.processor.MessageProcessor;
-import org.mule.processor.NullMessageProcessor;
+import org.mule.functional.junit4.FunctionalTestCase;
 import org.mule.runtime.core.api.endpoint.EndpointBuilder;
 import org.mule.runtime.core.api.endpoint.InboundEndpoint;
-import org.mule.functional.junit4.FunctionalTestCase;
+import org.mule.runtime.core.api.processor.MessageProcessor;
+import org.mule.runtime.core.processor.NullMessageProcessor;
 
 import org.junit.Test;
 

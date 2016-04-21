@@ -6,7 +6,7 @@
  */
 package org.mule.runtime.config.spring.parsers;
 
-import org.mule.config.spring.factories.InboundEndpointFactoryBean;
+import org.mule.runtime.config.spring.factories.InboundEndpointFactoryBean;
 import org.mule.runtime.config.spring.handlers.AbstractMuleNamespaceHandler;
 import org.mule.runtime.config.spring.parsers.beans.ChildBean;
 import org.mule.runtime.config.spring.parsers.beans.OrphanBean;
@@ -21,13 +21,13 @@ import org.mule.runtime.config.spring.parsers.generic.ChildDefinitionParser;
 import org.mule.runtime.config.spring.parsers.generic.NamedDefinitionParser;
 import org.mule.runtime.config.spring.parsers.generic.OrphanDefinitionParser;
 import org.mule.runtime.config.spring.parsers.generic.ParentDefinitionParser;
-import org.mule.config.spring.parsers.specific.endpoint.TransportEndpointDefinitionParser;
-import org.mule.config.spring.parsers.specific.endpoint.TransportGlobalEndpointDefinitionParser;
-import org.mule.config.spring.parsers.specific.endpoint.support.AddressedEndpointDefinitionParser;
-import org.mule.config.spring.parsers.specific.endpoint.support.ChildAddressDefinitionParser;
-import org.mule.config.spring.parsers.specific.endpoint.support.ChildEndpointDefinitionParser;
-import org.mule.config.spring.parsers.specific.endpoint.support.OrphanEndpointDefinitionParser;
-import org.mule.endpoint.EndpointURIEndpointBuilder;
+import org.mule.runtime.config.spring.parsers.specific.endpoint.TransportEndpointDefinitionParser;
+import org.mule.runtime.config.spring.parsers.specific.endpoint.TransportGlobalEndpointDefinitionParser;
+import org.mule.runtime.config.spring.parsers.specific.endpoint.support.AddressedEndpointDefinitionParser;
+import org.mule.runtime.config.spring.parsers.specific.endpoint.support.ChildAddressDefinitionParser;
+import org.mule.runtime.config.spring.parsers.specific.endpoint.support.ChildEndpointDefinitionParser;
+import org.mule.runtime.config.spring.parsers.specific.endpoint.support.OrphanEndpointDefinitionParser;
+import org.mule.runtime.core.endpoint.EndpointURIEndpointBuilder;
 
 /**
  * Registers a Bean Definition Parser for handling <code><parsers-test:...></code> elements.
@@ -36,6 +36,7 @@ import org.mule.endpoint.EndpointURIEndpointBuilder;
 public class ParsersTestNamespaceHandler extends AbstractMuleNamespaceHandler
 {
 
+    @Override
     public void init()
     {
         registerMuleBeanDefinitionParser("orphan", new OrphanDefinitionParser(OrphanBean.class, true)).addAlias("bar", "foo").addIgnored("ignored").addCollection("offspring");

@@ -17,7 +17,7 @@
                     <callable-entry-point-resolver/>
                 </entry-point-resolver-set>
                 <custom-lifecycle-adapter-factory class="org.mule.tck.testmodels.mule.TestComponentLifecycleAdapterFactory"/>
-                <binding interface="org.mule.config.spring.parsers.specific.DummyBinding" method="doSomething">
+                <binding interface="org.mule.runtime.config.spring.parsers.specific.DummyBinding" method="doSomething">
                     <outbound-endpoint address="test://test" />
                 </binding>
             </component>
@@ -30,7 +30,7 @@
                 </entry-point-resolver-set>
                 <prototype-object class="org.mule.runtime.config.spring.parsers.specific.DummyComponentWithBinding" />
                 <custom-lifecycle-adapter-factory class="org.mule.tck.testmodels.mule.TestComponentLifecycleAdapterFactory"/>
-                <binding interface="org.mule.config.spring.parsers.specific.DummyBinding">
+                <binding interface="org.mule.runtime.config.spring.parsers.specific.DummyBinding">
                     <outbound-endpoint address="test://test" />
                 </binding>
             </component>
@@ -45,7 +45,7 @@
                 </entry-point-resolver-set>
                 <singleton-object class="org.mule.runtime.config.spring.parsers.specific.DummyComponentWithBinding" />
                 <custom-lifecycle-adapter-factory class="org.mule.tck.testmodels.mule.TestComponentLifecycleAdapterFactory"/>
-                <binding interface="org.mule.config.spring.parsers.specific.DummyBinding" method="doSomething">
+                <binding interface="org.mule.runtime.config.spring.parsers.specific.DummyBinding" method="doSomething">
                     <outbound-endpoint address="test://test" />
                 </binding>
             </component>
@@ -58,7 +58,7 @@
                 </entry-point-resolver-set>            
                 <spring-object bean="testSpringBean"  />
                 <custom-lifecycle-adapter-factory class="org.mule.tck.testmodels.mule.TestComponentLifecycleAdapterFactory"/>
-                <binding interface="org.mule.config.spring.parsers.specific.DummyBinding" method="doSomething">
+                <binding interface="org.mule.runtime.config.spring.parsers.specific.DummyBinding" method="doSomething">
                     <outbound-endpoint address="test://test" />
                 </binding>
             </component>
@@ -70,7 +70,7 @@
                     <property-entry-point-resolver/>
                 </entry-point-resolver-set>
                 <custom-lifecycle-adapter-factory class="org.mule.tck.testmodels.mule.TestComponentLifecycleAdapterFactory"/>
-                <binding interface="org.mule.config.spring.parsers.specific.DummyBinding">
+                <binding interface="org.mule.runtime.config.spring.parsers.specific.DummyBinding">
                     <outbound-endpoint address="test://test" />
                 </binding>
                 <pooling-profile exhaustedAction="WHEN_EXHAUSTED_FAIL"
@@ -84,7 +84,7 @@
                 <reflection-entry-point-resolver/>
                 <prototype-object class="org.mule.runtime.config.spring.parsers.specific.DummyComponentWithBinding" />
                 <custom-lifecycle-adapter-factory class="org.mule.tck.testmodels.mule.TestComponentLifecycleAdapterFactory"/>
-                <binding interface="org.mule.config.spring.parsers.specific.DummyBinding" method="doSomething">
+                <binding interface="org.mule.runtime.config.spring.parsers.specific.DummyBinding" method="doSomething">
                     <outbound-endpoint address="test://test" />
                 </binding>
                 <pooling-profile exhaustedAction="WHEN_EXHAUSTED_FAIL"
@@ -100,7 +100,7 @@
                 </entry-point-resolver-set>
                 <singleton-object class="org.mule.runtime.config.spring.parsers.specific.DummyComponentWithBinding" />
                 <custom-lifecycle-adapter-factory class="org.mule.tck.testmodels.mule.TestComponentLifecycleAdapterFactory"/>
-                <binding interface="org.mule.config.spring.parsers.specific.DummyBinding" method="doSomething">
+                <binding interface="org.mule.runtime.config.spring.parsers.specific.DummyBinding" method="doSomething">
                     <outbound-endpoint address="test://test" />
                 </binding>
                 <pooling-profile exhaustedAction="WHEN_EXHAUSTED_FAIL"
@@ -113,7 +113,7 @@
             <pooled-component>
                 <spring-object bean="testSpringBean"  />
                 <custom-lifecycle-adapter-factory class="org.mule.tck.testmodels.mule.TestComponentLifecycleAdapterFactory"/>
-                <binding interface="org.mule.config.spring.parsers.specific.DummyBinding" method="doSomething">
+                <binding interface="org.mule.runtime.config.spring.parsers.specific.DummyBinding" method="doSomething">
                     <outbound-endpoint address="test://test" />
                 </binding>
                 <pooling-profile exhaustedAction="WHEN_EXHAUSTED_FAIL"
