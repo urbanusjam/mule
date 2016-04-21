@@ -522,13 +522,16 @@ public class BeanDefinitionFactory
 
     private void processAnnotations(ComponentDefinitionModel componentDefinitionModel, Resource resource, BeanDefinitionBuilder beanDefinitionBuilder)
     {
-        //TODO join this two methods one we get rid of AbstractMuleBeanDefinitionParser.processMetadataAnnotationsHelper
-        Map<QName, Object> annotations = AbstractMuleBeanDefinitionParser.processMetadataAnnotationsHelper((Element) componentDefinitionModel.getNode(), resource, beanDefinitionBuilder);
-        processAnnotationParameters(componentDefinitionModel, annotations);
-        processNestedAnnotations(componentDefinitionModel, annotations);
-        if (!annotations.isEmpty())
+        if (AnnotatedObject.class.isAssignableFrom(componentDefinitionModel.getType()))
         {
-            beanDefinitionBuilder.addPropertyValue(AnnotatedObject.PROPERTY_NAME, annotations);
+            //TODO join this two methods one we get rid of AbstractMuleBeanDefinitionParser.processMetadataAnnotationsHelper
+            Map<QName, Object> annotations = AbstractMuleBeanDefinitionParser.processMetadataAnnotationsHelper((Element) componentDefinitionModel.getNode(), resource, beanDefinitionBuilder);
+            processAnnotationParameters(componentDefinitionModel, annotations);
+            processNestedAnnotations(componentDefinitionModel, annotations);
+            if (!annotations.isEmpty())
+            {
+                beanDefinitionBuilder.addPropertyValue(AnnotatedObject.PROPERTY_NAME, annotations);
+            }
         }
     }
 

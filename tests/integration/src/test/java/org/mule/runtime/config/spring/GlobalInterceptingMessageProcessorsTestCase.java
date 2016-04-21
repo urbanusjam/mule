@@ -13,6 +13,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.mule.runtime.core.api.processor.MessageProcessor;
+import org.mule.runtime.core.config.model.ReferenceMessageProcessor;
 import org.mule.runtime.core.construct.Flow;
 import org.mule.runtime.core.routing.IdempotentMessageFilter;
 import org.mule.runtime.core.routing.IdempotentSecureHashMessageFilter;
@@ -68,18 +69,27 @@ public class GlobalInterceptingMessageProcessorsTestCase extends FunctionalTestC
      * Check that the list of message processors contains a duplicate of the MP looked up
      * in the registry (ie. that the MP is a prototype, not a singleton)
      */
-    private void assertMpPresent(List<MessageProcessor> mpList, MessageProcessor mp, Class<?> clazz)
+    private void assertMpPresent(List<MessageProcessor> flowMessageProcessors, MessageProcessor mp, Class<?> clazz)
     {
-        assertFalse(mpList.contains(mp));
+        assertFalse(flowMessageProcessors.contains(mp));
 
-        for (MessageProcessor theMp : mpList)
+        for (MessageProcessor flowMessageProcessor : flowMessageProcessors)
         {
-            if (clazz.isInstance(theMp))
+            if (clazz.isInstance(getRealMessageProcessor(flowMessageProcessor)))
             {
                 return;
             }
         }
 
         fail("No " + clazz.getSimpleName() + " found");
+    }
+
+    private MessageProcessor getRealMessageProcessor(MessageProcessor messageProcessor)
+    {
+        if (messageProcessor instanceof ReferenceMessageProcessor)
+        {
+            return ((ReferenceMessageProcessor) messageProcessor).getMessageProcessor();
+        }
+        return messageProcessor;
     }
 }

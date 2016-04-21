@@ -6,9 +6,12 @@
  */
 package org.mule.runtime.config.spring.model;
 
+import org.mule.runtime.core.api.MuleRuntimeException;
+import org.mule.runtime.core.api.config.ConfigurationException;
+import org.mule.runtime.core.config.i18n.CoreMessages;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Consumer;
 
 import org.w3c.dom.Element;
@@ -18,7 +21,7 @@ public class ApplicationModel
 
     private List<ComponentDefinitionModel> componentDefinitionModels = new ArrayList<>();
 
-    public ApplicationModel(ApplicationConfig applicationConfig) {
+    public ApplicationModel(ApplicationConfig applicationConfig) throws Exception {
         List<ConfigFile> configFiles = applicationConfig.getConfigFiles();
         configFiles.stream().filter(configFile -> {
             return !configFile.getConfigLines().get(0).getOperation().equals("beans");
@@ -26,6 +29,53 @@ public class ApplicationModel
             //TODO for now let's don't do nothing with "mule"
             componentDefinitionModels.addAll(extractComponentDefinitionModel(configFile.getConfigLines().get(0).getChildren(), true));
         });
+        //validateModel();
+    }
+
+    private void validateModel() throws ConfigurationException
+    {
+        if (componentDefinitionModels.isEmpty())
+        {
+            return;
+        }
+        try
+        {
+            List<ComponentDefinitionModel> topLevelComponents = componentDefinitionModels;
+            topLevelComponents.forEach(topLevelComponent -> {
+                topLevelComponent.getInnerComponents().stream().filter( topLevelComponentChild -> {
+                    return !topLevelComponentChild.getIdentifier().equals("beans");
+                }).forEach((topLevelComponentChild -> {
+                    doWithAllComponents(topLevelComponentChild, (component) -> {
+                        if (component.getNameAttribute() != null)
+                        {
+                            throw new MuleRuntimeException(CoreMessages.createStaticMessage("Only top level elements can have a name attribute. Component %s has attribute name with value %s", getComponentIdentifier(component), component.getNameAttribute()));
+                        }
+                    });
+                }));
+
+            });
+        }
+        catch (Exception e)
+        {
+            throw new ConfigurationException(e);
+        }
+    }
+
+    private String getComponentIdentifier(ComponentDefinitionModel component)
+    {
+        if (component.getNamespace().equals("mule"))
+        {
+            return component.getIdentifier();
+        }
+        return component.getNamespace() + ":" + component.getIdentifier();
+    }
+
+    private void doWithAllComponents(final ComponentDefinitionModel component, final ComponentConsumer task) throws MuleRuntimeException
+    {
+        component.getInnerComponents().forEach((innerComponent) -> {
+            doWithAllComponents(innerComponent, task);
+        });
+        task.consume(component);
     }
 
     private List<ComponentDefinitionModel> extractComponentDefinitionModel(List<ConfigLine> configLines, boolean isRoot)
@@ -109,5 +159,9 @@ public class ApplicationModel
             }
         }
         return null;
+    }
+
+    interface ComponentConsumer {
+        void consume(ComponentDefinitionModel componentDefinitionModel) throws MuleRuntimeException;
     }
 }

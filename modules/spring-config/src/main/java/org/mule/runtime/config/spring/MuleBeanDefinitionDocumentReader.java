@@ -13,6 +13,7 @@ import org.mule.runtime.config.spring.model.ComponentDefinitionModel;
 import org.mule.runtime.config.spring.model.ConfigFile;
 import org.mule.runtime.config.spring.model.ConfigLine;
 import org.mule.runtime.config.spring.model.XmlApplicationElementParser;
+import org.mule.runtime.core.api.MuleRuntimeException;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -83,10 +84,17 @@ public class MuleBeanDefinitionDocumentReader extends DefaultBeanDefinitionDocum
     @Override
     protected void preProcessXml(Element root)
     {
-        ArrayList<ConfigLine> configLines = new ArrayList<>();
-        configLines.add(xmlApplicationElementParser.parse(root).get());
-        ApplicationConfig applicationConfig = new ApplicationConfig.Builder().addConfigFile(new ConfigFile("fakeName", configLines)).build();
-        applicationModelStack.push(new ApplicationModel(applicationConfig));
+        try
+        {
+            ArrayList<ConfigLine> configLines = new ArrayList<>();
+            configLines.add(xmlApplicationElementParser.parse(root).get());
+            ApplicationConfig applicationConfig = new ApplicationConfig.Builder().addConfigFile(new ConfigFile("fakeName", configLines)).build();
+            applicationModelStack.push(new ApplicationModel(applicationConfig));
+        }
+        catch (Exception e)
+        {
+            throw new MuleRuntimeException(e);
+        }
     }
 
     @Override

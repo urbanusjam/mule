@@ -30,6 +30,7 @@ import org.mule.runtime.core.api.config.ThreadingProfile;
 import org.mule.runtime.core.api.exception.MessagingExceptionHandler;
 import org.mule.runtime.core.api.processor.MessageProcessor;
 import org.mule.runtime.core.api.routing.filter.Filter;
+import org.mule.runtime.core.api.schedule.SchedulerFactory;
 import org.mule.runtime.core.api.source.MessageSource;
 import org.mule.runtime.core.config.DefaultMuleConfiguration;
 import org.mule.runtime.core.config.i18n.Message;
@@ -142,15 +143,15 @@ public class CoreComponentBuildingDefinitionProvider implements ComponentBuildin
                                                  .withNamespace("mule")
                                                  .withTypeDefinitionBuilder(fromType(DefaultMessagingExceptionStrategy.class))
                                                  .withSetterParameterDefinition("globalName", fromSimpleParameter("name").build())
+                                                 .withSetterParameterDefinition("stopMessageProcessing", fromSimpleParameter("stopMessageProcessing").build())
                                                  .withSetterParameterDefinition("messageProcessors", fromChildListConfiguration(MessageProcessor.class).build())
                                                  .withSetterParameterDefinition("commitTxFilter", fromChildConfiguration(WildcardFilter.class).build())
                                                  .withSetterParameterDefinition("rollbackTxFilter", fromChildConfiguration(WildcardFilter.class).build())
                                                  .build());
-        componentBuildingDefinitions.add(exceptionStrategyBaseBuilder.copy()
+        componentBuildingDefinitions.add(new ComponentBuildingDefinition.Builder()
                                                  .withName("custom-exception-strategy")
                                                  .withNamespace("mule")
                                                  .withTypeDefinitionBuilder(fromConfigurationAttribute("class"))
-                                                 .withSetterParameterDefinition("globalName", fromSimpleParameter("name").build())
                                                  .build());
         componentBuildingDefinitions.add(new ComponentBuildingDefinition.Builder()
                                                  .withNamespace("mule")
@@ -396,6 +397,7 @@ public class CoreComponentBuildingDefinitionProvider implements ComponentBuildin
                                                  .withSetterParameterDefinition("messageProcessor", fromChildConfiguration(MessageProcessor.class).build())
                                                  .withSetterParameterDefinition("frequency", fromSimpleParameter("frequency").build())
                                                  .withSetterParameterDefinition("override", fromChildConfiguration(MessageProcessorPollingOverride.class).build())
+                                                 .withSetterParameterDefinition("schedulerFactory", fromChildConfiguration(SchedulerFactory.class).build())
                                                  .build());
 
         componentBuildingDefinitions.add(new ComponentBuildingDefinition.Builder()
@@ -404,6 +406,7 @@ public class CoreComponentBuildingDefinitionProvider implements ComponentBuildin
                                                  .withTypeDefinitionBuilder(fromType(FixedFrequencySchedulerFactory.class))
                                                  .withSetterParameterDefinition("frequency", fromSimpleParameter("frequency").build())
                                                  .withSetterParameterDefinition("startDelay", fromSimpleParameter("startDelay").build())
+                                                 .withSetterParameterDefinition("timeUnit", fromSimpleParameter("timeUnit").build())
                                                  .build());
 
 
