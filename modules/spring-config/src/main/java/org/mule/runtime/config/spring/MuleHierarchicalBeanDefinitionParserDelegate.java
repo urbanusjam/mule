@@ -172,7 +172,14 @@ public class MuleHierarchicalBeanDefinitionParserDelegate extends BeanDefinition
                                             }
                                             catch (Exception e2)
                                             {
-                                                type = Object.class;
+                                                try
+                                                {
+                                                    type = (Class<?>) ((ParameterizedType)Class.forName(finalChild.getBeanClassName()).getGenericSuperclass()).getActualTypeArguments()[0];
+                                                }
+                                                catch(Exception e3)
+                                                {
+                                                    type = Object.class;
+                                                }
                                             }
                                         }
                                     }

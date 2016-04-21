@@ -15,6 +15,8 @@ import org.mule.runtime.config.spring.model.ConfigLine;
 import org.mule.runtime.config.spring.model.XmlApplicationElementParser;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Stack;
 
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.xml.BeanDefinitionParserDelegate;
@@ -32,8 +34,8 @@ public class MuleBeanDefinitionDocumentReader extends DefaultBeanDefinitionDocum
 
     private BeanDefinitionFactory beanDefinitionFactory;
     private XmlApplicationElementParser xmlApplicationElementParser = new XmlApplicationElementParser();
-    private ApplicationModel oldApplicationModel;
-    private ApplicationModel applicationModel;
+    //This same instance is called several time to parse different XML files so a stack is needed to save previous state.
+    private Stack<ApplicationModel> applicationModelStack = new Stack<>();
 
     public MuleBeanDefinitionDocumentReader(BeanDefinitionFactory beanDefinitionFactory)
     {
@@ -50,7 +52,7 @@ public class MuleBeanDefinitionDocumentReader extends DefaultBeanDefinitionDocum
 
     protected MuleHierarchicalBeanDefinitionParserDelegate createBeanDefinitionParserDelegate(XmlReaderContext readerContext)
     {
-        return new MuleHierarchicalBeanDefinitionParserDelegate(readerContext, this, () -> { return applicationModel;}, beanDefinitionFactory);
+        return new MuleHierarchicalBeanDefinitionParserDelegate(readerContext, this, () -> { return applicationModelStack.peek();}, beanDefinitionFactory);
     }
 
     /* Keep backward compatibility with spring 3.0 */
@@ -81,17 +83,16 @@ public class MuleBeanDefinitionDocumentReader extends DefaultBeanDefinitionDocum
     @Override
     protected void preProcessXml(Element root)
     {
-        oldApplicationModel = applicationModel;
         ArrayList<ConfigLine> configLines = new ArrayList<>();
         configLines.add(xmlApplicationElementParser.parse(root).get());
         ApplicationConfig applicationConfig = new ApplicationConfig.Builder().addConfigFile(new ConfigFile("fakeName", configLines)).build();
-        applicationModel = new ApplicationModel(applicationConfig);
+        applicationModelStack.push(new ApplicationModel(applicationConfig));
     }
 
     @Override
     protected void postProcessXml(Element root)
     {
-        applicationModel = oldApplicationModel;
+        applicationModelStack.pop();
     }
 
     public void setBeanDefinitionFactory(BeanDefinitionFactory beanDefinitionFactory)
