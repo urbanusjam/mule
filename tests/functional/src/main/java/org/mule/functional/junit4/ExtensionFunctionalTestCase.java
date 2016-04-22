@@ -9,6 +9,7 @@ package org.mule.functional.junit4;
 import static org.mule.runtime.core.api.lifecycle.LifecycleUtils.initialiseIfNeeded;
 import static org.mule.runtime.core.config.MuleManifest.getProductVersion;
 import static org.mule.runtime.core.util.IOUtils.getResourceAsUrl;
+import static org.mule.runtime.module.extension.internal.ExtensionProperties.EXTENSION_CLASSLOADER;
 import static org.springframework.util.ReflectionUtils.findMethod;
 import org.mule.runtime.core.DefaultMuleContext;
 import org.mule.runtime.core.api.MuleContext;
@@ -21,6 +22,7 @@ import org.mule.runtime.core.util.ArrayUtils;
 import org.mule.runtime.core.util.collection.ImmutableListCollector;
 import org.mule.runtime.extension.api.ExtensionManager;
 import org.mule.runtime.extension.api.introspection.ExtensionFactory;
+import org.mule.runtime.extension.api.introspection.declaration.DescribingContext;
 import org.mule.runtime.extension.api.introspection.declaration.spi.Describer;
 import org.mule.runtime.extension.api.resources.GeneratedResource;
 import org.mule.runtime.extension.api.resources.ResourcesGenerator;
@@ -179,7 +181,9 @@ public abstract class ExtensionFunctionalTestCase extends FunctionalTestCase
     {
         for (Describer describer : describers)
         {
-            extensionManager.registerExtension(extensionFactory.createFrom(describer.describe(new DefaultDescribingContext())));
+            final DescribingContext context = new DefaultDescribingContext();
+            context.addParameter(EXTENSION_CLASSLOADER, getClass().getClassLoader());
+            extensionManager.registerExtension(extensionFactory.createFrom(describer.describe(context)));
         }
     }
 
