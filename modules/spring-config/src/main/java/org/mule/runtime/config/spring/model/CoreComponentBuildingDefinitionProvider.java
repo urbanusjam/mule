@@ -32,15 +32,12 @@ import org.mule.runtime.core.api.processor.MessageProcessor;
 import org.mule.runtime.core.api.routing.filter.Filter;
 import org.mule.runtime.core.api.schedule.SchedulerFactory;
 import org.mule.runtime.core.api.source.MessageSource;
-import org.mule.runtime.core.config.DefaultMuleConfiguration;
-import org.mule.runtime.core.config.i18n.Message;
 import org.mule.runtime.core.config.model.ComponentBuildingDefinition;
 import org.mule.runtime.core.config.model.ComponentBuildingDefinitionProvider;
 import org.mule.runtime.core.config.model.MessageEnricherObjectFactory;
 import org.mule.runtime.core.config.model.ParameterDefinition;
 import org.mule.runtime.core.config.model.ReferenceMessageProcessor;
 import org.mule.runtime.core.config.model.TransactionalMessageProcessor;
-import org.mule.runtime.core.config.model.TypeDefinitionBuilder;
 import org.mule.runtime.core.construct.Flow;
 import org.mule.runtime.core.enricher.MessageEnricher;
 import org.mule.runtime.core.exception.CatchMessagingExceptionStrategy;
@@ -51,7 +48,6 @@ import org.mule.runtime.core.exception.RedeliveryExceeded;
 import org.mule.runtime.core.exception.RollbackMessagingExceptionStrategy;
 import org.mule.runtime.core.processor.AsyncDelegateMessageProcessor;
 import org.mule.runtime.core.processor.ResponseMessageProcessorAdapter;
-import org.mule.runtime.core.processor.chain.DefaultMessageProcessorChain;
 import org.mule.runtime.core.routing.AggregationStrategy;
 import org.mule.runtime.core.routing.ChoiceRouter;
 import org.mule.runtime.core.routing.FirstSuccessful;
@@ -74,7 +70,6 @@ import org.mule.runtime.core.transaction.lookup.JRunTransactionManagerLookupFact
 import org.mule.runtime.core.transaction.lookup.Resin3TransactionManagerLookupFactory;
 import org.mule.runtime.core.transaction.lookup.WeblogicTransactionManagerLookupFactory;
 import org.mule.runtime.core.transaction.lookup.WebsphereTransactionManagerLookupFactory;
-import org.mule.runtime.core.transformer.simple.AutoTransformer;
 import org.mule.runtime.core.transformer.simple.SetPayloadMessageProcessor;
 
 import java.util.LinkedList;
@@ -131,12 +126,14 @@ public class CoreComponentBuildingDefinitionProvider implements ComponentBuildin
                                                  .withTypeDefinitionBuilder(fromType(CatchMessagingExceptionStrategy.class))
                                                  .withSetterParameterDefinition("messageProcessors", fromChildListConfiguration(MessageProcessor.class).build())
                                                  .withSetterParameterDefinition("when", fromSimpleParameter("when").build())
+                                                 .asPrototype()
                                                  .build());
         componentBuildingDefinitions.add(exceptionStrategyBaseBuilder.copy()
                                                  .withName("rollback-exception-strategy")
                                                  .withTypeDefinitionBuilder(fromType(RollbackMessagingExceptionStrategy.class))
                                                  .withSetterParameterDefinition("messageProcessors", fromChildListConfiguration(MessageProcessor.class).build())
                                                  .withSetterParameterDefinition("when", fromSimpleParameter("when").build())
+                                                 .asPrototype()
                                                  .build());
         componentBuildingDefinitions.add(exceptionStrategyBaseBuilder.copy()
                                                  .withName("default-exception-strategy")
@@ -147,11 +144,13 @@ public class CoreComponentBuildingDefinitionProvider implements ComponentBuildin
                                                  .withSetterParameterDefinition("messageProcessors", fromChildListConfiguration(MessageProcessor.class).build())
                                                  .withSetterParameterDefinition("commitTxFilter", fromChildConfiguration(WildcardFilter.class).build())
                                                  .withSetterParameterDefinition("rollbackTxFilter", fromChildConfiguration(WildcardFilter.class).build())
+                                                 .asPrototype()
                                                  .build());
         componentBuildingDefinitions.add(new ComponentBuildingDefinition.Builder()
                                                  .withName("custom-exception-strategy")
                                                  .withNamespace("mule")
                                                  .withTypeDefinitionBuilder(fromConfigurationAttribute("class"))
+                                                 .asPrototype()
                                                  .build());
         componentBuildingDefinitions.add(new ComponentBuildingDefinition.Builder()
                                                  .withNamespace("mule")
@@ -239,7 +238,7 @@ public class CoreComponentBuildingDefinitionProvider implements ComponentBuildin
                                                  .withTypeDefinitionBuilder(fromType(MessageFilter.class))
                                                  .withConstructorParameterDefinition(fromChildConfiguration(Filter.class).build())
                                                  .withConstructorParameterDefinition(fromSimpleParameter("throwOnUnaccepted").withDefaultValue(false).build())
-                                                 .withConstructorParameterDefinition(fromSimpleReferenceParameter("onUnaccepted").withDefaultValue(null).build())
+                                                 .withConstructorParameterDefinition(fromSimpleReferenceParameter("onUnaccepted").build())
                                                  .build());
 
         componentBuildingDefinitions.add(new ComponentBuildingDefinition.Builder()

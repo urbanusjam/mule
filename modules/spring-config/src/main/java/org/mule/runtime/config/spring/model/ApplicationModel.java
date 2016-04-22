@@ -9,18 +9,26 @@ package org.mule.runtime.config.spring.model;
 import org.mule.runtime.core.api.MuleRuntimeException;
 import org.mule.runtime.core.api.config.ConfigurationException;
 import org.mule.runtime.core.config.i18n.CoreMessages;
+import org.mule.runtime.core.config.model.ComponentIdentifier;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Consumer;
 
 import org.w3c.dom.Element;
 
 public class ApplicationModel
 {
-
+    private static Set<ComponentIdentifier> ignoreNameValidationComponentList = new HashSet<>();
     private List<ComponentDefinitionModel> componentDefinitionModels = new ArrayList<>();
+
+    static {
+        ignoreNameValidationComponentList.add(new ComponentIdentifier("mule","flow-ref"));
+        ignoreNameValidationComponentList.add(new ComponentIdentifier("test","queue"));
+    }
 
     public ApplicationModel(ApplicationConfig applicationConfig) throws Exception {
         List<ConfigFile> configFiles = applicationConfig.getConfigFiles();
@@ -29,7 +37,7 @@ public class ApplicationModel
         }).forEach(configFile -> {
             componentDefinitionModels.addAll(extractComponentDefinitionModel(Arrays.asList(configFile.getConfigLines().get(0))));
         });
-        //validateModel();
+        validateModel();
     }
 
     private void validateModel() throws ConfigurationException
@@ -99,7 +107,7 @@ public class ApplicationModel
                     return !topLevelComponentChild.getIdentifier().equals("beans");
                 }).forEach((topLevelComponentChild -> {
                     executeOnComponentTree(topLevelComponentChild, (component) -> {
-                        if (component.getNameAttribute() != null && !component.getIdentifier().equals("flow-ref"))
+                        if (component.getNameAttribute() != null && !ignoreNameValidationComponentList.contains(new ComponentIdentifier(component.getNamespace(), component.getIdentifier())))
                         {
                             throw new MuleRuntimeException(CoreMessages.createStaticMessage("Only top level elements can have a name attribute. Component %s has attribute name with value %s", getComponentIdentifier(component), component.getNameAttribute()));
                         }
