@@ -239,7 +239,7 @@ public class CoreComponentBuildingDefinitionProvider implements ComponentBuildin
                                                  .withTypeDefinitionBuilder(fromType(MessageFilter.class))
                                                  .withConstructorParameterDefinition(fromChildConfiguration(Filter.class).build())
                                                  .withConstructorParameterDefinition(fromSimpleParameter("throwOnUnaccepted").withDefaultValue(false).build())
-                                                 .withConstructorParameterDefinition(fromSimpleReferenceParameter("onUnaccepted").build())
+                                                 .withConstructorParameterDefinition(fromSimpleReferenceParameter("onUnaccepted").withDefaultValue(null).build())
                                                  .build());
 
         componentBuildingDefinitions.add(new ComponentBuildingDefinition.Builder()

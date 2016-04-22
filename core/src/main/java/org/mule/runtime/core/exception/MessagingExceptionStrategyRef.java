@@ -125,4 +125,9 @@ public class MessagingExceptionStrategyRef implements MessagingExceptionHandlerA
         }
         return true;
     }
+
+    public MessagingExceptionHandler getDelegate()
+    {
+        return delegate;
+    }
 }

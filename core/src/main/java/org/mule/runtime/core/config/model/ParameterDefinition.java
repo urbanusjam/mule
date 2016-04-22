@@ -81,7 +81,7 @@ public class ParameterDefinition
         }
 
         /**
-         * once thise method gets called, even if the parameter is null, it will use it as defualt value.
+         * Once this method gets called, even if the parameter is null, it will use it as default value.
          *
          * @param defaultValue
          * @return

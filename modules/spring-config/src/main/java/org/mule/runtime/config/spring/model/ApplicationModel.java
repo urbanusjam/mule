@@ -11,6 +11,7 @@ import org.mule.runtime.core.api.config.ConfigurationException;
 import org.mule.runtime.core.config.i18n.CoreMessages;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -26,27 +27,79 @@ public class ApplicationModel
         configFiles.stream().filter(configFile -> {
             return !configFile.getConfigLines().get(0).getOperation().equals("beans");
         }).forEach(configFile -> {
-            //TODO for now let's don't do nothing with "mule"
-            componentDefinitionModels.addAll(extractComponentDefinitionModel(configFile.getConfigLines().get(0).getChildren(), true));
+            componentDefinitionModels.addAll(extractComponentDefinitionModel(Arrays.asList(configFile.getConfigLines().get(0))));
         });
         //validateModel();
     }
 
     private void validateModel() throws ConfigurationException
     {
-        if (componentDefinitionModels.isEmpty())
+        //TODO improve performance by processing the tree only once if necessary
+        if (componentDefinitionModels.isEmpty() || !componentDefinitionModels.get(0).getIdentifier().equals("mule"))
         {
             return;
         }
+        validateNameIsOnlyOnTopElements();
+        validateExceptionStrategyWhenAttributeIsOnlyPresentInsideChoice();
+        validateChoiceExceptionStrategyStructure();
+    }
+
+    private void validateChoiceExceptionStrategyStructure()
+    {
+        executeOnEveryComponentTree(component -> {
+            if (component.getIdentifier().equals("choice-exception-strategy"))
+            {
+                validateExceptionStrategiesHaveWhenAttribute(component);
+                validateNoMoreThanOneRollbackExceptionStrategyWithRedelivery(component);
+            }
+        });
+    }
+
+    private void validateNoMoreThanOneRollbackExceptionStrategyWithRedelivery(ComponentDefinitionModel component)
+    {
+        if (component.getInnerComponents().stream().filter( exceptionStrategyComponent -> {
+            return exceptionStrategyComponent.getAttributes().get("maxRedeliveryAttempts") != null;
+        }).count() > 1) {
+            throw new MuleRuntimeException(CoreMessages.createStaticMessage("Only one rollback-exception-strategy within a choice-exception-strategy can handle message redelivery. Remove one of the maxRedeliveryAttempts attributes"));
+        }
+    }
+
+    private void validateExceptionStrategiesHaveWhenAttribute(ComponentDefinitionModel component)
+    {
+        List<ComponentDefinitionModel> innerComponents = component.getInnerComponents();
+        for (int i = 0; i < innerComponents.size() - 1; i++)
+        {
+            if (innerComponents.get(i).getAttributes().get("when") == null)
+            {
+                throw new MuleRuntimeException(CoreMessages.createStaticMessage("Every exception strategy (except for the last one) within a choice-exception-strategy must specify the when attribute"));
+            }
+        }
+    }
+
+    private void validateExceptionStrategyWhenAttributeIsOnlyPresentInsideChoice()
+    {
+        executeOnEveryComponentTree(component -> {
+            if (component.getIdentifier().endsWith("exception-strategy"))
+            {
+                if (component.getAttributes().get("when") != null && !component.getNode().getParentNode().getLocalName().equals("choice-exception-strategy"))
+                {
+                    throw new MuleRuntimeException(CoreMessages.createStaticMessage("Only exception strategies within a choice-exception-strategy can have when attribute specified"));
+                }
+            }
+        });
+    }
+
+    private void validateNameIsOnlyOnTopElements() throws ConfigurationException
+    {
         try
         {
-            List<ComponentDefinitionModel> topLevelComponents = componentDefinitionModels;
+            List<ComponentDefinitionModel> topLevelComponents = componentDefinitionModels.get(0).getInnerComponents();
             topLevelComponents.forEach(topLevelComponent -> {
-                topLevelComponent.getInnerComponents().stream().filter( topLevelComponentChild -> {
+                topLevelComponent.getInnerComponents().stream().filter(topLevelComponentChild -> {
                     return !topLevelComponentChild.getIdentifier().equals("beans");
                 }).forEach((topLevelComponentChild -> {
-                    doWithAllComponents(topLevelComponentChild, (component) -> {
-                        if (component.getNameAttribute() != null)
+                    executeOnComponentTree(topLevelComponentChild, (component) -> {
+                        if (component.getNameAttribute() != null && !component.getIdentifier().equals("flow-ref"))
                         {
                             throw new MuleRuntimeException(CoreMessages.createStaticMessage("Only top level elements can have a name attribute. Component %s has attribute name with value %s", getComponentIdentifier(component), component.getNameAttribute()));
                         }
@@ -70,15 +123,23 @@ public class ApplicationModel
         return component.getNamespace() + ":" + component.getIdentifier();
     }
 
-    private void doWithAllComponents(final ComponentDefinitionModel component, final ComponentConsumer task) throws MuleRuntimeException
+    private void executeOnEveryComponentTree(final ComponentConsumer task)
+    {
+        for (ComponentDefinitionModel componentDefinitionModel : componentDefinitionModels)
+        {
+            executeOnComponentTree(componentDefinitionModel, task);
+        }
+    }
+
+    private void executeOnComponentTree(final ComponentDefinitionModel component, final ComponentConsumer task) throws MuleRuntimeException
     {
         component.getInnerComponents().forEach((innerComponent) -> {
-            doWithAllComponents(innerComponent, task);
+            executeOnComponentTree(innerComponent, task);
         });
         task.consume(component);
     }
 
-    private List<ComponentDefinitionModel> extractComponentDefinitionModel(List<ConfigLine> configLines, boolean isRoot)
+    private List<ComponentDefinitionModel> extractComponentDefinitionModel(List<ConfigLine> configLines)
     {
         List<ComponentDefinitionModel> models = new ArrayList<>();
         for (ConfigLine configLine : configLines) {
@@ -88,7 +149,7 @@ public class ApplicationModel
             for (ConfigAttribute configAttribute : configLine.getRawAttributes().values()) {
                 builder.addAttribute(configAttribute.getName(), configAttribute.getValue());
             }
-            List<ComponentDefinitionModel> componentDefinitionModels = extractComponentDefinitionModel(configLine.getChildren(), false);
+            List<ComponentDefinitionModel> componentDefinitionModels = extractComponentDefinitionModel(configLine.getChildren());
             componentDefinitionModels.stream().forEach(componentDefinitionModel -> {
                 if (componentDefinitionModel.getIdentifier().equals("property") && componentDefinitionModel.getNamespace().equals("spring"))
                 {
@@ -99,7 +160,8 @@ public class ApplicationModel
                     builder.addChildComponentDefinitionModel(componentDefinitionModel);
                 }
             });
-            if (isRoot)
+            ConfigLine parent = configLine.getParent();
+            if (parent != null && parent.getOperation().equals("mule"))
             {
                 builder.markAsRootComponent();
             }
@@ -120,22 +182,6 @@ public class ApplicationModel
             componentDefinitionModelConsumer.accept(componentDefinitionModel);
             innerForeach(componentDefinitionModelConsumer, componentDefinitionModel.getInnerComponents());
         }
-    }
-
-    public List<ComponentDefinitionModel> getComponentDefinitionModels() {
-        return componentDefinitionModels;
-    }
-
-    public ComponentDefinitionModel getRootComponentModelByName(String componentId)
-    {
-        for (ComponentDefinitionModel componentDefinitionModel : componentDefinitionModels)
-        {
-            if (componentDefinitionModel.getNameAttribute().equals(componentId))
-            {
-                return componentDefinitionModel;
-            }
-        }
-        throw new RuntimeException();
     }
 
     //TODO remove once the old parsing mechanism is not needed anymore

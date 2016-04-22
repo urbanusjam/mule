@@ -18,6 +18,7 @@ import org.mule.runtime.core.exception.AbstractExceptionListener;
 import org.mule.runtime.core.exception.ChoiceMessagingExceptionStrategy;
 import org.mule.functional.junit4.FunctionalTestCase;
 import org.mule.runtime.api.message.NullPayload;
+import org.mule.runtime.core.exception.MessagingExceptionStrategyRef;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -70,10 +71,10 @@ public class ReferenceExceptionStrategyTestCase extends FunctionalTestCase
     @Test
     public void testTwoFlowsReferencingDifferentExceptionStrategy()
     {
-        MessagingExceptionHandler firstExceptionStrategy = muleContext.getRegistry().lookupFlowConstruct("otherFlowWithSameReferencedExceptionStrategy").getExceptionListener();
-        MessagingExceptionHandler secondExceptionStrategy = muleContext.getRegistry().lookupFlowConstruct("anotherFlowUsingDifferentExceptionStrategy").getExceptionListener();
+        MessagingExceptionHandler firstExceptionStrategy = ((MessagingExceptionStrategyRef) muleContext.getRegistry().lookupFlowConstruct("otherFlowWithSameReferencedExceptionStrategy").getExceptionListener()).getDelegate();
+        MessagingExceptionHandler secondExceptionStrategy = ((MessagingExceptionStrategyRef) muleContext.getRegistry().lookupFlowConstruct("anotherFlowUsingDifferentExceptionStrategy").getExceptionListener()).getDelegate();
         assertThat(firstExceptionStrategy, IsNot.not(secondExceptionStrategy));
-        assertThat(((AbstractExceptionListener)firstExceptionStrategy).getMessageProcessors().size(), is(2));
+        assertThat(((AbstractExceptionListener) firstExceptionStrategy).getMessageProcessors().size(), is(2));
         assertThat(secondExceptionStrategy, instanceOf(ChoiceMessagingExceptionStrategy.class));
     }
 

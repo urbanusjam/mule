@@ -15,6 +15,7 @@ import org.mule.runtime.core.api.construct.FlowConstruct;
 import org.mule.runtime.core.api.lifecycle.InitialisationException;
 import org.mule.runtime.core.api.lifecycle.Lifecycle;
 import org.mule.runtime.core.api.processor.MessageProcessor;
+import org.mule.runtime.core.exception.MessagingExceptionStrategyRef;
 import org.mule.runtime.core.exception.TemplateMessagingExceptionStrategy;
 import org.mule.functional.junit4.FunctionalTestCase;
 
@@ -33,8 +34,8 @@ public class ExceptionStrategyLifecycleTestCase extends FunctionalTestCase
     {
         FlowConstruct flowA = getFlowConstruct("flowA");
         FlowConstruct flowB = getFlowConstruct("flowB");
-        TemplateMessagingExceptionStrategy flowAExceptionStrategy = (TemplateMessagingExceptionStrategy) flowA.getExceptionListener();
-        TemplateMessagingExceptionStrategy flowBExceptionStrategy = (TemplateMessagingExceptionStrategy) flowB.getExceptionListener();
+        TemplateMessagingExceptionStrategy flowAExceptionStrategy = getExceptionStrategy(flowA);
+        TemplateMessagingExceptionStrategy flowBExceptionStrategy = getExceptionStrategy(flowB);
         LifecycleCheckerMessageProcessor lifecycleCheckerMessageProcessorFlowA = (LifecycleCheckerMessageProcessor) flowAExceptionStrategy.getMessageProcessors().get(0);
         LifecycleCheckerMessageProcessor lifecycleCheckerMessageProcessorFlowB = (LifecycleCheckerMessageProcessor) flowBExceptionStrategy.getMessageProcessors().get(0);
         assertThat(lifecycleCheckerMessageProcessorFlowA.isInitialized(), is(true));
@@ -47,8 +48,8 @@ public class ExceptionStrategyLifecycleTestCase extends FunctionalTestCase
 
         FlowConstruct flowC = getFlowConstruct("flowC");
         FlowConstruct flowD = getFlowConstruct("flowD");
-        TemplateMessagingExceptionStrategy flowCExceptionStrategy = (TemplateMessagingExceptionStrategy) flowC.getExceptionListener();
-        TemplateMessagingExceptionStrategy flowDExceptionStrategy = (TemplateMessagingExceptionStrategy) flowD.getExceptionListener();
+        TemplateMessagingExceptionStrategy flowCExceptionStrategy = getExceptionStrategy(flowC);
+        TemplateMessagingExceptionStrategy flowDExceptionStrategy = getExceptionStrategy(flowD);
         LifecycleCheckerMessageProcessor lifecycleCheckerMessageProcessorFlowC = (LifecycleCheckerMessageProcessor) flowCExceptionStrategy.getMessageProcessors().get(0);
         LifecycleCheckerMessageProcessor lifecycleCheckerMessageProcessorFlowD = (LifecycleCheckerMessageProcessor) flowDExceptionStrategy.getMessageProcessors().get(0);
         assertThat(lifecycleCheckerMessageProcessorFlowC.isInitialized(), is(true));
@@ -58,6 +59,15 @@ public class ExceptionStrategyLifecycleTestCase extends FunctionalTestCase
         ((Lifecycle)flowC).stop();
         assertThat(lifecycleCheckerMessageProcessorFlowC.isStopped(),is(true));
         assertThat(lifecycleCheckerMessageProcessorFlowD.isStopped(),is(false));
+    }
+
+    private TemplateMessagingExceptionStrategy getExceptionStrategy(FlowConstruct flow)
+    {
+        if (flow.getExceptionListener() instanceof MessagingExceptionStrategyRef)
+        {
+            return (TemplateMessagingExceptionStrategy) ((MessagingExceptionStrategyRef) flow.getExceptionListener()).getDelegate();
+        }
+        return (TemplateMessagingExceptionStrategy) flow.getExceptionListener();
     }
 
     public static class LifecycleCheckerMessageProcessor implements MessageProcessor, Lifecycle

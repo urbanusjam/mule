@@ -21,6 +21,7 @@ import org.mule.runtime.core.api.security.SecurityFilter;
 import org.mule.runtime.core.config.model.AbstractParameterDefinitionVisitor;
 import org.mule.runtime.core.config.model.ComponentBuildingDefinition;
 import org.mule.runtime.core.config.model.ParameterDefinition;
+import org.mule.runtime.core.config.model.ReferenceMessageProcessor;
 import org.mule.runtime.core.config.model.TypeDefinitionBuilderVisitor;
 import org.mule.runtime.core.processor.SecurityFilterMessageProcessor;
 import org.mule.runtime.core.routing.MessageFilter;
@@ -44,6 +45,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+import org.springframework.beans.factory.config.RuntimeBeanReference;
+import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.ManagedList;
@@ -83,7 +87,7 @@ public class BeanDefinitionFactory
                     System.out.println("Resolving element " + innerComponent.getNamespace() + ":" + innerComponent.getIdentifier() + " - OLD MODE");
                     //we can't go to the end. We need to start from he partn
                     BeanDefinition oldBeanDefinition = oldParsingMechansim.apply((Element) innerComponent.getNode(), null);
-                    oldBeanDefinition = wrapBeanDefinitionForFilters(componentDefinitionModel.getNode(), oldBeanDefinition);
+                    oldBeanDefinition = wrapBeanDefinitionForFilters(componentDefinitionModel.getNode(), oldBeanDefinition, registry);
                     innerComponent.setBeanDefinition(oldBeanDefinition);
                 }
             }
@@ -93,13 +97,19 @@ public class BeanDefinitionFactory
         return resolveComponentUsingParsers(componentDefinitionModel, resource, registry, resolvedComponentDefinitionModelProcessor, oldParsingMechansim);
     }
 
-    public static BeanDefinition wrapBeanDefinitionForFilters(Node parentNode, BeanDefinition oldBeanDefinition)
+    public static BeanDefinition wrapBeanDefinitionForFilters(Node parentNode, BeanDefinition oldBeanDefinition, BeanDefinitionRegistry registry)
     {
         if (oldBeanDefinition == null)
         {
             return null;
         }
         //TODO improve this condition with constatns
+        //This is the case when I have a message-filter or another filter with a nested filter that is a ref to a global filter. In this case the filter itself should be injected
+        if ((parentNode.getNodeName().equals("message-filter") || parentNode.getNodeName().endsWith("-filter")) && ((AbstractBeanDefinition) oldBeanDefinition).getBeanClass().equals(ReferenceMessageProcessor.class))
+        {
+            RuntimeBeanReference filterReference = (RuntimeBeanReference) oldBeanDefinition.getPropertyValues().get("filter");
+            return registry.getBeanDefinition(filterReference.getBeanName());
+        }
         if (parentNode.getNodeName().contains("message-filter") || parentNode.getNodeName().contains("mule") || parentNode.getNodeName().endsWith("-filter"))
         {
             return oldBeanDefinition;
@@ -149,13 +159,13 @@ public class BeanDefinitionFactory
         {
             return null;
         }
-        resolveComponentBeanDefinitionUsingParsers(componentDefinitionModel, resource, oldParsingMechansim);
+        resolveComponentBeanDefinitionUsingParsers(componentDefinitionModel, resource, registry, oldParsingMechansim);
         componentDefinitionModelProcessor.accept(componentDefinitionModel, registry);
         return componentDefinitionModel.getBeanDefinition();
         //TODO add throw if not present
     }
 
-    public void resolveComponentBeanDefinitionUsingParsers(ComponentDefinitionModel componentDefinitionModel, Resource resource, BiFunction<Element, BeanDefinition, BeanDefinition> oldParsingMechansim) {
+    public void resolveComponentBeanDefinitionUsingParsers(ComponentDefinitionModel componentDefinitionModel, Resource resource, BeanDefinitionRegistry registry, BiFunction<Element, BeanDefinition, BeanDefinition> oldParsingMechansim) {
         ComponentBuildingDefinition componentBuildingDefinition = componentBuildingDefinitionRegistry.getBuildingDefinition(componentDefinitionModel.getNamespace(), componentDefinitionModel.getIdentifier());
 
         if (componentDefinitionModel.getNamespace().equals("spring") || componentDefinitionModel.getNamespace().equals("context"))
@@ -170,7 +180,7 @@ public class BeanDefinitionFactory
             //throw new RuntimeException("No builder definition for: " + componentDefinitionModel.getNamespace() + ":" + componentDefinitionModel.getIdentifier());
             System.out.println("Resolving element " + componentDefinitionModel.getNamespace() + ":" + componentDefinitionModel.getIdentifier() + " - OLD MODE");
             BeanDefinition beanDefinition = oldParsingMechansim.apply((Element) componentDefinitionModel.getNode(), null);
-            beanDefinition = wrapBeanDefinitionForFilters(componentDefinitionModel.getNode().getParentNode(), beanDefinition);
+            beanDefinition = wrapBeanDefinitionForFilters(componentDefinitionModel.getNode().getParentNode(), beanDefinition, registry);
             componentDefinitionModel.setBeanDefinition(beanDefinition);
             return;
         }
@@ -516,7 +526,13 @@ public class BeanDefinitionFactory
 //        }
 //        else
 //        {
-            componentDefinitionModel.setBeanDefinition(beanDefinitionBuilder.getBeanDefinition());
+        AbstractBeanDefinition originalBeanDefinition = beanDefinitionBuilder.getBeanDefinition();
+        AbstractBeanDefinition wrappedBeanDefinition = (AbstractBeanDefinition) wrapBeanDefinitionForFilters(componentDefinitionModel.getNode().getParentNode(), originalBeanDefinition, registry);
+        if (originalBeanDefinition != wrappedBeanDefinition)
+        {
+            componentDefinitionModel.setType(wrappedBeanDefinition.getBeanClass());
+        }
+        componentDefinitionModel.setBeanDefinition(wrappedBeanDefinition);
 //        }
     }
 

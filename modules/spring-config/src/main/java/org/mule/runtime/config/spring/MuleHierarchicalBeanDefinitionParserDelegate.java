@@ -9,9 +9,7 @@ package org.mule.runtime.config.spring;
 import org.mule.runtime.config.spring.model.ApplicationModel;
 import org.mule.runtime.config.spring.model.BeanDefinitionFactory;
 import org.mule.runtime.config.spring.model.ComponentDefinitionModel;
-import org.mule.runtime.config.spring.parsers.AbstractMuleBeanDefinitionParser;
 import org.mule.runtime.config.spring.util.SpringXMLUtils;
-import org.mule.runtime.core.api.routing.filter.Filter;
 import org.mule.runtime.core.util.StringUtils;
 
 import com.google.common.collect.ImmutableList;
@@ -147,7 +145,7 @@ public class MuleHierarchicalBeanDefinitionParserDelegate extends BeanDefinition
                         finalChild = handler.parse(element, parserContext);
                         //TODO: improve. This is defined so we send the proper parent when working with message-filter and children
                         currentDefinition = finalChild;
-                        finalChild = BeanDefinitionFactory.wrapBeanDefinitionForFilters(element.getParentNode(), finalChild);
+                        finalChild = BeanDefinitionFactory.wrapBeanDefinitionForFilters(element.getParentNode(), finalChild, getReaderContext().getRegistry());
                         //TODO: I change registering the finalChild for the parent based on the filter proeblems
                         registerBean(element, currentDefinition);
                         if (componentDefinitionModel != null) //This condition is needed when we are parsing something unrelated to mule. See ReferenceTestCase
@@ -234,120 +232,6 @@ public class MuleHierarchicalBeanDefinitionParserDelegate extends BeanDefinition
                     if (list.item(i) instanceof Element)
                     {
                         parseCustomElement((Element) list.item(i), currentDefinition);
-                    }
-                }
-            }
-
-            // If a parser requests post-processing we call again after children called
-
-            if (testFlag(finalChild, MULE_POST_CHILDREN))
-            {
-                ParserContext parserContext = new ParserContext(getReaderContext(), this, parent);
-                finalChild = handler.parse(element, parserContext);
-            }
-
-            return finalChild;
-        }
-    }
-
-    public BeanDefinition parseCustomElement2(Element element, BeanDefinition parent)
-    {
-        if (logger.isDebugEnabled())
-        {
-            logger.debug("parsing: " + SpringXMLUtils.elementToString(element));
-        }
-
-        validate(element);
-
-        if (SpringXMLUtils.isBeansNamespace(element))
-        {
-            return handleSpringElements(element, parent);
-        }
-        else
-        {
-            String namespaceUri = element.getNamespaceURI();
-            NamespaceHandler handler = getReaderContext().getNamespaceHandlerResolver().resolve(namespaceUri);
-            if (handler == null)
-            {
-                getReaderContext().error("Unable to locate NamespaceHandler for namespace [" + namespaceUri + "]", element);
-                return null;
-            }
-
-            boolean noRecurse = false;
-            boolean forceRecurse = false;
-            BeanDefinition finalChild = null;
-
-            do {
-                //TODO I should add logic to see if there's a NEW parser for the element instead of parsing the old way
-                //TODO remove all this unnecessary code
-                //Only process mule element since all other components are parsed in a different way.
-                ComponentDefinitionModel componentDefinitionModel = applicationModelSupplier.get().findComponentDefinitionModel(element);
-                String[] nodeNameParts = element.getNodeName().split(":");
-                String namespace = nodeNameParts.length > 1 ? nodeNameParts[0] : "mule";
-                String nodeName = nodeNameParts.length > 1 ? nodeNameParts[1] : nodeNameParts[0];
-                System.out.println("parsing element: " + namespace + ":" + nodeName);
-                //Here it will always be a nested element. We use a fake bean definition so it does not try to validate the ID if it thinks is a global element
-                ParserContext parserContext = new ParserContext(getReaderContext(), this, BeanDefinitionBuilder.genericBeanDefinition().getBeanDefinition());
-                finalChild = handler.parse(element, parserContext);
-                finalChild = BeanDefinitionFactory.wrapBeanDefinitionForFilters(element, finalChild);
-                registerBean(element, finalChild);
-                if (finalChild != null)
-                {
-                    try
-                    {
-                        Class<?> type = Class.forName(finalChild.getBeanClassName());
-                        if (FactoryBean.class.isAssignableFrom(type))
-                        {
-                            type = ((FactoryBean)type.newInstance()).getObjectType();
-                        }
-                        componentDefinitionModel.setType(type);
-                    }
-                    catch (Exception e)
-                    {
-                        throw new RuntimeException(e);
-                    }
-                }
-                noRecurse = noRecurse || testFlag(finalChild, MULE_NO_RECURSE);
-                forceRecurse = forceRecurse || testFlag(finalChild, MULE_FORCE_RECURSE);
-            } while (null != finalChild && testFlag(finalChild, MULE_REPEAT_PARSE));
-
-            // Only iterate and parse child mule name-spaced elements. Spring does not do
-            // hierarchical parsing by default so we need to maintain this behavior
-            // for non-mule elements to ensure that we don't break the parsing of any
-            // other custom name-spaces e.g spring-jee.
-
-            // We also avoid parsing inside elements that have constructed a factory bean
-            // because that means we're dealing with (something like) ChildMapDefinitionParser,
-            // which handles iteration internally (this is a hack needed because Spring doesn't
-            // expose the DP for "<spring:entry>" elements directly).
-
-            boolean isRecurse;
-            if (noRecurse)
-            {
-                // no recursion takes precedence, as recursion is set by default
-                isRecurse = false;
-            }
-            else
-            {
-                if (forceRecurse)
-                {
-                    isRecurse = true;
-                }
-                else
-                {
-                    // default behaviour if no control specified
-                    isRecurse = SpringXMLUtils.isMuleNamespace(element);
-                }
-            }
-
-            if (isRecurse)
-            {
-                NodeList list = element.getChildNodes();
-                for (int i = 0; i < list.getLength(); i++)
-                {
-                    if (list.item(i) instanceof Element)
-                    {
-                        parseCustomElement((Element) list.item(i), finalChild);
                     }
                 }
             }
