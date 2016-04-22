@@ -51,7 +51,7 @@
     <flow name="TestService1">
         <inbound-endpoint address="${outbound.destination}" exchange-pattern="request-response"
                           connector-ref="jmsConnector1"/>
-        <test:component appendString=" #[context:serviceName]" logMessageDetails="true"/>
+        <test:component appendString=" TestService1" logMessageDetails="true"/>
     </flow>
 
 </mule>
