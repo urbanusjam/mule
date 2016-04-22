@@ -26,7 +26,7 @@
     <flow name="InvokerComponent">
         <inbound-endpoint address="vm://invoker.in" exchange-pattern="one-way"/>
         <component>
-            <singleton-object class="org.mule.test.integration.routing.nested.Invoker" />
+            <singleton-object class="org.mule.runtime.transport.jms.integration.routing.Invoker" />
             <binding interface="org.mule.runtime.transport.jms.integration.routing.HelloInterface">
                 <outbound-endpoint address="vm://hello.in" exchange-pattern="request-response" />
             </binding>
@@ -38,7 +38,7 @@
 
         <inbound-endpoint address="jms://invoker.in" exchange-pattern="one-way"/>
         <component>
-            <singleton-object class="org.mule.test.integration.routing.nested.Invoker" />
+            <singleton-object class="org.mule.runtime.transport.jms.integration.routing.Invoker" />
             <binding interface="org.mule.runtime.transport.jms.integration.routing.HelloInterface">
                 <outbound-endpoint address="jms://hello.in" exchange-pattern="request-response" />
             </binding>
@@ -49,7 +49,7 @@
     <flow name="JmsTopicInvokerComponent">
         <inbound-endpoint address="jms://topic:tinvoker.in" exchange-pattern="one-way"/>
         <component>
-            <singleton-object class="org.mule.test.integration.routing.nested.Invoker" />
+            <singleton-object class="org.mule.runtime.transport.jms.integration.routing.Invoker" />
             <binding interface="org.mule.runtime.transport.jms.integration.routing.HelloInterface">
                 <outbound-endpoint address="jms://topic:thello.in" exchange-pattern="request-response" />
             </binding>

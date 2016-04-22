@@ -74,12 +74,12 @@
         <inbound-endpoint address="vm://nestedRouterOutboundEndpointResponseTransformer"
                           exchange-pattern="request-response"/>
         <component>
-            <singleton-object class="org.mule.test.integration.transformer.response.BindingInterfaceComponent"/>
-            <binding interface="org.mule.test.integration.transformer.response.BindingInterface" method="hello1">
+            <singleton-object class="org.mule.runtime.transport.jms.integration.transformer.BindingInterfaceComponent"/>
+            <binding interface="org.mule.runtime.transport.jms.integration.transformer.BindingInterface" method="hello1">
                 <outbound-endpoint address="vm://echo" exchange-pattern="request-response"
                                    responseTransformer-refs="customResponse"/>
             </binding>
-            <binding interface="org.mule.test.integration.transformer.response.BindingInterface" method="hello2">
+            <binding interface="org.mule.runtime.transport.jms.integration.transformer.BindingInterface" method="hello2">
                 <outbound-endpoint address="jms://echo" exchange-pattern="request-response"
                                    responseTransformer-refs="customResponse"/>
             </binding>

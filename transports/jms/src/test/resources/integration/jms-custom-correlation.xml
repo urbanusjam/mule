@@ -25,13 +25,13 @@
             <inbound-endpoint address="${inbound.destination}" connector-ref="jmsConnector2"
                               exchange-pattern="one-way"/>
         </request-reply>
-        <expression-message-info-mapping messageIdExpression="#[header:INBOUND:customCorrelation]"
-                                         correlationIdExpression="#[message:correlationId]"/>
+        <expression-message-info-mapping messageIdExpression="#[message.inboundProperties.customCorrelation]"
+                                         correlationIdExpression="#[message.correlationId]"/>
     </flow>
 
     <flow name="TestService1">
         <inbound-endpoint address="${outbound.destination}" connector-ref="jmsConnector1"/>
-        <test:component appendString=" #[context:serviceName]"/>
+        <test:component appendString=" TestService1"/>
     </flow>
 
 </mule>

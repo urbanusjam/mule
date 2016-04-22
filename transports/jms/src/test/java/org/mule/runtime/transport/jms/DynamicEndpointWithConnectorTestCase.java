@@ -10,6 +10,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import org.mule.functional.junit4.FunctionalTestCase;
+import org.mule.runtime.core.PropertyScope;
 import org.mule.runtime.core.api.MuleMessage;
 import org.mule.runtime.core.api.client.LocalMuleClient;
 
@@ -29,7 +30,7 @@ public class DynamicEndpointWithConnectorTestCase extends FunctionalTestCase
         LocalMuleClient client = muleContext.getClient();
 
         MuleMessage message = getTestMuleMessage();
-        message.setOutboundProperty("queueName", "test.out");
+        message.setProperty("queueName", "test.out", PropertyScope.OUTBOUND);
 
         MuleMessage test = client.send("vm://input", message);
         assertNotNull(test);

@@ -19,11 +19,11 @@ import org.mule.runtime.core.api.MuleException;
 import org.mule.runtime.core.api.MuleMessage;
 import org.mule.runtime.core.api.client.MuleClient;
 import org.mule.runtime.core.api.context.notification.ExceptionNotificationListener;
+import org.mule.runtime.core.api.exception.MessageRedeliveredException;
 import org.mule.runtime.core.context.notification.ExceptionNotification;
 import org.mule.runtime.core.context.notification.NotificationException;
 import org.mule.runtime.core.message.ExceptionMessage;
 import org.mule.runtime.core.util.concurrent.Latch;
-import org.mule.runtime.transport.jms.redelivery.MessageRedeliveredException;
 
 import org.junit.After;
 import org.junit.Before;

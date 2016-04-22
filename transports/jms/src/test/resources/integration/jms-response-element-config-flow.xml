@@ -20,7 +20,7 @@
         <vm:inbound-endpoint name="vm.in" path="vminbound" exchange-pattern="request-response"/>
         <outbound-endpoint ref="in" exchange-pattern="request-response">
             <response>
-                <add-message-property key="test" value="test"/>
+                <set-property propertyName="test" value="test"/>
                 <append-string-transformer message=" jms flow content" />
             </response>
         </outbound-endpoint>
@@ -45,7 +45,7 @@
                 <append-string-transformer message=" jms flow content" />
             </response>
         </jms:inbound-endpoint>
-        <add-message-property key="a" value="a"/>
+        <set-property propertyName="a" value="a"/>
     </flow>
 
     <flow name="response-flow-case-3">
