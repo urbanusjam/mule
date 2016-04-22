@@ -13,7 +13,7 @@
     <modules>
 <!--         <module>file</module> -->
 <!--         <module>http</module> -->
-<!--         <module>jms</module> -->
+         <module>jms</module>
 <!--         <module>tcp</module> -->
 <!--         <module>ssl</module> -->
         <module>vm</module>
