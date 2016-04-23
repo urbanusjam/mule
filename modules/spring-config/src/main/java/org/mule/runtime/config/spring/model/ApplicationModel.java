@@ -33,6 +33,9 @@ public class ApplicationModel
         ignoreNameValidationComponentList.add(new ComponentIdentifier("test","queue"));
         ignoreNameValidationComponentList.add(new ComponentIdentifier("db", "data-type"));
         ignoreNameValidationComponentList.add(new ComponentIdentifier("db", "in-param"));
+        ignoreNameValidationComponentList.add(new ComponentIdentifier("db", "out-param"));
+        ignoreNameValidationComponentList.add(new ComponentIdentifier("db", "template-query-ref"));
+        ignoreNameValidationComponentList.add(new ComponentIdentifier("db", "inout-param"));
         ignoreNameValidationComponentList.add(new ComponentIdentifier("jaas", "password-encryption-strategy"));
         ignoreNameValidationComponentList.add(new ComponentIdentifier("jaas", "security-provider"));
         ignoreNameValidationComponentList.add(new ComponentIdentifier("spring", "property"));
@@ -42,6 +45,7 @@ public class ApplicationModel
         ignoreNameValidationComponentList.add(new ComponentIdentifier("mulexml", "xslt-transformer"));
         ignoreNameValidationComponentList.add(new ComponentIdentifier("mulexml", "alias"));
         ignoreNameValidationComponentList.add(new ComponentIdentifier("pgp", "security-provider"));
+        ignoreNameValidationComponentList.add(new ComponentIdentifier("pgp", "keybased-encryption-strategy"));
     }
 
     public ApplicationModel(ApplicationConfig applicationConfig) throws Exception {
