@@ -27,7 +27,16 @@ public class ApplicationModel
 
     static {
         ignoreNameValidationComponentList.add(new ComponentIdentifier("mule","flow-ref"));
+        ignoreNameValidationComponentList.add(new ComponentIdentifier("mule", "alias"));
+        ignoreNameValidationComponentList.add(new ComponentIdentifier("mule", "in-memory-store"));
         ignoreNameValidationComponentList.add(new ComponentIdentifier("test","queue"));
+        ignoreNameValidationComponentList.add(new ComponentIdentifier("db", "data-type"));
+        ignoreNameValidationComponentList.add(new ComponentIdentifier("jaas", "password-encryption-strategy"));
+        ignoreNameValidationComponentList.add(new ComponentIdentifier("spring", "property"));
+        ignoreNameValidationComponentList.add(new ComponentIdentifier("ss", "user"));
+        ignoreNameValidationComponentList.add(new ComponentIdentifier("mule-ss", "delegate-security-provider"));
+        ignoreNameValidationComponentList.add(new ComponentIdentifier("spring", "bean"));
+        ignoreNameValidationComponentList.add(new ComponentIdentifier("mulexml", "xslt-transformer"));
     }
 
     public ApplicationModel(ApplicationConfig applicationConfig) throws Exception {
@@ -89,7 +98,9 @@ public class ApplicationModel
         executeOnEveryComponentTree(component -> {
             if (component.getIdentifier().endsWith("exception-strategy"))
             {
-                if (component.getAttributes().get("when") != null && !component.getNode().getParentNode().getLocalName().equals("choice-exception-strategy"))
+                if (component.getAttributes().get("when") != null
+                    && !component.getNode().getParentNode().getLocalName().equals("choice-exception-strategy")
+                        && !component.getNode().getParentNode().getLocalName().equals("mule"))
                 {
                     throw new MuleRuntimeException(CoreMessages.createStaticMessage("Only exception strategies within a choice-exception-strategy can have when attribute specified"));
                 }
@@ -102,10 +113,8 @@ public class ApplicationModel
         try
         {
             List<ComponentDefinitionModel> topLevelComponents = componentDefinitionModels.get(0).getInnerComponents();
-            topLevelComponents.forEach(topLevelComponent -> {
-                topLevelComponent.getInnerComponents().stream().filter(topLevelComponentChild -> {
-                    return !topLevelComponentChild.getIdentifier().equals("beans");
-                }).forEach((topLevelComponentChild -> {
+            topLevelComponents.stream().filter(this::isMuleComponent).forEach(topLevelComponent -> {
+                topLevelComponent.getInnerComponents().stream().filter(this::isMuleComponent).forEach((topLevelComponentChild -> {
                     executeOnComponentTree(topLevelComponentChild, (component) -> {
                         if (component.getNameAttribute() != null && !ignoreNameValidationComponentList.contains(new ComponentIdentifier(component.getNamespace(), component.getIdentifier())))
                         {
@@ -120,6 +129,11 @@ public class ApplicationModel
         {
             throw new ConfigurationException(e);
         }
+    }
+
+    private boolean isMuleComponent(ComponentDefinitionModel componentDefinitionModel)
+    {
+        return !componentDefinitionModel.getIdentifier().equals("beans");
     }
 
     private String getComponentIdentifier(ComponentDefinitionModel component)
@@ -141,6 +155,11 @@ public class ApplicationModel
 
     private void executeOnComponentTree(final ComponentDefinitionModel component, final ComponentConsumer task) throws MuleRuntimeException
     {
+        if (component.getNamespace().equals("spring"))
+        {
+            //TODO for now do no process beans inside spring
+            return;
+        }
         component.getInnerComponents().forEach((innerComponent) -> {
             executeOnComponentTree(innerComponent, task);
         });
