@@ -29,14 +29,19 @@ public class ApplicationModel
         ignoreNameValidationComponentList.add(new ComponentIdentifier("mule","flow-ref"));
         ignoreNameValidationComponentList.add(new ComponentIdentifier("mule", "alias"));
         ignoreNameValidationComponentList.add(new ComponentIdentifier("mule", "in-memory-store"));
+        ignoreNameValidationComponentList.add(new ComponentIdentifier("mule", "custom-security-provider"));
         ignoreNameValidationComponentList.add(new ComponentIdentifier("test","queue"));
         ignoreNameValidationComponentList.add(new ComponentIdentifier("db", "data-type"));
+        ignoreNameValidationComponentList.add(new ComponentIdentifier("db", "in-param"));
         ignoreNameValidationComponentList.add(new ComponentIdentifier("jaas", "password-encryption-strategy"));
+        ignoreNameValidationComponentList.add(new ComponentIdentifier("jaas", "security-provider"));
         ignoreNameValidationComponentList.add(new ComponentIdentifier("spring", "property"));
         ignoreNameValidationComponentList.add(new ComponentIdentifier("ss", "user"));
         ignoreNameValidationComponentList.add(new ComponentIdentifier("mule-ss", "delegate-security-provider"));
         ignoreNameValidationComponentList.add(new ComponentIdentifier("spring", "bean"));
         ignoreNameValidationComponentList.add(new ComponentIdentifier("mulexml", "xslt-transformer"));
+        ignoreNameValidationComponentList.add(new ComponentIdentifier("mulexml", "alias"));
+        ignoreNameValidationComponentList.add(new ComponentIdentifier("pgp", "security-provider"));
     }
 
     public ApplicationModel(ApplicationConfig applicationConfig) throws Exception {
